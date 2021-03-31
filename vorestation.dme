@@ -2063,10 +2063,8 @@
 #include "code\modules\economy\price_list.dm"
 #include "code\modules\economy\retail_scanner.dm"
 #include "code\modules\economy\TradeDestinations.dm"
-<<<<<<< HEAD:vorestation.dme
 #include "code\modules\entopics_vr\alternate_appearance.dm"
 #include "code\modules\entopics_vr\entopics.dm"
-=======
 #include "code\modules\emotes\emote_define.dm"
 #include "code\modules\emotes\emote_mob.dm"
 #include "code\modules\emotes\definitions\_mob.dm"
@@ -2085,7 +2083,6 @@
 #include "code\modules\emotes\definitions\visible.dm"
 #include "code\modules\emotes\definitions\visible_animated.dm"
 #include "code\modules\emotes\definitions\visible_vomit.dm"
->>>>>>> d40a022... Merge pull request #7987 from MistakeNot4892/chirp:polaris.dme
 #include "code\modules\error_handler\_defines.dm"
 #include "code\modules\error_handler\error_handler.dm"
 #include "code\modules\error_handler\error_viewer.dm"
