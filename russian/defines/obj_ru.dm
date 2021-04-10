@@ -1,0 +1,43 @@
+/obj/item/weapon/soap
+	name = "Мыло"
+	desc = "Дешёвое мыло. Ничем не пахнет."
+	rugender = "neuter"
+	ncase = "мыло"
+	gcase = "мыла"
+	dcase = "мылу"
+	acase = "мыло"
+	icase = "мылом"
+	pcase = "мыле"
+
+/obj/item/weapon/staff
+	name = "Посох волшебника"
+	desc = "Якобы посох, используемый волшебниками."
+	rugender = "male"
+	ncase = "посох волшебника"
+	gcase = "посоха волшебника"
+	dcase = "посоху волшебника"
+	acase = "посох волшебника"
+	icase = "посохом волшебника"
+	pcase = "посохе волшебника"
+
+/obj/item/weapon/staff/broom
+	name = "Метла"
+	desc = "Для подметания, а также ночных полетов под зловещий хохот. Чёрный кот в комплекте не идёт."
+	rugender = "female"
+	ncase = "метла"
+	gcase = "метлы"
+	dcase = "метле"
+	acase = "метлу"
+	icase = "метлой"
+	pcase = "метле"
+
+/obj/item/weapon/staff/gentcane
+	name = "Трость джентльмена"
+	desc = "Эбонитовая трость с наконечником из слоновой кости."
+	rugender = "female"
+	ncase = "трость джентльмена"
+	gcase = "трости джентльмена"
+	dcase = "трости джентльмена"
+	acase = "трость джентльмена"
+	icase = "тростью джентльмена"
+	pcase = "трости джентльмена"

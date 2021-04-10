@@ -1,0 +1,411 @@
+//cards.dm 
+
+/obj/item/weapon/card
+	name = "Карта"
+	desc = "Для всяких карточных дел."
+	rugender = "female"
+	ncase = "карта"
+	gcase = "карты"
+	dcase = "карте"
+	acase = "карту"
+	icase = "картой"
+	pcase = "карте"
+
+/obj/item/weapon/card/data
+	name = "Диск с данными"
+	desc = "Диск, содержащий данные."
+	rugender = "male"
+	ncase = "диск с данными"
+	gcase = "диска с данными"
+	dcase = "диску с данными"
+	acase = "диск с данными"
+	icase = "диском с данными"
+	pcase = "диске с данными"
+
+/obj/item/weapon/card/data/clown
+	name = "Координаты Планеты Клоунов"
+	desc = "Эта карта содержит координаты мифической Планеты Клоунов. Обращаться осторожно."
+	rugender = "plural"
+	ncase = "координаты Планеты Клоунов"
+	gcase = "координат Планеты Клоунов"
+	dcase = "координатам Планеты Клоунов"
+	acase = "координаты Планеты Клоунов"
+	icase = "координатами Планеты Клоунов"
+	pcase = "координатах Планеты Клоунов"
+
+/obj/item/weapon/card/emag_broken
+	desc = "Это карточка с магнитной полоской, к которой прикреплена некая микросхема. Похоже, что она слишком сломана, чтобы её можно было использовать."
+	name = "Сломанный криптографический секвенсер"
+	rugender = "male"
+	ncase = "сломанный криптографический секвенсер"
+	gcase = "сломанного криптографического секвенсера"
+	dcase = "сломанному криптографическому секвенсеру"
+	acase = "сломанный криптографический секвенсер"
+	icase = "сломанным криптографическим секвенсером"
+	pcase = "сломанном криптографическом секвенсере"
+
+/obj/item/weapon/card/emag
+	desc = "Это карточка с магнитной полоской, к которой прикреплена некая микросхема."
+	name = "Криптографический секвенсер"
+	rugender = "male"
+	ncase = "криптографический секвенсер"
+	gcase = "криптографического секвенсера"
+	dcase = "криптографическому секвенсеру"
+	acase = "криптографический секвенсер"
+	icase = "криптографическим секвенсером"
+	pcase = "криптографическом секвенсере"
+
+// station_ids.dm 
+
+/obj/item/weapon/card/id
+	name = "ID-карта"
+	desc = "Карта идентификации носителя, определяющая уровень доступа члена экипажа на станции."
+	rugender = "female"
+	ncase = "ID-карта"
+	gcase = "ID-карты"
+	dcase = "ID-карте"
+	acase = "ID-карту"
+	icase = "ID-картой"
+	pcase = "ID-карте"
+
+/obj/item/weapon/card/id/silver
+	name = "ID-карта"
+	desc = "Серебряная карточка, символизирующая доблесть и целеустремлённость."
+	rugender = "female"
+	ncase = "ID-карта"
+	gcase = "ID-карты"
+	dcase = "ID-карте"
+	acase = "ID-карту"
+	icase = "ID-картой"
+	pcase = "ID-карте"
+
+/obj/item/weapon/card/id/gold
+	name = "ID-карта"
+	desc = "Золотая карточка, символизирующая авторитет и власть."
+	rugender = "female"
+	ncase = "ID-карта"
+	gcase = "ID-карты"
+	dcase = "ID-карте"
+	acase = "ID-карту"
+	icase = "ID-картой"
+	pcase = "ID-карте"
+
+/obj/item/weapon/card/id/gold/captain/spare
+	name = "Запасная ID-карта Директора колонии"
+	desc = "Запасная ID-карта самого Верховного Лорда."
+	rugender = "female"
+	ncase = "запасная ID-карта Директора колонии"
+	gcase = "запасной ID-карты Директора колонии"
+	dcase = "запасной ID-карте Директора колонии"
+	acase = "запасную ID-карту Директора колонии"
+	icase = "запасной ID-картой Директора колонии"
+	pcase = "запасной ID-карте Директора колонии"
+
+/obj/item/weapon/card/id/synthetic
+	name = "ID-карта синтетика"
+	desc = "Модуль доступа для синтетиков NanoTrasen."
+	rugender = "female"
+	ncase = "ID-карта синтетика"
+	gcase = "ID-карты синтетика"
+	dcase = "ID-карте синтетика"
+	acase = "ID-карту синтетика"
+	icase = "ID-картой синтетика"
+	pcase = "ID-карте синтетика"
+
+/obj/item/weapon/card/id/centcom
+	name = "ID-карта Центрального Командования"
+	desc = "ID-карта прямиком с Центрального Командования."
+	rugender = "female"
+	ncase = "ID-карта Центрального Командования"
+	gcase = "ID-карты Центрального Командования"
+	dcase = "ID-карте Центрального Командования"
+	acase = "ID-карту Центрального Командования"
+	icase = "ID-картой Центрального Командования"
+	pcase = "ID-карте Центрального Командования"
+
+/obj/item/weapon/card/id/centcom/ERT
+	name = "ID-карта члена Группы Экстренного Реагирования"
+	rugender = "female"
+	ncase = "ID-карта члена Группы Экстренного Реагирования"
+	gcase = "ID-карты члена Группы Экстренного Реагирования"
+	dcase = "ID-карте члена Группы Экстренного Реагирования"
+	acase = "ID-карту члена Группы Экстренного Реагирования"
+	icase = "ID-картой члена Группы Экстренного Реагирования"
+	pcase = "ID-карте члена Группы Экстренного Реагирования"
+
+/obj/item/weapon/card/id/medical
+	name = "ID-карта"
+	desc = "Карточка, выдаваемая работникам медицинского отдела."
+	rugender = "female"
+	ncase = "ID-карта"
+	gcase = "ID-карты"
+	dcase = "ID-карте"
+	acase = "ID-карту"
+	icase = "ID-картой"
+	pcase = "ID-карте"
+
+/obj/item/weapon/card/id/medical/head
+	name = "ID-карта"
+	desc = "Карточка, символизирующая заботу и эмпатию."
+	rugender = "female"
+	ncase = "ID-карта"
+	gcase = "ID-карты"
+	dcase = "ID-карте"
+	acase = "ID-карту"
+	icase = "ID-картой"
+	pcase = "ID-карте"
+
+/obj/item/weapon/card/id/security
+	name = "ID-карта"
+	desc = "Карточка, выдаваемая работникам службы безопасности."
+	rugender = "female"
+	ncase = "ID-карта"
+	gcase = "ID-карты"
+	dcase = "ID-карте"
+	acase = "ID-карту"
+	icase = "ID-картой"
+	pcase = "ID-карте"
+
+/obj/item/weapon/card/id/security/head
+	name = "ID-карта"
+	desc = "Карточка, символизирующая храбрость и защиту."
+	rugender = "female"
+	ncase = "ID-карта"
+	gcase = "ID-карты"
+	dcase = "ID-карте"
+	acase = "ID-карту"
+	icase = "ID-картой"
+	pcase = "ID-карте"
+
+/obj/item/weapon/card/id/engineering
+	name = "ID-карта"
+	desc = "Карточка, выдаваемая работникам инженерного отдела."
+	rugender = "female"
+	ncase = "ID-карта"
+	gcase = "ID-карты"
+	dcase = "ID-карте"
+	acase = "ID-карту"
+	icase = "ID-картой"
+	pcase = "ID-карте"
+
+/obj/item/weapon/card/id/engineering/head
+	name = "ID-карта"
+	desc = "Карточка, символизирующая креативность и гениальность."
+	rugender = "female"
+	ncase = "ID-карта"
+	gcase = "ID-карты"
+	dcase = "ID-карте"
+	acase = "ID-карту"
+	icase = "ID-картой"
+	pcase = "ID-карте"
+
+/obj/item/weapon/card/id/science
+	name = "ID-карта"
+	desc = "Карточка, выдаваемая работникам научного отдела."
+	rugender = "female"
+	ncase = "ID-карта"
+	gcase = "ID-карты"
+	dcase = "ID-карте"
+	acase = "ID-карту"
+	icase = "ID-картой"
+	pcase = "ID-карте"
+
+/obj/item/weapon/card/id/science/head
+	name = "ID-карта"
+	desc = "Карточка, символизирующая богатый ум и стойкую логику."
+	rugender = "female"
+	ncase = "ID-карта"
+	gcase = "ID-карты"
+	dcase = "ID-карте"
+	acase = "ID-карту"
+	icase = "ID-картой"
+	pcase = "ID-карте"
+
+/obj/item/weapon/card/id/cargo
+	name = "ID-карта"
+	desc = "Карточка, выдаваемая работникам отдела снабжения."
+	rugender = "female"
+	ncase = "ID-карта"
+	gcase = "ID-карты"
+	dcase = "ID-карте"
+	acase = "ID-карту"
+	icase = "ID-картой"
+	pcase = "ID-карте"
+
+/obj/item/weapon/card/id/cargo/head
+	name = "ID-карта"
+	desc = "Карточка, символизирующая расчётливость и навыки планирования."
+	rugender = "female"
+	ncase = "ID-карта"
+	gcase = "ID-карты"
+	dcase = "ID-карте"
+	acase = "ID-карту"
+	icase = "ID-картой"
+	pcase = "ID-карте"
+
+/obj/item/weapon/card/id/civilian
+	name = "ID-карта"
+	desc = "ID-карта, издаваемая для гражданских членов экипажа."
+	rugender = "female"
+	ncase = "ID-карта"
+	gcase = "ID-карты"
+	dcase = "ID-карте"
+	acase = "ID-карту"
+	icase = "ID-картой"
+	pcase = "ID-карте"
+
+/obj/item/weapon/card/id/civilian/head
+	name = "ID-карта"
+	desc = "ID-карта, символизирующая здравый смысл и ответственность."
+	rugender = "female"
+	ncase = "ID-карта"
+	gcase = "ID-карты"
+	dcase = "ID-карте"
+	acase = "ID-карту"
+	icase = "ID-картой"
+	pcase = "ID-карте"
+
+/obj/item/weapon/card/id/external
+	name = "ID-карта"
+	desc = "Некая ID-карта. Похоже, она издана не NanoTrasen."
+	rugender = "female"
+	ncase = "ID-карта"
+	gcase = "ID-карты"
+	dcase = "ID-карте"
+	acase = "ID-карту"
+	icase = "ID-картой"
+	pcase = "ID-карте"
+
+// station_ids_vr.dm 
+
+/obj/item/weapon/card/id/itg
+	name = "ID-карта"
+	desc = "Небольшая карта, символизирующая принадлежность к Транспортной Группе Айронкрест."
+	rugender = "female"
+	ncase = "ID-карта"
+	gcase = "ID-карты"
+	dcase = "ID-карте"
+	acase = "ID-карту"
+	icase = "ID-картой"
+	pcase = "ID-карте"
+
+/obj/item/weapon/card/id/itg/event
+	name = "ID-карта члена экипажа ТГА"
+	rugender = "female"
+	ncase = "ID-карта члена экипажа ТГА"
+	gcase = "ID-карты члена экипажа ТГА"
+	dcase = "ID-карте члена экипажа ТГА"
+	acase = "ID-карту члена экипажа ТГА"
+	icase = "ID-картой члена экипажа ТГА"
+	pcase = "ID-карте члена экипажа ТГА"
+
+/obj/item/weapon/card/id/itg/event/pilot
+	name = "ID-карта пилота ТГА"
+	desc = "ID-карта, принадлежащая пилоту судна ТГА. В обязанности пилота входит в основном управление кораблём. Они так же способны оказать помощь с перевозкой груза."
+	rugender = "female"
+	ncase = "ID-карта пилота ТГА"
+	gcase = "ID-карты пилота ТГА"
+	dcase = "ID-карте пилота ТГА"
+	acase = "ID-карту пилота ТГА"
+	icase = "ID-картой пилота ТГА"
+	pcase = "ID-карте пилота ТГА"
+
+/obj/item/weapon/card/id/itg/event/service
+	name = "ID-карта повара ТГА"
+	desc = "ID-карта, принадлежащая повару судна ТГА. В обязанности повара входит обеспечение экипажа и пассажиров достаточным питанием. Повар отвечает перед стюардом. При отсутствии стюарда, повар также отвечает перед нуждами пассажиров."
+	rugender = "female"
+	ncase = "ID-карта повара ТГА"
+	gcase = "ID-карты повара ТГА"
+	dcase = "ID-карте повара ТГА"
+	acase = "ID-карту повара ТГА"
+	icase = "ID-картой повара ТГА"
+	pcase = "ID-карте повара ТГА"
+
+/obj/item/weapon/card/id/itg/event/security
+	name = "ID-карта офицера ТГА"
+	desc = "ID-карта, выдаваемая работникам службы безопасности судна ТГА. Офицер безопасности обязано защищать судно, груз и пассажиров. Они также могут оказать помощь при перемещении груза или в спасательных операциях. Служба безопасности ТГА выполняет исключительно оборонительную функцию. Они не начинают бой, однако могут его закончить."
+	rugender = "female"
+	ncase = "ID-карта офицера ТГА"
+	gcase = "ID-карты офицера ТГА"
+	dcase = "ID-карте офицера ТГА"
+	acase = "ID-карту офицера ТГА"
+	icase = "ID-картой офицера ТГА"
+	pcase = "ID-карте офицера ТГА"
+
+/obj/item/weapon/card/id/itg/event/research
+	name = "ID-карта учёного ТГА"
+	desc = "ID-карта, выдаваемая работнику научного отдела судна ТГА. Научный персонал ТГА специализируются на дизайне двигателей космолётов, а также борьбе с астрономическими феноменами."
+	rugender = "female"
+	ncase = "ID-карта учёного ТГА"
+	gcase = "ID-карты учёного ТГА"
+	dcase = "ID-карте учёного ТГА"
+	acase = "ID-карту учёного ТГА"
+	icase = "ID-картой учёного ТГА"
+	pcase = "ID-карте учёного ТГА"
+
+/obj/item/weapon/card/id/itg/event/medical
+	name = "ID-карта врача ТГА"
+	desc = "ID-карта, выдаваемая врачу судна ТГА. Главной обязанностью медика является оказание помощи раненным членам экипажа. Они также могут принимать участие в спасательных операциях."
+	rugender = "female"
+	ncase = "ID-карта врача ТГА"
+	gcase = "ID-карты врача ТГА"
+	dcase = "ID-карте врача ТГА"
+	acase = "ID-карту врача ТГА"
+	icase = "ID-картой врача ТГА"
+	pcase = "ID-карте врача ТГА"
+
+/obj/item/weapon/card/id/itg/event/engineer
+	name = "ID-карта инженера ТГА"
+	desc = "ID-карта, выдаваемая инженеру судна ТГА. Главная обязанность инженера — проведение технического обслуживания судна. Они также могут оказать помощь при перемещении груза."
+	rugender = "female"
+	ncase = "ID-карта инженера ТГА"
+	gcase = "ID-карты инженера ТГА"
+	dcase = "ID-карте инженера ТГА"
+	acase = "ID-карту инженера ТГА"
+	icase = "ID-картой инженера ТГА"
+	pcase = "ID-карте инженера ТГА"
+
+/obj/item/weapon/card/id/itg/event/passengerliason
+	name = "ID-карта стюарда ТГА"
+	desc = "ID-карта, выдаваемая стюарду научного отдела судна ТГА. В обязанности стюарда входит обеспечение рабочих отделов судна и пассажиров всем, в чём они нуждаются."
+	rugender = "female"
+	ncase = "ID-карта стюарда ТГА"
+	gcase = "ID-карты стюарда ТГА"
+	dcase = "ID-карте стюарда ТГА"
+	acase = "ID-карту стюарда ТГА"
+	icase = "ID-картой стюарда ТГА"
+	pcase = "ID-карте стюарда ТГА"
+
+/obj/item/weapon/card/id/itg/event/captain
+	name = "ID-карта Капитана ТГА"
+	desc = "ID-карта, принадлежащая Капитану судна ТГА. Обязанностью капитана является распоряжение экипажем для обеспечения безупречно гладкого полёта. Капитаны также пилотируют судном, когда за ним не закреплён пилот."
+	rugender = "female"
+	ncase = "ID-карта Капитана ТГА"
+	gcase = "ID-карты Капитана ТГА"
+	dcase = "ID-карте Капитана ТГА"
+	acase = "ID-карту Капитана ТГА"
+	icase = "ID-картой Капитана ТГА"
+	pcase = "ID-карте Капитана ТГА"
+
+// syndicate_ids.dm 
+
+/obj/item/weapon/card/id/syndicate
+	name = "Карта агента"
+	rugender = "female"
+	ncase = "карта агента"
+	gcase = "карты агента"
+	dcase = "карте агента"
+	acase = "карту агента"
+	icase = "картой агента"
+	pcase = "карте агента"
+
+/obj/item/weapon/card/id/syndicate_command
+	name = "ID-карта Синдиката"
+	desc = "ID-карта прямиком из Синдиката."
+	rugender = "female"
+	ncase = "ID-карта Синдиката"
+	gcase = "ID-карты Синдиката"
+	dcase = "ID-карте Синдиката"
+	acase = "ID-карту Синдиката"
+	icase = "ID-картой Синдиката"
+	pcase = "ID-карте Синдиката"
