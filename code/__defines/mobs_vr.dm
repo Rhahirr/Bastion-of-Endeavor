@@ -19,6 +19,7 @@
 //species defines
 
 //station species
+/* Bastion of Endeavor Translation
 #define SPECIES_AKULA			"Akula"
 #define SPECIES_ALRAUNE			"Alraune"
 #define SPECIES_NEVREAN			"Nevrean"
@@ -42,3 +43,26 @@
 //custom species base sprites
 #define SPECIES_FENNEC				"Fennec"
 #define SPECIES_XENOHYBRID			"Xenohybrid"
+
+*/
+#define SPECIES_AKULA			"Акула"
+#define SPECIES_ALRAUNE			"Алрауне"
+#define SPECIES_NEVREAN			"Невреан"
+#define SPECIES_PROTEAN			"Протеан"
+#define SPECIES_RAPALA			"Рапала"
+#define SPECIES_SERGAL			"Сергал"
+#define SPECIES_SHADEKIN_CREW	"Темноглазый Шейдкин"
+#define SPECIES_VASILISSAN		"Василиссан"
+#define SPECIES_VULPKANIN		"Вульпканин"
+#define SPECIES_XENOCHIMERA		"Ксенохимера"
+#define SPECIES_ZORREN_HIGH		"Зоррен"
+#define SPECIES_CUSTOM			"Собственная Раса"
+#define SPECIES_MONKEY_AKULA		"Собак"
+#define SPECIES_MONKEY_NEVREAN		"Спарра"
+#define SPECIES_MONKEY_SERGAL		"Сару"
+#define SPECIES_MONKEY_VULPKANIN	"Вольпин"
+#define SPECIES_WEREBEAST			"Оборотень"
+#define SPECIES_SHADEKIN			"Шейдкин"
+#define SPECIES_FENNEC				"Фенек"
+#define SPECIES_XENOHYBRID			"Ксеногибрид"
+// End of Bastion of Endeavor Translation

@@ -1,4 +1,5 @@
 // Normal digestion modes
+/* Bastion of Endeavor Translation
 #define DM_HOLD									"Hold"
 #define DM_DIGEST								"Digest"
 #define DM_ABSORB								"Absorb"
@@ -9,6 +10,19 @@
 #define DM_SIZE_STEAL							"Size Steal"
 #define DM_HEAL									"Heal"
 #define DM_EGG 									"Encase In Egg"
+*/ 
+
+#define DM_HOLD									"Содержать"
+#define DM_DIGEST								"Переваривать"
+#define DM_ABSORB								"Поглотить"
+#define DM_UNABSORB								"От-поглотить"
+#define DM_DRAIN								"Истощать"
+#define DM_SHRINK								"Уменьшать В Размере"
+#define DM_GROW									"Увеличивать В Размере"
+#define DM_SIZE_STEAL							"Красть Размер"
+#define DM_HEAL									"Лечить"
+#define DM_EGG 									"Заключить В Яйце"
+// End of Bastion of Endeavor Translation
 
 //#define DM_ITEMWEAK							"Digest (Item Friendly)"
 //#define DM_STRIPDIGEST						"Strip Digest (Items Only)"
@@ -22,9 +36,16 @@
 #define DM_FLAG_AFFECTWORN		0x10
 
 //Item related modes
+/* Bastion of Endeavor Translation
 #define IM_HOLD									"Hold"
 #define IM_DIGEST_FOOD							"Digest (Food Only)"
 #define IM_DIGEST								"Digest"
+*/ 
+
+#define IM_HOLD									"Содержать"
+#define IM_DIGEST_FOOD							"Переваривать (Только Еда)"
+#define IM_DIGEST								"Переваривать"
+// End of Bastion of Endeavor Translation
 
 //Stance for hostile mobs to be in while devouring someone.
 #define HOSTILE_STANCE_EATING	99

@@ -35,7 +35,11 @@ var/href_logfile		= null
 // var/const/company_short	= "NT"
 // var/const/star_name		= "Vir"
 // var/const/starsys_name	= "Vir"
+/* Bastion of Endeavor Edit: Changing the game version.
 var/const/game_version	= "VOREStation"
+*/
+var/const/game_version = "Bastion of Endeavor"
+// End of Bastion of Endeavor Edit.
 var/changelog_hash		= ""
 var/game_year			= (text2num(time2text(world.realtime, "YYYY")) + 300) //VOREStation Edit
 var/round_progressing = 1
@@ -168,7 +172,11 @@ var/max_explosion_range = 14
 // Announcer intercom, because too much stuff creates an intercom for one message then hard del()s it.
 var/global/obj/item/device/radio/intercom/omni/global_announcer = new /obj/item/device/radio/intercom/omni(null)
 
+/* Bastion of Endeavor Translation
 var/list/station_departments = list("Command", "Medical", "Engineering", "Science", "Security", "Cargo", "Exploration", "Civilian") //VOREStation Edit
+*/
+var/list/station_departments = list("Управление", "Медицинский отдел", "Инженерный отдел", "Научный отдел", "Служба безопасности", "Отдел снабжения", "Экспедиционный отдел", "Гражданский экипаж")
+// End of Bastion of Endeavor Translation
 
 //Icons for in-game HUD glasses. Why don't we just share these a little bit?
 var/static/icon/ingame_hud = icon('icons/mob/hud.dmi')

@@ -28,7 +28,11 @@ json_reader
 			src.json = json
 			. = new/list()
 			src.i = 1
+			/* Bastion of Endeavor Edit: Look, I'm not entirely certain if this is needed, but I'm willing to risk it.
 			while(src.i <= length(json))
+			*/
+			while(src.i <= length_char(json))
+			// End of Bastion of Endeavor Edit.
 				var/char = get_char()
 				if(is_whitespace(char))
 					i++
@@ -46,7 +50,11 @@ json_reader
 
 		read_word()
 			var/val = ""
+			/* Bastion of Endeavor Edit: Same as above.
 			while(i <= length(json))
+			*/
+			while(i <= length_char(json))
+			// End of Bastion of Endeavor Edit.
 				var/char = get_char()
 				if(is_whitespace(char) || symbols.Find(char))
 					i-- // let scanner handle this character
@@ -58,7 +66,11 @@ json_reader
 			var
 				escape 	= FALSE
 				val		= ""
+			/* Bastion of Endeavor Edit: Same as above.
 			while(++i <= length(json))
+			*/
+			while(++i <= length_char(json))
+			// End of Bastion of Endeavor Edit.
 				var/char = get_char()
 				if(escape)
 					switch(char)

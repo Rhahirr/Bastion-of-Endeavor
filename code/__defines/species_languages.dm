@@ -67,6 +67,7 @@
 #define RADIATION_GLOWS   0x40   // Radiation causes this character to glow.
 
 // Languages.
+/* Bastion of Endeavor Translation
 #define LANGUAGE_GALCOM "Galactic Common"
 #define LANGUAGE_EAL "Encoded Audio Language"
 #define LANGUAGE_SWARMBOT "Ancient Audio Encryption"
@@ -96,6 +97,37 @@
 #define LANGUAGE_PROMETHEAN "Promethean Biolinguistics"
 #define LANGUAGE_BLOB "Chemosense Transmission"
 #define LANGUAGE_GIBBERISH "Babel"
+*/
+#define LANGUAGE_GALCOM "Галактический Общий"
+#define LANGUAGE_EAL "Язык Зашифрованных Звуков"
+#define LANGUAGE_SWARMBOT "Древнее Звукошифрование"
+#define LANGUAGE_SOL_COMMON "Сольский Общий"
+#define LANGUAGE_UNATHI "Синта'унати"
+#define LANGUAGE_SIIK "Сиик"
+#define LANGUAGE_SKRELLIAN "Общий Скрелльский"
+#define LANGUAGE_TRADEBAND "Торговый Диалект"
+//VOREStation edit 08/23/20
+#define LANGUAGE_GUTTER "Гаттер"
+//VS edit end
+#define LANGUAGE_SIGN "Язык Жестов"
+#define LANGUAGE_SCHECHI "Шечи"
+#define LANGUAGE_ROOTLOCAL "Местный Язык Шелестов"
+#define LANGUAGE_ROOTGLOBAL "Общий Язык Шелестов"
+#define LANGUAGE_CULT "Культовый"
+#define LANGUAGE_OCCULT "Оккультовый"
+#define LANGUAGE_CHANGELING "Генокрад"
+#define LANGUAGE_VOX "Вокс-Пиджин"
+#define LANGUAGE_TERMINUS "Терминус"
+#define LANGUAGE_SKRELLIANFAR "Высокий Скрелльский"
+#define LANGUAGE_MINBUS "Минбус"
+#define LANGUAGE_EVENT1 "Оккурсус"
+#define LANGUAGE_AKHANI "Акхани"
+#define LANGUAGE_ALAI "Алай"
+#define LANGUAGE_ZADDAT "Ведак"
+#define LANGUAGE_PROMETHEAN "Прометеанская Биолингвистика"
+#define LANGUAGE_BLOB "Химосмысленная Передача"
+#define LANGUAGE_GIBBERISH "Чепуха"
+// End of Bastion of Endeavor Translation
 
 // Language flags.
 #define WHITELISTED  1   // Language is available if the speaker is whitelisted.

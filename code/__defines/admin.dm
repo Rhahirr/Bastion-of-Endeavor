@@ -41,11 +41,20 @@
 
 #define R_MAXPERMISSION 0x8000 // This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
+/* Bastion of Endeavor Translation
 #define SMITE_BREAKLEGS				"Break Legs"
 #define SMITE_BLUESPACEARTILLERY	"Bluespace Artillery"
 #define SMITE_SPONTANEOUSCOMBUSTION	"Spontaneous Combustion"
 #define SMITE_LIGHTNINGBOLT			"Lightning Bolt"
+*/
 
+#define SMITE_BREAKLEGS				"Переломать Ноги"
+#define SMITE_BLUESPACEARTILLERY	"Блюспейсовая Артиллерия"
+#define SMITE_SPONTANEOUSCOMBUSTION	"Спонтанное Самовозгорание"
+#define SMITE_LIGHTNINGBOLT			"Удар Молнией"
+// End of Bastion of Endeavor Translation
+
+/* Bastion of Endeavor Translation
 #define ADMIN_QUE(user) "(<a href='?_src_=holder;adminmoreinfo=\ref[user]'>?</a>)"
 #define ADMIN_FLW(user) "(<a href='?_src_=holder;adminplayerobservefollow=\ref[user]'>FLW</a>)"
 #define ADMIN_PP(user) "(<a href='?_src_=holder;adminplayeropts=\ref[user]'>PP</a>)"
@@ -65,6 +74,28 @@
 #define ADMIN_JMP(src) "(<a href='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)"
 #define COORD(src) "[src ? "([src.x],[src.y],[src.z])" : "nonexistent location"]"
 #define ADMIN_COORDJMP(src) "[src ? "[COORD(src)] [ADMIN_JMP(src)]" : "nonexistent location"]"
+*/ 
+
+#define ADMIN_QUE(user) "(<a href='?_src_=holder;adminmoreinfo=\ref[user]'>?</a>)"
+#define ADMIN_FLW(user) "(<a href='?_src_=holder;adminplayerobservefollow=\ref[user]'>СЛЕД</a>)"
+#define ADMIN_PP(user) "(<a href='?_src_=holder;adminplayeropts=\ref[user]'>ПИ</a>)"
+#define ADMIN_VV(atom) "(<a href='?_src_=vars;Vars=\ref[atom]'>РП</a>)"
+#define ADMIN_SM(user) "(<a href='?_src_=holder;subtlemessage=\ref[user]'>СС</a>)"
+#define ADMIN_TP(user) "(<a href='?_src_=holder;traitor=\ref[user]'>ПА</a>)"
+#define ADMIN_BSA(user) "(<a href='?_src_=holder;BlueSpaceArtillery=\ref[user]'>БСА</a>)"
+#define ADMIN_KICK(user) "(<a href='?_src_=holder;boot2=\ref[user]'>КИК</a>)"
+#define ADMIN_CENTCOM_REPLY(user) "(<a href='?_src_=holder;CentcommReply=\ref[user]'>ОТВЕТ</a>)"
+#define ADMIN_SYNDICATE_REPLY(user) "(<a href='?_src_=holder;SyndicateReply=\ref[user]'>ОТВЕТ</a>)"
+#define ADMIN_SC(user) "(<a href='?_src_=holder;adminspawncookie=\ref[user]'>ПЕЧ</a>)"
+#define ADMIN_SMITE(user) "(<a href='?_src_=holder;adminsmite=\ref[user]'>КАРА</a>)"
+#define ADMIN_LOOKUP(user) "[key_name_admin(user)][ADMIN_QUE(user)]"
+#define ADMIN_LOOKUPFLW(user) "[key_name_admin(user)][ADMIN_QUE(user)] [ADMIN_FLW(user)]"
+#define ADMIN_FULLMONTY_NONAME(user) "[ADMIN_QUE(user)] [ADMIN_PP(user)] [ADMIN_VV(user)] [ADMIN_SM(user)] [ADMIN_FLW(user)] [ADMIN_TP(user)]"
+#define ADMIN_FULLMONTY(user) "[key_name_admin(user)] [ADMIN_FULLMONTY_NONAME(user)]"
+#define ADMIN_JMP(src) "(<a href='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>ПРЫГ</a>)"
+#define COORD(src) "[src ? "на ([src.x],[src.y],[src.z])" : "в неизвестном месте"]"
+#define ADMIN_COORDJMP(src) "[src ? "[COORD(src)] [ADMIN_JMP(src)]" : "в неизвестном месте"]"
+// End of Bastion of Endeavor Translation
 
 #define AHELP_ACTIVE 1
 #define AHELP_CLOSED 2

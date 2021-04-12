@@ -4,9 +4,15 @@
 
 // Multitool Mode Defines.
 
+/* Bastion of Endeavor Translation
 #define MULTITOOL_MODE_STANDARD				"Standard"
 #define MULTITOOL_MODE_INTCIRCUITS			"Modular Wiring"
 #define MULTITOOL_MODE_DOORHACK 			"Advanced Jacking"
+*/
+#define MULTITOOL_MODE_STANDARD				"Стандартный"
+#define MULTITOOL_MODE_INTCIRCUITS			"Модульная Проводка"
+#define MULTITOOL_MODE_DOORHACK 			"Взлом"
+// End of Bastion of Endeavor Translation
 
 // Identity system defines.
 #define IDENTITY_UNKNOWN	0 // Nothing is known so far.

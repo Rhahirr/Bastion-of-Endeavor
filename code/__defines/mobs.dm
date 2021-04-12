@@ -132,11 +132,19 @@
 #define INV_LCUFF_DEF_ICON 'icons/mob/mob.dmi'
 
 // Character's economic class
+/* Bastion of Endeavor Translation
 #define CLASS_UPPER 		"Wealthy"
 #define CLASS_UPMID			"Well-off"
 #define CLASS_MIDDLE 		"Average"
 #define CLASS_LOWMID		"Underpaid"
 #define CLASS_LOWER			"Poor"
+*/
+#define CLASS_UPPER 		"Богатей"
+#define CLASS_UPMID			"Высокое"
+#define CLASS_MIDDLE 		"Среднее"
+#define CLASS_LOWMID		"Низкое"
+#define CLASS_LOWER			"Нищий"
+// End of Bastion of Endeavor Translation
 
 #define ECONOMIC_CLASS		list(CLASS_UPPER,CLASS_UPMID,CLASS_MIDDLE,CLASS_LOWMID,CLASS_LOWER)
 
@@ -273,20 +281,36 @@
 #define TASTE_NUMB 0.1 //anything below 150%
 
 // If they're in an FBP, what braintype.
+/* Bastion of Endeavor Translation
 #define FBP_NONE	""
 #define FBP_CYBORG	"Cyborg"
 #define FBP_POSI	"Positronic"
 #define FBP_DRONE	"Drone"
+*/
+#define FBP_NONE	""
+#define FBP_CYBORG	"Киборг"
+#define FBP_POSI	"Positronic" // Bastion of Endeavor TODO
+#define FBP_DRONE	"Дрон"
+// End of Bastion of Endeavor Translation
 
 // Similar to above but for borgs.
 // Seperate defines are unfortunately required since borgs display the brain differently for some reason.
+/* Bastion of Endeavor Translation
 #define BORG_BRAINTYPE_CYBORG	"Cyborg"
 #define BORG_BRAINTYPE_POSI		"Robot"
 #define BORG_BRAINTYPE_DRONE	"Drone"
 #define BORG_BRAINTYPE_PLATFORM	"Platform"
 #define BORG_BRAINTYPE_AI_SHELL	"AI Shell"
+*/
+#define BORG_BRAINTYPE_CYBORG	"Киборг"
+#define BORG_BRAINTYPE_POSI		"Robot"
+#define BORG_BRAINTYPE_DRONE	"Дрон"
+#define BORG_BRAINTYPE_PLATFORM	"Platform" 
+#define BORG_BRAINTYPE_AI_SHELL	"AI Shell"
+// End of Bastion of Endeavor Translation
 
 // 'Regular' species.
+/* Bastion of Endeavor Translation
 #define SPECIES_HUMAN			"Human"
 #define SPECIES_HUMAN_VATBORN	"Vatborn"
 #define SPECIES_UNATHI			"Unathi"
@@ -303,6 +327,23 @@
 #define SPECIES_MONKEY_TAJ		"Farwa"
 #define SPECIES_MONKEY_SKRELL	"Neaera"
 #define SPECIES_MONKEY_UNATHI	"Stok"
+*/
+#define SPECIES_HUMAN			"Человек"
+#define SPECIES_HUMAN_VATBORN	"Искусственно Выращенный"
+#define SPECIES_UNATHI			"Унати"
+#define SPECIES_SKRELL			"Скрелл"
+#define SPECIES_TESHARI			"Тешари"
+#define SPECIES_TAJ				"Таджара"
+#define SPECIES_PROMETHEAN		"Прометеан"
+#define SPECIES_DIONA			"Диона"
+#define SPECIES_VOX				"Вокс"
+#define SPECIES_ZADDAT			"Заддат"
+
+#define SPECIES_MONKEY			"Мартышка"
+#define SPECIES_MONKEY_TAJ		"Фарва"
+#define SPECIES_MONKEY_SKRELL	"Неера"
+#define SPECIES_MONKEY_UNATHI	"Сток"
+// End of Bastion of Endeavor Translation
 
 // Virtual Reality IDs.
 #define SPECIES_VR				"Virtual Reality Avatar"

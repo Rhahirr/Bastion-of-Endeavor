@@ -85,6 +85,7 @@
 		#undef S1
 
 // Converts a string into a list by splitting the string at each delimiter found. (discarding the seperator)
+/* Bastion of Endeavor Edit: Russian compatibility. Unlikely needed, but just in case.
 /proc/splittext(text, delimiter="\n")
 	var/delim_len = length(delimiter)
 	if (delim_len < 1)
@@ -97,6 +98,21 @@
 	do
 		found       = findtext(text, delimiter, last_found, 0)
 		.          += copytext(text, last_found, found)
+		last_found  = found + delim_len
+	while (found)
+*/
+/proc/splittext(text, delimiter="\n")
+	var/delim_len = length_char(delimiter)
+	if (delim_len < 1)
+		return list(text)
+
+	. = list()
+	var/last_found = 1
+	var/found
+
+	do
+		found       = findtext_char(text, delimiter, last_found, 0)
+		.          += copytext_char(text, last_found, found)
 		last_found  = found + delim_len
 	while (found)
 #endif

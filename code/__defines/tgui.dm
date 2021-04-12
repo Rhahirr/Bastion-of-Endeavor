@@ -16,7 +16,11 @@
 /// Get a window id based on the provided pool index
 #define TGUI_WINDOW_ID(index) "tgui-window-[index]"
 /// Get a pool index of the provided window id
+/* Bastion of Endeavor Edit: Might save me some headchache in a very unlikely scenario.
 #define TGUI_WINDOW_INDEX(window_id) text2num(copytext(window_id, 13))
+*/
+#define TGUI_WINDOW_INDEX(window_id) text2num(copytext_char(window_id, 13))
+// End of Bastion of Endeavor Edit
 
 /// Max length for Modal Input
 #define TGUI_MODAL_INPUT_MAX_LENGTH 1024

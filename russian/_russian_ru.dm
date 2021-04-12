@@ -26,7 +26,69 @@
 	var/glass_icase = "стаканом с чем-то"
 	var/glass_pcase = "стакане с чем-то"
 	var/glass_rugender = "neuter"
+
+/obj/item/weapon/reagent_containers/food/snacks
+	var/ru_foodtype
+
+/obj/item/stack
+	var/singular_name_rugender
+	var/singular_name_ncase
+	var/singular_name_gcase
+	var/singular_name_dcase
+	var/singular_name_acase
+	var/singular_name_icase
+	var/singular_name_pcase
+	var/plural_name_rugender
+	var/plural_name_ncase
+	var/plural_name_gcase
+	var/plural_name_dcase
+	var/plural_name_acase
+	var/plural_name_icase
+	var/plural_name_pcase
 	
+/obj/item/organ/external
+	var/joint_rugender
+	var/joint_ncase
+	var/joint_gcase
+	var/joint_dcase
+	var/joint_acase
+	var/joint_icase
+	var/joint_pcase
+	var/amputation_point_rugender
+	var/amputation_point_ncase
+	var/amputation_point_gcase
+	var/amputation_point_dcase
+	var/amputation_point_acase
+	var/amputation_point_icase
+	var/amputation_point_pcase
+	var/encased_rugender
+	var/encased_ncase
+	var/encased_gcase
+	var/encased_dcase
+	var/encased_acase
+	var/encased_icase
+	var/encased_pcase
+
+/obj/effect/decal/cleanable/blood
+	var/dryncase = "засохшая кровь"
+	var/drygcase = "засохшей крови"
+	var/drydcase = "засохшей крови"
+	var/dryacase = "засохшую кровь"
+	var/dryicase = "засохшей кровью"
+	var/drypcase = "засохшей крови"
+
+/decl/flooring
+	var/rugender
+	var/ncase
+	var/gcase
+	var/dcase
+	var/acase
+	var/icase
+	var/pcase
+
+datum/preferences
+	var/list/cases = list()
+
 /proc/ru_count(var/input, single_text = "единица", few_text = "единицы", many_text = "единиц")
 	var/output
 	var/out_text = many_text

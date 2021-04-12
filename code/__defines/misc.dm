@@ -228,6 +228,7 @@
 #define ANTAG_KNOWN		"Known"
 
 // Departments.
+/* Bastion of Endeavor Translation
 #define DEPARTMENT_COMMAND			"Command"
 #define DEPARTMENT_SECURITY			"Security"
 #define DEPARTMENT_ENGINEERING		"Engineering"
@@ -237,6 +238,18 @@
 #define DEPARTMENT_CIVILIAN			"Civilian"
 #define DEPARTMENT_PLANET			"Exploration" //VOREStation Edit // I hate having this be here and not in a SC file. Hopefully someday the manifest can be rewritten to be map-agnostic.
 #define DEPARTMENT_SYNTHETIC		"Synthetic"
+*/
+
+#define DEPARTMENT_COMMAND			"Управление"
+#define DEPARTMENT_SECURITY			"Служба безопасности"
+#define DEPARTMENT_ENGINEERING		"Инженерный отдел"
+#define DEPARTMENT_MEDICAL			"Медицинский отдел"
+#define DEPARTMENT_RESEARCH			"Научный отдел"
+#define DEPARTMENT_CARGO			"Отдел снабжения"
+#define DEPARTMENT_CIVILIAN			"Гражданский экипаж"
+#define DEPARTMENT_PLANET			"Экспедиционный отдел"
+#define DEPARTMENT_SYNTHETIC		"Synthetic" // Bastion of Endeavor TODO
+// End of Bastion of Endeavor Translation
 
 // These are mostly for the department guessing code and event system.
 #define DEPARTMENT_UNKNOWN			"Unknown"
@@ -477,11 +490,19 @@ var/global/list/##LIST_NAME = list();\
 
 // Volume Channel Defines
 
+/* Bastion of Endeavor Translation
 #define VOLUME_CHANNEL_MASTER "Master"
 #define VOLUME_CHANNEL_AMBIENCE "Ambience"
 #define VOLUME_CHANNEL_ALARMS "Alarms"
 #define VOLUME_CHANNEL_VORE "Vore"
 #define VOLUME_CHANNEL_DOORS "Doors"
+*/
+#define VOLUME_CHANNEL_MASTER "Мастер"
+#define VOLUME_CHANNEL_AMBIENCE "Окружение"
+#define VOLUME_CHANNEL_ALARMS "Тревоги"
+#define VOLUME_CHANNEL_VORE "Звуки Vore"
+#define VOLUME_CHANNEL_DOORS "Двери"
+// End of Bastion of Endeavor Translation
 
 // Make sure you update this or clients won't be able to adjust the channel
 GLOBAL_LIST_INIT(all_volume_channels, list(
@@ -492,6 +513,7 @@ GLOBAL_LIST_INIT(all_volume_channels, list(
 	VOLUME_CHANNEL_DOORS,
 ))
 
+/* Bastion of Endeavor Translation
 #define APPEARANCECHANGER_CHANGED_RACE "Race"
 #define APPEARANCECHANGER_CHANGED_GENDER "Gender"
 #define APPEARANCECHANGER_CHANGED_GENDER_ID "Gender Identity"
@@ -502,5 +524,18 @@ GLOBAL_LIST_INIT(all_volume_channels, list(
 #define APPEARANCECHANGER_CHANGED_F_HAIRSTYLE "Facial Hair Style"
 #define APPEARANCECHANGER_CHANGED_F_HAIRCOLOR "Facial Hair Color"
 #define APPEARANCECHANGER_CHANGED_EYES "Eye Color"
+*/
+
+#define APPEARANCECHANGER_CHANGED_RACE "Раса"
+#define APPEARANCECHANGER_CHANGED_GENDER "Пол"
+#define APPEARANCECHANGER_CHANGED_GENDER_ID "Половая идентификация"
+#define APPEARANCECHANGER_CHANGED_SKINTONE "Тон кожи"
+#define APPEARANCECHANGER_CHANGED_SKINCOLOR "Цвет кожи"
+#define APPEARANCECHANGER_CHANGED_HAIRSTYLE "Причёска"
+#define APPEARANCECHANGER_CHANGED_HAIRCOLOR "Цвет волос"
+#define APPEARANCECHANGER_CHANGED_F_HAIRSTYLE "Лицевая растительность"
+#define APPEARANCECHANGER_CHANGED_F_HAIRCOLOR "Цвет лицевой растительности"
+#define APPEARANCECHANGER_CHANGED_EYES "Цвет глаз"
+// End of Bastion of Endeavor Translation
 
 #define GET_DECL(D) (ispath(D, /decl) ? (decls_repository.fetched_decls[D] || decls_repository.get_decl(D)) : null)

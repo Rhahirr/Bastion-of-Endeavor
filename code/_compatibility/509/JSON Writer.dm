@@ -43,6 +43,7 @@ json_writer
 			var/static/list/json_escape = list("\\" = "\\\\", "\"" = "\\\"", "\n" = "\\n")
 			for(var/targ in json_escape)
 				var/start = 1
+				/* Bastion of Endeavor Edit: Russian compatibility. Unsure if needed, but just in case.
 				while(start <= length(txt))
 					var/i = findtext(txt, targ, start)
 					if(!i)
@@ -50,6 +51,15 @@ json_writer
 					var/lrep = length(json_escape[targ])
 					txt = copytext(txt, 1, i) + json_escape[targ] + copytext(txt, i + length(targ))
 					start = i + lrep
+				*/
+				while(start <= length_char(txt))
+					var/i = findtext_char(txt, targ, start)
+					if(!i)
+						break
+					var/lrep = length_char(json_escape[targ])
+					txt = copytext_char(txt, 1, i) + json_escape[targ] + copytext_char(txt, i + length_char(targ))
+					start = i + lrep
+				// End of Bastion of Endeavor Edit.
 
 			return {""[txt]""}
 
