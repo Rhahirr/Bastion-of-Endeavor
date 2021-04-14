@@ -16,7 +16,11 @@
  */
 
 //Returns a list in plain english as a string
+/* Bastion of Endeavor Translation: Don't see the harm in doing it this way really. You never know.
 /proc/english_list(var/list/input, nothing_text = "nothing", and_text = " and ", comma_text = ", ", final_comma_text = ",")
+*/
+/proc/english_list(var/list/input, nothing_text = "ничего", and_text = " и ", comma_text = ", ", final_comma_text = "")
+// End of Bastion of Endeavor Translation
 	// this proc cannot be merged with counting_english_list to maintain compatibility
 	// with shoddy use of this proc for code logic and for cases that require original order
 	switch(input.len)
@@ -26,7 +30,11 @@
 		else  return "[jointext(input, comma_text, 1, -1)][final_comma_text][and_text][input[input.len]]"
 
 //Returns a newline-separated list that counts equal-ish items, outputting count and item names, optionally with icons and specific determiners
+/* Bastion of Endeavor Translation: Translating the arguments.
 /proc/counting_english_list(var/list/input, output_icons = TRUE, determiners = DET_NONE, nothing_text = "nothing", line_prefix = "\t", first_item_prefix = "\n", last_item_suffix = "\n", and_text = "\n", comma_text = "\n", final_comma_text = ",")
+*/
+/proc/counting_english_list(var/list/input, output_icons = TRUE, determiners = DET_NONE, nothing_text = "ничего", line_prefix = "\t", first_item_prefix = "\n", last_item_suffix = "\n", and_text = "\n", comma_text = "\n", final_comma_text = ", а также")
+// End of Bastion of Endeavor Translation
 	var/list/counts = list() // counted input items
 	var/list/items = list() // actual objects for later reference (for icons and formatting)
 
@@ -46,8 +54,11 @@
 		var/name = "[item]"
 		var/count = counts[name]
 		var/item_str = line_prefix
+		/* Bastion of Endeavor Removal: Moved down. The order matters.
 		if(count > 1)
 			item_str += "[count]x&nbsp;"
+		*/
+		// End of Bastion of Endeavor Removal
 
 		if(isatom(item))
 			// atoms/items/objects can be pretty and whatnot
@@ -63,6 +74,10 @@
 			// non-atoms use plain string conversion
 			item_str += name
 
+		// Bastion of Endeavor Addition: Makes things prettier. It's here because it needs to be at the end of the sentence.
+		if(count > 1)
+			item_str += " ([count] шт.)"
+		// End of Bastion of Endeavor Addition.
 		if(i == 0)
 			item_str = first_item_prefix + item_str
 		if(i == items.len - 1)
@@ -75,7 +90,11 @@
 	return english_list(out, nothing_text, and_text, comma_text, final_comma_text)
 
 //A "preset" for counting_english_list that displays the list "inline" (comma separated)
+/* Bastion of Endeavor Translation:
 /proc/inline_counting_english_list(var/list/input, output_icons = TRUE, determiners = DET_NONE, nothing_text = "nothing", and_text = " and ", comma_text = ", ", final_comma_text = "", line_prefix = "", first_item_prefix = "", last_item_suffix = "")
+*/
+/proc/inline_counting_english_list(var/list/input, output_icons = TRUE, determiners = DET_NONE, nothing_text = "ничего", and_text = " и ", comma_text = ", ", final_comma_text = "", line_prefix = "", first_item_prefix = "", last_item_suffix = "")
+// End of Bastion of Endeavor Translation
 	return counting_english_list(input, output_icons, determiners, nothing_text, and_text, comma_text, final_comma_text)
 
 //Returns list element or null. Should prevent "index out of bounds" error.
