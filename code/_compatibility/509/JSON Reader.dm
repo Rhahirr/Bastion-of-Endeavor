@@ -106,10 +106,18 @@ json_reader
 			return copytext(json, i, i+1)
 
 		is_whitespace(char)
+			/* Bastion of Endeavor Edit: Unicode support.
 			return char == " " || char == "\t" || char == "\n" || text2ascii(char) == 13
+			*/
+			return char == " " || char == "\t" || char == "\n" || text2ascii_char(char) == 13
+			// End of Bastion of Endeavor Edit
 
 		is_digit(char)
+			/* Bastion of Endeavor Edit: Unicode support.
 			var/c = text2ascii(char)
+			*/
+			var/c = text2ascii_char(char)
+			// End of Bastion of Endeavor Edit
 			return 48 <= c && c <= 57 || char == "+" || char == "-"
 
 
