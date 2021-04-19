@@ -9,6 +9,7 @@
 
 // Begin includes
 
+/*
 #include "defines/obj_ru.dm"
 
 #include "game/machinery/machinery_ru.dm"
@@ -105,3 +106,4 @@
 #include "modules/recycling_ru.dm"
 #include "modules/resleeving_ru.dm"
 // End includes
+*/

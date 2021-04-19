@@ -1,184 +1,141 @@
 /atom
-	var/rugender = "unset"
-	var/ncase
-	var/gcase
-	var/dcase
-	var/acase
-	var/icase
-	var/pcase
+	// Cases are needed for proper russian grammar in the game. Added as a list that can be freely expanded.
+	var/list/ru_cases = new /list()
 
 /area
-	var/ru_p_override = FALSE
-	var/ru_area_fancy_name
+	var/ru_p_override = FALSE // This allows us to have different prepositions for areas. ON the deck, IN the room, etc.
+	var/ru_area_fancy_name // This is a WIP that will let us have shorter area names that can be used for APCs and such.
 
 /datum/reagent
-	var/rugender = "unset"
-	var/ncase
-	var/gcase
-	var/dcase
-	var/acase
-	var/icase
-	var/pcase
-	var/glass_ncase = "стакан с чем-то"
-	var/glass_gcase = "стакана с чем-то"
-	var/glass_dcase = "стакану с чем-то"
-	var/glass_acase = "стакан с чем-то"
-	var/glass_icase = "стаканом с чем-то"
-	var/glass_pcase = "стакане с чем-то"
-	var/glass_rugender = "neuter"
+	var/list/ru_cases = new /list() // Certain datums need cases too.
+
+/datum/reagent/New()
+	..()
+	ru_cases["glass"] = new /list()
+	ru_cases["glass"]["rugender"] = "male"
+	ru_cases["glass"]["ncase"] = "стакан с чем-то"
+	ru_cases["glass"]["gcase"] = "стакана с чем-то"
+	ru_cases["glass"]["dcase"] = "стакану с чем-то"
+	ru_cases["glass"]["acase"] = "стакан с чем-то"
+	ru_cases["glass"]["icase"] = "стаканом с чем-то"
+	ru_cases["glass"]["pcase"] = "стакане с чем-то"
+
+/datum/material
+	var/case_override // Case override handles the order of words in material stacks. By default, Material + Sheet. If set to TRUE, Sheet of Material.
+	var/name_override // Required for other objects made with materials. Glass Table (by default), Table of Reinforced Glass (custom).
+	var/list/ru_cases = new /list() // Same as earlier cases.
+
+/datum/material/New()
+	..()
+	ru_cases["sheet_singular"] = new /list()
+	ru_cases["sheet_singular"]["rugender"] = "male"
+	ru_cases["sheet_singular"]["ncase"] = "лист"
+	ru_cases["sheet_singular"]["gcase"] = "листа"
+	ru_cases["sheet_singular"]["dcase"] = "листу"
+	ru_cases["sheet_singular"]["acase"] = "лист"
+	ru_cases["sheet_singular"]["icase"] = "листом"
+	ru_cases["sheet_singular"]["pcase"] = "листе"
+	ru_cases["sheet_plural"] = new /list()
+	ru_cases["sheet_plural"]["rugender"] = "plural"
+	ru_cases["sheet_plural"]["ncase"] = "листы"
+	ru_cases["sheet_plural"]["gcase"] = "листов"
+	ru_cases["sheet_plural"]["dcase"] = "листам"
+	ru_cases["sheet_plural"]["acase"] = "листы"
+	ru_cases["sheet_plural"]["icase"] = "листами"
+	ru_cases["sheet_plural"]["pcase"] = "листах"
 
 /obj/item/weapon/reagent_containers/food/snacks
-	var/ru_foodtype
+	var/ru_foodtype // Handles the appropriate verb for various types of meals.
 
-/obj/item/stack
-	var/singular_name_rugender
-	var/singular_name_ncase
-	var/singular_name_gcase
-	var/singular_name_dcase
-	var/singular_name_acase
-	var/singular_name_icase
-	var/singular_name_pcase
-	var/plural_name_rugender
-	var/plural_name_ncase
-	var/plural_name_gcase
-	var/plural_name_dcase
-	var/plural_name_acase
-	var/plural_name_icase
-	var/plural_name_pcase
-	
-/obj/item/organ/external
-	var/joint_rugender
-	var/joint_ncase
-	var/joint_gcase
-	var/joint_dcase
-	var/joint_acase
-	var/joint_icase
-	var/joint_pcase
-	var/amputation_point_rugender
-	var/amputation_point_ncase
-	var/amputation_point_gcase
-	var/amputation_point_dcase
-	var/amputation_point_acase
-	var/amputation_point_icase
-	var/amputation_point_pcase
-	var/encased_rugender
-	var/encased_ncase
-	var/encased_gcase
-	var/encased_dcase
-	var/encased_acase
-	var/encased_icase
-	var/encased_pcase
-
-/obj/effect/decal/cleanable/blood
-	var/dryncase = "засохшая кровь"
-	var/drygcase = "засохшей крови"
-	var/drydcase = "засохшей крови"
-	var/dryacase = "засохшую кровь"
-	var/dryicase = "засохшей кровью"
-	var/drypcase = "засохшей крови"
+/obj/effect/decal/cleanable/blood/New()
+	ru_cases["dry"] = new /list()
+	ru_cases["dry"]["rugender"] = "female"
+	ru_cases["dry"]["ncase"] = "засохшая кровь"
+	ru_cases["dry"]["gcase"] = "засохшей крови"
+	ru_cases["dry"]["dcase"] = "засохшей крови"
+	ru_cases["dry"]["acase"] = "засохшую кровь"
+	ru_cases["dry"]["icase"] = "засохшей кровью"
+	ru_cases["dry"]["pcase"] = "засохшей крови"
 
 /decl/flooring
-	var/rugender
-	var/ncase
-	var/gcase
-	var/dcase
-	var/acase
-	var/icase
-	var/pcase
+	var/list/ru_cases = new /list()
 
 datum/preferences
 	var/list/cases = list()
 
-/proc/ru_count(var/input, single_text = "единица", few_text = "единицы", many_text = "единиц")
+/mob/self_user // This is a placeholder that comes in handy in ru_v's that have the user as the target.
+
+/mob/self_user/New() 
+	ru_cases["gcase"] = "себя"
+	ru_cases["dcase"] = "себе"
+	ru_cases["acase"] = "себя"
+	ru_cases["icase"] = "собой"
+	ru_cases["pcase"] = "себе"
+
+// This proc handles the appropriate numeral word depending on the, well, number.
+/proc/ru_count(var/input, single_text = "единица", few_text = "единицы", many_text = "единиц", override = 0)
 	var/output
 	var/out_text = many_text
 	if(istype(input, /list))
 		var/list/input_list = input
 		output = input_list.len
 	else output = input
-	var/a = round(output) % 100
-	var/b = round(output) % 10
+	//var/a = round(output) % 100
+	//var/b = round(output) % 10
+	// It's a bit of a hacky workaround, but when we say we need the last digits, we need the LAST digits.
+	var/a = text2num(copytext_char(num2text(output), -1, -3))
+	var/b = a % 10
 	if (a > 10 && a < 20) out_text = many_text
 	if (b > 1 && b < 5) out_text = few_text
 	if (b == 1) out_text = single_text
-	return "[output] [out_text]"
+	return "[override? "" : "[output] "][out_text]"
 
-/proc/ru_case(atom/input, case = "case")
+// This is one of the core procs. It handles the grammar cases of words and uses them in messages. Secondary is for "subtype" cases.
+/proc/ru_case(atom/input, case = "case", secondary = null)
 	if(!(istype(input, /atom)) || !(istype(input, /datum)))
 		crash_with("Проку ru_case передан не атом/датум! Ввод: [input]")
 		return input
-	if(case == "ncase" && input.ncase) return input.ncase
-	if(case == "gcase" && input.gcase) return input.gcase
-	if(case == "dcase" && input.dcase) return input.dcase
-	if(case == "acase" && input.acase) return input.acase
-	if(case == "icase" && input.icase) return input.icase
-	if(case == "pcase" && input.pcase) return input.pcase
-	return input.name
+	if(input[case])
+		if(secondary) return input.ru_cases[case][secondary]
+		else return input.ru_cases[case]
+	else return input.name
 
-/proc/ru_g(input, base_verb = "", he_end = "", she_end = "а", it_end = "о", they_end = "и")
-	var/gender_key = "male"
-	if(istype(input, /mob/living/carbon/human))
-		var/mob/user = input
-		var/datum/gender/user_gender = gender_datums[user.get_visible_gender()]
-		gender_key = user_gender.key
-	else if (istype(input, /atom))
-		var/atom/A = input
-		gender_key = A.rugender
-	switch(gender_key)
-		if("male") return "[base_verb][he_end]"
-		if("female") return "[base_verb][she_end]"
-		if("neuter") return "[base_verb][it_end]"
-		if("plural") return "[base_verb][they_end]"
-	return "[base_verb][he_end]"
-
+// A more faithful version of capitalize proc.
 /proc/ru_cap(atom/input, var/case = "ncase")
 	return "[capitalize(ru_case(input, case))]"
 
-//adds something to the end of every case
-/atom/proc/ru_addtocase(atom/input, content)
-	input.ncase = "[initial(input.ncase)][content]"
-	input.gcase = "[initial(input.gcase)][content]"
-	input.dcase = "[initial(input.dcase)][content]"
-	input.acase = "[initial(input.acase)][content]"
-	input.icase = "[initial(input.icase)][content]"
-	input.pcase = "[initial(input.pcase)][content]"
+// Backs up cases before changing them.
+/atom/proc/ru_storecase(atom/input)
+	ru_cases["initial"] = new /list()
+	for(var/case in input.ru_cases)
+		input.ru_cases["initial"][case] = input.ru_cases[case]
 	return
 
+// Adds something to the end of all cases of an atom, as well as changes its rugender element.
+/atom/proc/ru_appendcase(atom/input, content)
+	ru_storecase(input)
+	for(var/case in input.ru_cases)
+		if(case == "rugender") input.ru_cases[case] = input.ru_cases["initial"][case]
+		input.ru_cases[case] += content
+	return
+
+// Reverts the grammar cases of an atom to their backed up state.
+/atom/proc/ru_restorecase(atom/input)
+	for(var/case in input.ru_cases)
+		input.ru_cases[case] = input.ru_cases["initial"][case]
+	return
+
+// Dispenses an appropriately formatted string depending on the material and what it's used on.
 /proc/ru_matadj(datum/material, case = "case", gender = "gender", input = "", pre = " из ")
 	var/datum/material/mat = material
 	var/adjective = ""
-	if(gender == "male")
-		if(case == "ncase") adjective = mat.adj_m_ncase
-		if(case == "gcase") adjective = mat.adj_m_gcase
-		if(case == "dcase") adjective = mat.adj_m_dcase
-		if(case == "acase") adjective = mat.adj_m_acase
-		if(case == "icase") adjective = mat.adj_m_icase
-		if(case == "pcase") adjective = mat.adj_m_pcase
-	if(gender == "female")
-		if(case == "ncase") adjective = mat.adj_f_ncase
-		if(case == "gcase") adjective = mat.adj_f_gcase
-		if(case == "dcase") adjective = mat.adj_f_dcase
-		if(case == "acase") adjective = mat.adj_f_acase
-		if(case == "icase") adjective = mat.adj_f_icase
-		if(case == "pcase") adjective = mat.adj_f_pcase
-	if(gender == "neuter")
-		if(case == "ncase") adjective = mat.adj_n_ncase
-		if(case == "gcase") adjective = mat.adj_n_gcase
-		if(case == "dcase") adjective = mat.adj_n_dcase
-		if(case == "acase") adjective = mat.adj_n_acase
-		if(case == "icase") adjective = mat.adj_n_icase
-		if(case == "pcase") adjective = mat.adj_n_pcase
-	if(gender == "plural")
-		if(case == "ncase") adjective = mat.adj_p_ncase
-		if(case == "gcase") adjective = mat.adj_p_gcase
-		if(case == "dcase") adjective = mat.adj_p_dcase
-		if(case == "acase") adjective = mat.adj_p_acase
-		if(case == "icase") adjective = mat.adj_p_icase
-		if(case == "pcase") adjective = mat.adj_p_pcase
-	if(mat.name_override) return "[input][pre][mat.display_name_gcase]"
-	else return "[adjective][(input != "")? " [input]" : ""]"
+	adjective = mat.ru_cases["adj_[gender]"][case]
+	if(mat.name_override) return "[input][pre]" + mat.ru_cases["display_name"]["gcase"]
+	else return "[adjective][(input)? " [input]" : ""]"
 	return
 
+// Has anyone ever stopped to question why the verb is always "buckle" even when you interact with a bed?
+// This proc may look awful, but it adds an immense amount of clarity in russian, as it largely depends on the context and the target.
 /proc/ru_buckleverb(obj/seat, mob/user, tense = "present", mob/target)
 	var/who
 	if(target)
@@ -220,7 +177,7 @@ datum/preferences
 			//buckle
 			if("present") return "[ru_v(user, "усажива/ет/ет/ет/ют//")] [who] на [ru_case(seat, "acase")]"
 			if("self") return "[ru_v(user, "сад/ит/ит/ит/ят/ся/")] на [ru_case(seat, "acase")]"
-			if("past") return "[ru_v(user, "усадил//а/о/и//acase")] [who] на [ru_case(seat, "acase")]"
+			if("past") return "[ru_v(user, "усадил//а/о/и//")] [who] на [ru_case(seat, "acase")]"
 			if("participle") return "[ru_v(user, "сид/ит/ит/ит/ят//")] на [ru_case(seat, "pcase")]"
 			if("action") return "усаживаете [who] на [ru_case(seat, "acase")]"
 			if("indefinite") return "усадить [who] на [ru_case(seat, "acase")]"
@@ -258,56 +215,71 @@ datum/preferences
 			//unbuckle
 			if("upresent") return "[ru_v(user, "поднима/ет/ет/ет/ют//")] [who] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
 			if("uself") return "[ru_v(user, "вста/ёт/ёт/ёт/ют//")] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
-			if("upast") return "[ru_v(user, "поднял//а/о/и//")] [who] [who] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
+			if("upast") return "[ru_v(user, "поднял//а/о/и//")] [who] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
 			if("uyou") return "встали [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
 
+// The following proc adjusts a preposition to be used before a word. The list of consonants is provided for this very cause.
 var/global/list/consonants = list("б", "в", "г", "д", "ж", "з", "й", "к", "л", "м", "н", "п", "р", "с", "т", "ф", "х", "ц", "ч", "ш", "щ")
-/proc/ru_p(atom/input, preposition = "")
+
+/proc/ru_p(atom/input, preposition = "", capital = 0)
 	var/first_letter = lowertext(copytext_char(ru_case(input, "ncase"), 1, 2))
 	var/second_letter = lowertext(copytext_char(ru_case(input, "ncase"), 2, 3))
 	switch(preposition)
 		if("с")
 			var/list/c_letter = list("с", "ж", "з", "ш", "л", "р", "м", "в", "щ")
 			for(var/let_s in c_letter)
-				if (first_letter == "щ") return "со"
+				if (first_letter == "щ") return "[capital? "Со" : "со"]"
 				else if (first_letter == let_s)
 					for(var/cons_s in consonants)
-						if (second_letter == cons_s) return "со"
-			return "с"
+						if (second_letter == cons_s) return "[capital? "Со" : "со"]"
+			return "[capital? "С" : "с"]"
 		if("в")
 			var/list/v_letter = list("в", "ф")
 			for(var/let_v in v_letter)
 				if (first_letter == let_v)
 					for(var/cons_v in consonants)
-						if (second_letter == cons_v) return "во"
-			return "в"
+						if (second_letter == cons_v) return "[capital? "Во" : "со"]"
+			return "[capital? "В" : "в"]"
 		else 
 			crash_with("Проку ru_p передан недопустимый предлог: [preposition].")
-			return preposition
+			return "[capital? "[capitalize(preposition)]" : "[preposition]"]"
 
-//an updated version of ru_g that helps handle hardcoded messages, e.g. arrivals/cryo announcements and attack verbs
-//input template: "base/m_ending/f_ending/n_ending/p_ending/extra_text/case". case defines the target's case, or hides target if unspecified
+// This is a simple proc that adds an apropriate ending to a verb depending on the user's gender. This is core.
+/proc/ru_g(input, base_verb = "", he_end = "", she_end = "а", it_end = "о", they_end = "и")
+	var/gender_key = "male"
+	if(istype(input, /mob/living/carbon/human))
+		var/mob/user = input
+		var/datum/gender/user_gender = gender_datums[user.get_visible_gender()]
+		gender_key = user_gender.key
+	else if (istype(input, /atom))
+		var/atom/A = input
+		gender_key = A.ru_cases["rugender"]
+	switch(gender_key)
+		if("male") return "[base_verb][he_end]"
+		if("female") return "[base_verb][she_end]"
+		if("neuter") return "[base_verb][it_end]"
+		if("plural") return "[base_verb][they_end]"
+	return "[base_verb][he_end]"
+
+// An updated version of ru_g that helps handle hardcoded messages, e.g. arrivals/cryo announcements and attack verbs.
+// Input template: "base/m_ending/f_ending/n_ending/p_ending/extra_text/case". Case defines the target's case, or hides target if unspecified.
 /proc/ru_v(var/atom/verb_user, var/input, var/atom/target)
 	var/checker = 0
-	for(var/i=1, i<length(input), i++)
-		if(copytext_char(input, i, i+1) == "/") //i'd use a regex but they dont seem to work with unicode or something
+	for(var/i=1, i<length_char(input), i++)
+		if(copytext_char(input, i, i+1) == "/") // I'd use a regex but they dont seem to work with unicode or something
 			checker += 1
+	var/list/message_list = splittext_char(input, "/")
+	if(checker == 0)
+		return "[ru_g(verb_user, message_list[1])]" // If the template is avoided, use the default verb endings.
 	if(checker != 6)
 		crash_with("Глагол ru_v не соответствует шаблону! Ввод: [input], проверка выдала [checker].")
-		return input
-	var/list/message_list = splittext_char(input, "/")
+		return message_list[1]
 	var/who = message_list[7]
 	if (findtext_char(input, "case"))
 		who = ru_case(target, message_list[7])
 	return "[ru_g(verb_user, message_list[1], message_list[2], message_list[3], message_list[4], message_list[5])][who? " [who] " : ""][message_list[6]]"
 
-/mob/self_user // a holder for "self" words to be used with ru_v if the target is the user themselves
-	gcase = "себя"
-	dcase = "себе"
-	acase = "себя"
-	icase = "собой"
-	pcase = "себе"
-
+// It looks silly, but it's very important for attack verbs that need custom cases that can't be provided with ru_case.
 /proc/ru_att_p(var/att_prep, var/att_case, var/ncase, var/gcase, var/dcase, var/acase, var/icase, var/pcase, var/obj/target)
 	if(target)
 		return "[ru_p(target, att_prep)] [ru_case(target, att_case)]"
@@ -318,6 +290,22 @@ var/global/list/consonants = list("б", "в", "г", "д", "ж", "з", "й", "к"
 	if(att_case == "icase") return "[att_prep] [icase]"
 	if(att_case == "pcase") return "[att_prep] [pcase]"
 
+// Handles the ru_p_override var.
 /proc/ru_area_name(var/area/input)
 	if(!input.ru_p_override) return "[ru_p(input, "в")] [ru_case(input, "pcase")]"
 	else return "на [ru_case(input, "pcase")]"
+
+/client/add_admin_verbs()
+	if(holder)
+		verbs += /client/proc/case_debug
+	..()
+
+/client/proc/case_debug(var/obj/O in world)
+	set category = "Debug"
+	set name = "Проверить Падежи"
+	set desc = "Отобразить падежи атома."
+
+	if(O)
+		to_chat(usr, "Найдены следующие падежи атома: ")
+		for (var/case in O.ru_cases)
+			to_chat(usr, "[(case == "rugender")? "Род: [O.ru_cases[case]]" : "[case] : [O.ru_cases[case]]"]<br>")

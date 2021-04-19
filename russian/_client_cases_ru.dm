@@ -29,12 +29,12 @@
 	if(!pref.cases["pcase"]) pref.cases["pcase"] = pref.real_name
 
 /datum/category_item/player_setup_item/general/cases/copy_to_mob(var/mob/living/carbon/human/character)
-	character.ncase			= pref.cases["ncase"]
-	character.gcase			= pref.cases["gcase"]
-	character.dcase			= pref.cases["dcase"]
-	character.acase			= pref.cases["acase"]
-	character.icase			= pref.cases["icase"]
-	character.pcase			= pref.cases["pcase"]
+	character.ru_cases["ncase"]			= pref.cases["ncase"]
+	character.ru_cases["gcase"]			= pref.cases["gcase"]
+	character.ru_cases["dcase"]			= pref.cases["dcase"]
+	character.ru_cases["acase"]			= pref.cases["acase"]
+	character.ru_cases["icase"]			= pref.cases["icase"]
+	character.ru_cases["pcase"]			= pref.cases["pcase"]
 
 /datum/category_item/player_setup_item/general/cases/content(var/mob/user)
 	. += "<a href='?src=\ref[src];cases=open'>Установить склонение имени</a><br/>"
@@ -43,11 +43,11 @@
 	switch(href_list["cases"])
 		if("open")
 		if("general")
-			var/msg = sanitize(input(usr,"Укажите склонение имени Вашего персонажа по падежам.","Склонение Имени",html_decode(pref.cases[href_list["cases"]])) as text, extra = 0)
+			var/msg = sanitize(input(usr,"Укажите склонение имени Вашего персонажа по падежам.","Склонение Имени",html_decode(pref.cases[href_list["cases"]])) as text|null, MAX_NAME_LEN)
 			if(CanUseTopic(user))
 				pref.cases[href_list["cases"]] = msg
 		else
-			var/msg = sanitize(input(usr,"Установите склонение имени в этом падеже.","Склонение Имени",html_decode(pref.cases[href_list["cases"]])) as text, extra = 0)
+			var/msg = sanitize(input(usr,"Установите склонение имени в этом падеже.","Склонение Имени",html_decode(pref.cases[href_list["cases"]])) as text|null, MAX_NAME_LEN)
 			if(CanUseTopic(user))
 				pref.cases[href_list["cases"]] = msg
 	SetCases(user)
