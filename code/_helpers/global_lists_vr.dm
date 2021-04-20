@@ -11,22 +11,41 @@ var/global/list/traits_costs = list()		// Just path = cost list, saves time in c
 var/global/list/all_traits = list()			// All of 'em at once (same instances)
 var/global/list/active_ghost_pods = list()
 
+/* Bastion of Endeavor Translation
 var/global/list/sensorpreflist = list("Off", "Binary", "Vitals", "Tracking", "No Preference")
+*/
+var/global/list/sensorpreflist = list("Датчики отключены", "Бинарный датчик", "Датчики органов", "Маячок отслеживания", "Нет предпочтения")	//TFF 5/8/19 - Suit Sensors global list
+// End of Bastion of Endeavor Translation
 
 //stores numeric player size options indexed by name
 var/global/list/player_sizes_list = list(
+		/* Bastion of Endeavor Translation: Unsure if this is used, but oh well.
 		"Macro" 	= RESIZE_HUGE,
 		"Big" 		= RESIZE_BIG,
 		"Normal" 	= RESIZE_NORMAL,
 		"Small" 	= RESIZE_SMALL,
 		"Tiny" 		= RESIZE_TINY)
+		*/
+		"Огромный размер" 	= RESIZE_HUGE,
+		"Крупный размер" 	= RESIZE_BIG,
+		"Обычный размер" 	= RESIZE_NORMAL,
+		"Маленький размер" 	= RESIZE_SMALL,
+		"Крохотный размер" 	= RESIZE_TINY)
+		// End of Bastion of Endeavor Translation
 
 //stores vantag settings indexed by name
 var/global/list/vantag_choices_list = list(
+		/* Bastion of Endeavor Translation
 		VANTAG_NONE		=	"No Involvement",
 		VANTAG_VORE		=	"Be Prey",
 		VANTAG_KIDNAP	=	"Be Kidnapped",
 		VANTAG_KILL		=	"Be Killed")
+		*/
+		VANTAG_NONE		=	"Не участвовать",
+		VANTAG_VORE		=	"Быть съеденным",
+		VANTAG_KIDNAP	=	"Быть похищенным",
+		VANTAG_KILL		=	"Быть убитым")
+		// End of Bastion of Endeavor Translation
 
 //Blacklist to exclude items from object ingestion. Digestion blacklist located in digest_act_vr.dm
 var/global/list/item_vore_blacklist = list(
@@ -103,6 +122,7 @@ var/global/list/fancy_release_sounds = list(
 		)
 
 var/global/list/global_vore_egg_types = list(
+	/* Bastion of Endeavor Translation
 	"Unathi",
 	"Tajara",
 	"Akula",
@@ -136,8 +156,44 @@ var/global/list/global_vore_egg_types = list(
 	"Red",
 	"Rainbow",
 	"Spotted pink")
+	*/
+	"Унати",
+	"Таджара",
+	"Акула",
+	"Скрелл",
+	"Сергал",
+	"Невреан",
+	"Человек",
+	"Слизень",
+	"Яйцо",
+	"Ксенохимера",
+	"Ксеноморф",
+	"Шоколадное",
+	"Костяное",
+	"Глыба слизи",
+	"Курица",
+	"Синтетик",
+	"Блюспейсовая дискета",
+	"Блюспейсовый архив",
+	"Блюспейсовый диск",
+	"Капсула",
+	"Кулинарный инцидент",
+	"Паучий кокон",
+	"Соты",
+	"Жучий кокон",
+	"Камень",
+	"Жёлтое",
+	"Синее",
+	"Зелёное",
+	"Оранжевое",
+	"Розовое",
+	"Красное",
+	"Радужное",
+	"Пятнистое розовое")
+	// End of Bastion of Endeavor Translation
 
 var/global/list/tf_vore_egg_types = list(
+	/* Bastion of Endeavor Translation
 	"Unathi" 		= /obj/item/weapon/storage/vore_egg/unathi,
 	"Tajara" 		= /obj/item/weapon/storage/vore_egg/tajaran,
 	"Akula" 		= /obj/item/weapon/storage/vore_egg/shark,
@@ -171,6 +227,41 @@ var/global/list/tf_vore_egg_types = list(
 	"Red"			= /obj/item/weapon/storage/vore_egg/red,
 	"Rainbow"		= /obj/item/weapon/storage/vore_egg/rainbow,
 	"Spotted pink"	= /obj/item/weapon/storage/vore_egg/pinkspots)
+	*/
+	"Унати"					= /obj/item/weapon/storage/vore_egg/unathi,
+	"Таджара"				= /obj/item/weapon/storage/vore_egg/tajaran,
+	"Акула"					= /obj/item/weapon/storage/vore_egg/shark,
+	"Скрелл"				= /obj/item/weapon/storage/vore_egg/skrell,
+	"Сергал"				= /obj/item/weapon/storage/vore_egg/sergal,
+	"Невреан"				= /obj/item/weapon/storage/vore_egg/nevrean,
+	"Человек"				= /obj/item/weapon/storage/vore_egg/human,
+	"Слизень"				= /obj/item/weapon/storage/vore_egg/slime,
+	"Яйцо"					= /obj/item/weapon/storage/vore_egg,
+	"Ксенохимера"			= /obj/item/weapon/storage/vore_egg/scree,
+	"Ксеноморф"				= /obj/item/weapon/storage/vore_egg/xenomorph,
+	"Шоколадное"			= /obj/item/weapon/storage/vore_egg/chocolate,
+	"Костяное"				= /obj/item/weapon/storage/vore_egg/owlpellet,
+	"Глыба слизи"			= /obj/item/weapon/storage/vore_egg/slimeglob,
+	"Курица"				= /obj/item/weapon/storage/vore_egg/chicken,
+	"Синтетик"				= /obj/item/weapon/storage/vore_egg/synthetic,
+	"Блюспейсовая дискета"	= /obj/item/weapon/storage/vore_egg/floppy,
+	"Блюспейсовый архив"	= /obj/item/weapon/storage/vore_egg/file,
+	"Блюспейсовый диск"		= /obj/item/weapon/storage/vore_egg/cd,
+	"Капсула"				= /obj/item/weapon/storage/vore_egg/escapepod,
+	"Кулинарный инцидент"	= /obj/item/weapon/storage/vore_egg/badrecipe,
+	"Паучий кокон"			= /obj/item/weapon/storage/vore_egg/cocoon,
+	"Соты" 					= /obj/item/weapon/storage/vore_egg/honeycomb,
+	"Жучий кокон"			= /obj/item/weapon/storage/vore_egg/bugcocoon,
+	"Камень"				= /obj/item/weapon/storage/vore_egg/rock,
+	"Жёлтое"				= /obj/item/weapon/storage/vore_egg/yellow,
+	"Синее"					= /obj/item/weapon/storage/vore_egg/blue,
+	"Зелёное"				= /obj/item/weapon/storage/vore_egg/green,
+	"Оранжевое"				= /obj/item/weapon/storage/vore_egg/orange,
+	"Розовое"				= /obj/item/weapon/storage/vore_egg/purple,
+	"Красное"				= /obj/item/weapon/storage/vore_egg/red,
+	"Радужное"				= /obj/item/weapon/storage/vore_egg/rainbow,
+	"Пятнистое розовое"		= /obj/item/weapon/storage/vore_egg/pinkspots)
+	// End of Bastion of Endeavor Translation
 
 var/global/list/edible_trash = list(/obj/item/broken_device,
 				/obj/item/clothing/accessory/collar,

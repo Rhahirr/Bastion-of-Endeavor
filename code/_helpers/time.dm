@@ -147,6 +147,7 @@ GLOBAL_VAR_INIT(round_start_time, 0)
 //Takes a value of time in deciseconds.
 //Returns a text value of that number in hours, minutes, or seconds.
 /proc/DisplayTimeText(time_value, round_seconds_to = 0.1)
+	/* Bastion of Endeavor Translation
 	var/second = round(time_value * 0.1, round_seconds_to)
 	if(!second)
 		return "right now"
@@ -172,3 +173,30 @@ GLOBAL_VAR_INIT(round_start_time, 0)
 	if(hour)
 		hourT = " and [hour] hour[(hour != 1)? "s":""]"
 	return "[day] day[(day != 1)? "s":""][hourT][minuteT][secondT]"
+	*/
+	var/second = round(time_value * 0.1, round_seconds_to)
+	if(!second)
+		return "0 секунд"
+	if(second < 60)
+		return "[ru_count(second, "секунду", "секунды", "секунд")]"
+	var/minute = FLOOR(second / 60, 1)
+	second = MODULUS(second, 60)
+	var/secondT
+	if(second)
+		secondT = " и [ru_count(second, "секунду", "секунды", "секунд")]"
+	if(minute < 60)
+		return "[ru_count(second, "минуту", "минуты", "минут")][secondT]"
+	var/hour = FLOOR(minute / 60, 1)
+	minute = MODULUS(minute, 60)
+	var/minuteT
+	if(minute)
+		minuteT = " и [ru_count(second, "минуту", "минуты", "минут")]"
+	if(hour < 24)
+		return "[ru_count(hour, "час", "часа", "часов")][minuteT][secondT]"
+	var/day = FLOOR(hour / 24, 1)
+	hour = MODULUS(hour, 24)
+	var/hourT
+	if(hour)
+		hourT = " и [ru_count(hour, "час", "часа", "часов")]"
+	return "[ru_count(day, "день", "дня", "дней")][hourT][minuteT][secondT]"
+	// End of Bastion of Endeavor Translation

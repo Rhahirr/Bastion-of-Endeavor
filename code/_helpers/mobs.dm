@@ -1,5 +1,9 @@
 proc/random_hair_style(gender, species = SPECIES_HUMAN)
+	/* Bastion of Endeavor Translation
 	var/h_style = "Bald"
+	*/
+	var/h_style = "Лысая голова"
+	// End of Bastion of Endeavor Translation
 
 	var/list/valid_hairstyles = list()
 	for(var/hairstyle in hair_styles_list)
@@ -18,7 +22,11 @@ proc/random_hair_style(gender, species = SPECIES_HUMAN)
 	return h_style
 
 proc/random_facial_hair_style(gender, species = SPECIES_HUMAN)
+	/* Bastion of Endeavor Translation
 	var/f_style = "Shaved"
+	*/
+	var/f_style = "Бритое лицо"
+	// End of Bastion of Endeavor Translation
 
 	var/list/valid_facialhairstyles = list()
 	for(var/facialhairstyle in facial_hair_styles_list)
@@ -120,6 +128,7 @@ Proc for attack log creation, because really why not
 	var/user_str = key_name(user)
 	var/target_str = key_name(target)
 
+	/* Bastion of Endeavor Translation
 	if(ismob(user))
 		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Attacked [target_str]: [what_done]</font>")
 	if(ismob(target))
@@ -127,6 +136,15 @@ Proc for attack log creation, because really why not
 	log_attack(user_str,target_str,what_done)
 	if(admin_notify)
 		msg_admin_attack("[key_name_admin(user)] vs [target_str]: [what_done]")
+	*/
+	if(ismob(user))
+		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Атаковал [target_str]: [what_done]</font>")
+	if(ismob(target))
+		target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Атакован [user_str]: [what_done]</font>")
+	log_attack(user_str,target_str,what_done)
+	if(admin_notify)
+		msg_admin_attack("[key_name_admin(user)] против [target_str]: [what_done]")
+	// End of Bastion of Endeavor Translation
 
 //checks whether this item is a module of the robot it is located in.
 /proc/is_robot_module(var/obj/item/thing)
@@ -148,7 +166,11 @@ Proc for attack log creation, because really why not
 	if(!time)
 		return 1 //Done!
 	if(user.status_flags & DOING_TASK)
+		/* Bastion of Endeavor Translation
 		to_chat(user, "<span class='warning'>You're in the middle of doing something else already.</span>")
+		*/ 
+		to_chat(user, "<span class='warning'>Вы уже делаете что-то другое.</span>")
+		// End of Bastion of Endeavor Translation
 		return 0 //Performing an exclusive do_after or do_mob already
 	var/user_loc = user.loc
 	var/target_loc = target.loc
@@ -207,7 +229,11 @@ Proc for attack log creation, because really why not
 	if(!delay)
 		return 1 //Okay. Done.
 	if(user.status_flags & DOING_TASK)
+		/* Bastion of Endeavor Translation
 		to_chat(user, "<span class='warning'>You're in the middle of doing something else already.</span>")
+		*/ 
+		to_chat(user, "<span class='warning'>Вы уже делаете что-то другое.</span>")
+		// End of Bastion of Endeavor Translation
 		return 0 //Performing an exclusive do_after or do_mob already
 	var/atom/target_loc = null
 	if(target)

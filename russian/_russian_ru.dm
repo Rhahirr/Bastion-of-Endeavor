@@ -95,7 +95,7 @@ datum/preferences
 	if(!(istype(input, /atom)) || !(istype(input, /datum)))
 		crash_with("Проку ru_case передан не атом/датум! Ввод: [input]")
 		return input
-	if(input[case])
+	if(input.ru_cases[case])
 		if(secondary) return input.ru_cases[case][secondary]
 		else return input.ru_cases[case]
 	else return input.name
@@ -238,7 +238,7 @@ var/global/list/consonants = list("б", "в", "г", "д", "ж", "з", "й", "к"
 			for(var/let_v in v_letter)
 				if (first_letter == let_v)
 					for(var/cons_v in consonants)
-						if (second_letter == cons_v) return "[capital? "Во" : "со"]"
+						if (second_letter == cons_v) return "[capital? "Во" : "в"]"
 			return "[capital? "В" : "в"]"
 		else 
 			crash_with("Проку ru_p передан недопустимый предлог: [preposition].")
@@ -297,15 +297,30 @@ var/global/list/consonants = list("б", "в", "г", "д", "ж", "з", "й", "к"
 
 /client/add_admin_verbs()
 	if(holder)
-		verbs += /client/proc/case_debug
+		verbs += /client/proc/case_viewer
+		verbs += /client/proc/case_editor
 	..()
 
-/client/proc/case_debug(var/obj/O in world)
+/client/proc/case_viewer(var/atom/A in world)
 	set category = "Debug"
 	set name = "Проверить Падежи"
 	set desc = "Отобразить падежи атома."
 
-	if(O)
+	if(A)
 		to_chat(usr, "Найдены следующие падежи атома: ")
-		for (var/case in O.ru_cases)
-			to_chat(usr, "[(case == "rugender")? "Род: [O.ru_cases[case]]" : "[case] : [O.ru_cases[case]]"]<br>")
+		for (var/case in A.ru_cases)
+			to_chat(usr, "[(case == "rugender")? "Род: [A.ru_cases[case]]" : "[case]: [A.ru_cases[case]]"]<br>")
+
+/client/proc/case_editor(var/atom/A in world)
+	set category = "Debug"
+	set name = "Установить Падежи"
+	set desc = "Установить род и падежи атома."
+
+	if(A)
+		A.ru_cases["rugender"] = sanitize(input(usr, "Введите род (male/female/neuter/plural):", "Установить Падежи", A.ru_cases["rugender"]))
+		A.ru_cases["ncase"] = sanitize(input(usr, "Введите именительный падеж:", "Установить Падежи", A.ru_cases["ncase"]))
+		A.ru_cases["gcase"] = sanitize(input(usr, "Введите родительный падеж:", "Установить Падежи", A.ru_cases["gcase"]))
+		A.ru_cases["dcase"] = sanitize(input(usr, "Введите дательный падеж:", "Установить Падежи", A.ru_cases["dcase"]))
+		A.ru_cases["acase"] = sanitize(input(usr, "Введите винительный падеж:", "Установить Падежи", A.ru_cases["acase"]))
+		A.ru_cases["icase"] = sanitize(input(usr, "Введите творительный падеж:", "Установить Падежи", A.ru_cases["icase"]))
+		A.ru_cases["pcase"] = sanitize(input(usr, "Введите предложный падеж:", "Установить Падежи", A.ru_cases["pcase"]))

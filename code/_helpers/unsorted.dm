@@ -350,7 +350,11 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		var/newname
 
 		for(var/i=1,i<=3,i++)	//we get 3 attempts to pick a suitable name.
+			/* Bastion of Endeavor Translation
 			newname = input(src,"You are \a [role]. Would you like to change your name to something else?", "Name change",oldname) as text
+			*/
+			newname = input(src,"Вы — [role]. Хотели бы Вы поменять своё имя?", "Смена Имени",oldname) as text
+			// End of Bastion of Endeavor Translation
 			if((world.time-time_passed)>3000)
 				return	//took too long
 			newname = sanitizeName(newname, ,allow_numbers)	//returns null if the name doesn't meet some basic requirements. Tidies up a few other things like bad-characters.
@@ -363,12 +367,20 @@ Turf and target are seperate in case you want to teleport some distance from a t
 					break
 			if(newname)
 				break	//That's a suitable name!
+			/* Bastion of Endeavor Translation
 			to_chat(src, "Sorry, that [role]-name wasn't appropriate, please try another. It's possibly too long/short, has bad characters or is already taken.")
+			*/
+			to_chat(src, "К сожалению, это имя не подходит. Возможно, оно слишком длинное/короткое, содержит недопустимые символы, либо уже занято.")
+			// End of Bastion of Endeavor Translation
 
 		if(!newname)	//we'll stick with the oldname then
 			return
 
+		/* Bastion of Endeavor Translation
 		if(cmptext("ai",role))
+		*/
+		if(cmptext("ИИ",role))
+		// End of Bastion of Endeavor Translation
 			if(isAI(src))
 				var/mob/living/silicon/ai/A = src
 				oldname = null//don't bother with the records update crap
@@ -397,7 +409,11 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		borgs[name] = A
 
 	if (borgs.len)
+		/* Bastion of Endeavor Translation
 		select = input("Unshackled borg signals detected:", "Borg selection", null, null) as null|anything in borgs
+		*/
+		select = input("Обнаружены сигналы высвобожденных киборгов:", "Выбор Киборга", null, null) as null|anything in borgs
+		// End of Bastion of Endeavor Translation
 		return borgs[select]
 
 //When a borg is activated, it can choose which AI it wants to be slaved to
@@ -424,7 +440,11 @@ Turf and target are seperate in case you want to teleport some distance from a t
 /proc/select_active_ai(var/mob/user)
 	var/list/ais = active_ais()
 	if(ais.len)
+		/* Bastion of Endeavor Translation
 		if(user)	. = input(usr,"AI signals detected:", "AI selection") in ais
+		*/
+		if(user)	. = input(usr,"Обнаружены сигнали ИИ:", "Выбор ИИ") in ais
+		// End of Bastion of Endeavor Translation
 		else		. = pick(ais)
 	return .
 
@@ -512,16 +532,24 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			if(M.real_name && M.real_name != M.name)
 				name += " \[[M.real_name]\]"
 			if(M.stat == DEAD)
+				/* Bastion of Endeavor Translation
 				if(istype(M, /mob/observer/dead/))
 					name += " \[ghost\]"
 				else
 					name += " \[dead\]"
+				*/
+				if(istype(M, /mob/observer/dead/))
+					name += " \[призрак\]"
+				else
+					name += " \[мёртв\]"
+				// End of Bastion of Endeavor Translation
 		output_list[name] = A
 
 	return output_list
 
 // Format a power value in W, kW, MW, or GW.
 /proc/DisplayPower(powerused)
+	/* Bastion of Endeavor Translation
 	if(powerused < 1000) //Less than a kW
 		return "[powerused] W"
 	else if(powerused < 1000000) //Less than a MW
@@ -529,6 +557,15 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	else if(powerused < 1000000000) //Less than a GW
 		return "[round((powerused * 0.000001),0.001)] MW"
 	return "[round((powerused * 0.000000001),0.0001)] GW"
+	*/
+	if(powerused < 1000) //Less than a kW
+		return "[powerused] Вт"
+	else if(powerused < 1000000) //Less than a MW
+		return "[round((powerused * 0.001),0.01)] кВт"
+	else if(powerused < 1000000000) //Less than a GW
+		return "[round((powerused * 0.000001),0.001)] МВт"
+	return "[round((powerused * 0.000000001),0.0001)] ГВт"
+	// End of Bastion of Endeavor Translation
 
 /proc/get_mob_by_ckey(key)
 	if(!key)
@@ -1051,6 +1088,7 @@ proc/get_mob_with_client_list()
 	return mobs
 
 
+/* Bastion of Endeavor Translation: This needed to support cases for all future needs. Two cases, excluding nominative, are enough.
 /proc/parse_zone(zone)
 	if(zone == "r_hand") return "right hand"
 	else if (zone == "l_hand") return "left hand"
@@ -1065,6 +1103,22 @@ proc/get_mob_with_client_list()
 	else if (zone == "l_foot") return "left foot"
 	else if (zone == "r_foot") return "right foot"
 	else return zone
+	*/
+/proc/parse_zone(zone, case = "dcase")
+	if(zone == "r_hand") return "[(case = "dcase")? "правой ладони" : "правую ладонь"]"
+	else if (zone == "l_hand") return "[(case = "dcase")? "левой ладони" : "левую ладонь"]"
+	else if (zone == "l_arm") return "[(case = "dcase")? "левой руке" : "левую руку"]"
+	else if (zone == "r_arm") return "[(case = "dcase")? "правой руке" : "правую руку"]"
+	else if (zone == "l_leg") return "[(case = "dcase")? "левой ноге" : "левую ногу"]"
+	else if (zone == "r_leg") return "[(case = "dcase")? "правой ноге" : "правую ногу"]"
+	else if (zone == "l_foot") return "[(case = "dcase")? "левой ступне" : "левую ступню"]"
+	else if (zone == "r_foot") return "[(case = "dcase")? "правой ступне" : "правую ступню"]"
+	else if (zone == "l_hand") return "[(case = "dcase")? "левой ладони" : "левую ладонь"]"
+	else if (zone == "r_hand") return "[(case = "dcase")? "правой ладони" : "правую ладонь"]"
+	else if (zone == "l_foot") return "[(case = "dcase")? "левой ступне" : "левую ступню"]"
+	else if (zone == "r_foot") return "[(case = "dcase")? "правой ступне" : "правую ступню"]"
+	else return zone
+	// End of Bastion of Endeavor Translation
 
 /proc/get(atom/loc, type)
 	while(loc)
@@ -1265,7 +1319,11 @@ var/list/WALLITEMS = list(
 	return 0
 
 /proc/format_text(text)
+	/* Bastion of Endeavor Edit: Unicode support.
 	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
+	*/
+	return replacetext_char(replacetext_char(text,"\proper ",""),"\improper ","")
+	// End of Bastion of Endeavor Edit
 
 /proc/topic_link(var/datum/D, var/arglist, var/content)
 	if(istype(arglist,/list))
@@ -1357,6 +1415,7 @@ var/mob/dview/dview_mob = new
 
 // Displays something as commonly used (non-submultiples) SI units.
 /proc/format_SI(var/number, var/symbol)
+	/* Bastion of Endeavor Translation
 	switch(round(abs(number)))
 		if(0 to 1000-1)
 			return "[number] [symbol]"
@@ -1368,6 +1427,19 @@ var/mob/dview/dview_mob = new
 			return "[round(number / 1e9, 0.1)] G[symbol]" // giga
 		if(1e12 to 1e15-1)
 			return "[round(number / 1e12, 0.1)] T[symbol]" // tera
+	*/
+	switch(round(abs(number)))
+		if(0 to 1000-1)
+			return "[number] [symbol]"
+		if(1e3 to 1e6-1)
+			return "[round(number / 1000, 0.1)] к[symbol]"
+		if(1e6 to 1e9-1)
+			return "[round(number / 1e6, 0.1)] М[symbol]"
+		if(1e9 to 1e12-1)
+			return "[round(number / 1e9, 0.1)] Г[symbol]"
+		if(1e12 to 1e15-1)
+			return "[round(number / 1e12, 0.1)] Т[symbol]"
+	//End of Bastion of Endeavor Translation
 
 
 
@@ -1397,6 +1469,7 @@ var/mob/dview/dview_mob = new
 // Returns 0 if they can use it, a value representing why they can't if not.
 // Flags are in `code/__defines/misc.dm`
 /atom/proc/use_check(mob/user, use_flags = 0, show_messages = FALSE)
+	/* Bastion of Endeavor Translation
 	. = 0
 	if (NOT_FLAG(USE_ALLOW_NONLIVING) && !isliving(user))
 		// No message for ghosts.
@@ -1431,6 +1504,42 @@ var/mob/dview/dview_mob = new
 		if (show_messages)
 			to_chat(user, span("notice","You need to be holding [src] to do that."))
 		return USE_FAIL_NOT_IN_USER
+	*/
+	. = 0
+	if (NOT_FLAG(USE_ALLOW_NONLIVING) && !isliving(user))
+		// No message for ghosts.
+		return USE_FAIL_NONLIVING
+
+	if (NOT_FLAG(USE_ALLOW_NON_ADJACENT) && !Adjacent(user))
+		if (show_messages)
+			to_chat(user, span("notice","Вы находитесь слишком далеко от [ru_case(src, "gcase")], чтобы это сделать."))
+		return USE_FAIL_NON_ADJACENT
+
+	if (NOT_FLAG(USE_ALLOW_DEAD) && user.stat == DEAD)
+		if (show_messages)
+			to_chat(user, span("notice","Вы не можете сделать это, будучи " + ru_v(user, "мёртв/ым/ой/ым/ыми/./")))
+		return USE_FAIL_DEAD
+
+	if (NOT_FLAG(USE_ALLOW_INCAPACITATED) && (user.incapacitated()))
+		if (show_messages)
+			to_chat(user, span("notice","Вы не можете сделать это в текущем состоянии."))
+		return USE_FAIL_INCAPACITATED
+
+	if (NOT_FLAG(USE_ALLOW_NON_ADV_TOOL_USR) && !user.IsAdvancedToolUser())
+		if (show_messages)
+			to_chat(user, span("notice","Вы не умеете пользоваться [ru_case(src, "icase")]."))
+		return USE_FAIL_NON_ADV_TOOL_USR
+
+	if (HAS_FLAG(USE_DISALLOW_SILICONS) && issilicon(user))
+		if (show_messages)
+			to_chat(user, span("notice","Для выполнения этого действия Вам необходимы руки."))
+		return USE_FAIL_IS_SILICON
+
+	if (HAS_FLAG(USE_FORCE_SRC_IN_USER) && !(src in user))
+		if (show_messages)
+			to_chat(user, span("notice","Для выполнения этого действия необходимо держать [ru_case(src, "acase")]."))
+		return USE_FAIL_NOT_IN_USER
+	// End of Bastion of Endeavor Translation
 
 #undef NOT_FLAG
 #undef HAS_FLAG
@@ -1456,6 +1565,7 @@ var/mob/dview/dview_mob = new
 /proc/get_adir(var/turf/A, var/turf/B)
 	var/degree = Get_Angle(A, B)
 	switch(round(degree%360, 22.5))
+		/* Bastion of Endeavor Translation: This should be done, I believe.
 		if(0)
 			return "North"
 		if(22.5)
@@ -1488,6 +1598,40 @@ var/mob/dview/dview_mob = new
 			return "Northwest"
 		if(337.5)
 			return "North-Northwest"
+		*/
+		if(0)
+			return "Север"
+		if(22.5)
+			return "Север-Северо-Восток"
+		if(45)
+			return "Северо-Восток"
+		if(67.5)
+			return "Восток-Северо-Восток"
+		if(90)
+			return "Восток"
+		if(112.5)
+			return "Восток-Юго-Восток"
+		if(135)
+			return "Юго-Восток"
+		if(157.5)
+			return "Юг-Юго-Восток"
+		if(180)
+			return "Юг"
+		if(202.5)
+			return "Юг-Юго-Запад"
+		if(225)
+			return "Юго-Запад"
+		if(247.5)
+			return "Запад-Юго-Запад"
+		if(270)
+			return "Запад"
+		if(292.5)
+			return "Запад-Северо-Запад"
+		if(315)
+			return "Северо-Запад"
+		if(337.5)
+			return "Север-Северо-Запад"
+		// End of Bastion of Endeavor Translation
 
 /proc/pass()
 	return
@@ -1496,7 +1640,11 @@ var/mob/dview/dview_mob = new
 
 /proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
 	if (value == FALSE) //nothing should be calling us with a number, so this is safe
+		/* Bastion of Endeavor Translation
 		value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
+		*/
+		value = input("Введите искомый тип (или пропуск для выведения всех)", "Поиск Типа") as null|text
+		// End of Bastion of Endeavor Translation
 		if (isnull(value))
 			return
 	value = trim(value)
@@ -1510,7 +1658,11 @@ var/mob/dview/dview_mob = new
 	if(matches.len==1)
 		chosen = matches[1]
 	else
+		/* Bastion of Endeavor Translation
 		chosen = input("Select a type", "Pick Type", matches[1]) as null|anything in matches
+		*/
+		chosen = input("Выберите тип:", "Выбор Типа", matches[1]) as null|anything in matches
+		// End of Bastion of Endeavor Translation
 		if(!chosen)
 			return
 	chosen = matches[chosen]

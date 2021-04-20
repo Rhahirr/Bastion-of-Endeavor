@@ -68,11 +68,16 @@
 		if (4.0) return EAST
 		if (8.0) return WEST
 		else
+			/* Bastion of Endeavor Translation
 			to_world_log("UNKNOWN DIRECTION: [direction]")
+			*/
+			to_world_log("НЕИЗВЕСТНОЕ НАПРАВЛЕНИЕ: [direction]")
+			// End of Bastion of Endeavor Translation
 
 // Turns a direction into text
 /proc/dir2text(direction)
 	switch (direction)
+		/* Bastion of Endeavor Translation: In theory, this shouldn't break anything, but if it does, I'll revert this.
 		if (NORTH)  return "north"
 		if (SOUTH)  return "south"
 		if (EAST)  return "east"
@@ -83,6 +88,18 @@
 		if (SOUTHWEST)  return "southwest"
 		if (UP)  return "up"
 		if (DOWN)  return "down"
+		*/
+		if (NORTH)  return "север"
+		if (SOUTH)  return "юг"
+		if (EAST)  return "восток"
+		if (WEST)  return "запад"
+		if (NORTHEAST)  return "северо-восток"
+		if (SOUTHEAST)  return "юго-восток"
+		if (NORTHWEST)  return "северо-запад"
+		if (SOUTHWEST)  return "юго-запад"
+		if (UP)  return "вверх"
+		if (DOWN)  return "вниз"
+		// End of Bastion of Endeavor Translation
 
 // Turns text into proper directions
 /proc/text2dir(direction)
@@ -95,6 +112,17 @@
 		if ("NORTHWEST") return 9
 		if ("SOUTHEAST") return 6
 		if ("SOUTHWEST") return 10
+		// Bastion of Endeavor Addition: TODO: Ideally, this should be translated all across the board, but not now.
+		if ("СЕВЕР")     return 1
+		if ("ЮГ")     return 2
+		if ("ВОСТОК")      return 4
+		if ("ЗАПАД")      return 8
+		if ("СЕВЕРО-ВОСТОК") return 5
+		if ("СЕВЕРО-ЗАПАД") return 9
+		if ("ЮГО-ВОСТОК") return 6
+		if ("ЮГО-ЗАПАД") return 10
+		// End of Bastion of Endeavor Addition
+
 
 // Converts an angle (degrees) into an ss13 direction
 /proc/angle2dir(var/degree)
@@ -253,6 +281,7 @@
 
 	. = list()
 
+	/* Bastion of Endeavor Edit: Practically unneeded, but Unicode support. 
 	var/var_found = findtext(t_string,"\[") //Not the actual variables, just a generic "should we even bother" check
 	if(var_found)
 		//Find var names
@@ -273,13 +302,36 @@
 				for(var/A in value)
 					if(var_source.vars.Find(A))
 						. += A
+	*/
+	var/var_found = findtext_char(t_string,"\[")
+	if(var_found)
+		t_string = replacetext_char(t_string,"\[","\[ ")
+		var/list/list_value = splittext_char(t_string,"\[")
+		var/intermediate_stage = jointext(list_value, null)
+
+		list_value = splittext_char(intermediate_stage," ")
+		for(var/value in list_value)
+			if(findtext_char(value,"]"))
+				value = splittext_char(value,"]")
+				for(var/A in value)
+					if(var_source.vars.Find(A))
+						. += A
+	// End of Bastion of Endeavor Edit
 
 /proc/get_end_section_of_type(type)
+	/* Bastion of Endeavor Edit: No clue if this is needed, but oh well. Unicode support.
 	var/strtype = "[type]"
 	var/delim_pos = findlasttext(strtype, "/")
 	if(delim_pos == 0)
 		return strtype
 	return copytext(strtype, delim_pos)
+	*/
+	var/strtype = "[type]"
+	var/delim_pos = findlasttext_char(strtype, "/")
+	if(delim_pos == 0)
+		return strtype
+	return copytext_char(strtype, delim_pos)
+	// End of Bastion of Endeavor Edit
 
 // Concatenates a list of strings into a single string.  A seperator may optionally be provided.
 /proc/list2text(list/ls, sep)
@@ -368,6 +420,7 @@
 
 // Converts a string into a list by splitting the string at each delimiter found. (discarding the seperator)
 /proc/text2list(text, delimiter="\n")
+	/* Bastion of Endeavor Edit: Unicode support.
 	var/delim_len = length(delimiter)
 	if (delim_len < 1)
 		return list(text)
@@ -381,8 +434,24 @@
 		.          += copytext(text, last_found, found)
 		last_found  = found + delim_len
 	while (found)
+	*/
+	var/delim_len = length_char(delimiter)
+	if (delim_len < 1)
+		return list(text)
+
+	. = list()
+	var/last_found = 1
+	var/found
+
+	do
+		found       = findtext_char(text, delimiter, last_found, 0)
+		.          += copytext_char(text, last_found, found)
+		last_found  = found + delim_len
+	while (found)
+	// End of Bastion of Endeavor Edit
 
 /proc/type2parent(child)
+	/* Bastion of Endeavor Edit: Unicode support.
 	var/string_type = "[child]"
 	var/last_slash = findlasttext(string_type, "/")
 	if(last_slash == 1)
@@ -397,3 +466,19 @@
 				return /datum
 
 	return text2path(copytext(string_type, 1, last_slash))
+
+	*/
+	var/string_type = "[child]"
+	var/last_slash = findlasttext_char(string_type, "/")
+	if(last_slash == 1)
+		switch(child)
+			if(/datum)
+				return null
+			if(/obj || /mob)
+				return /atom/movable
+			if(/area || /turf)
+				return /atom
+			else
+				return /datum
+	return text2path(copytext_char(string_type, 1, last_slash))
+	// End of Bastion of Endeavor Edit

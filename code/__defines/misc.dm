@@ -497,7 +497,7 @@ var/global/list/##LIST_NAME = list();\
 #define VOLUME_CHANNEL_VORE "Vore"
 #define VOLUME_CHANNEL_DOORS "Doors"
 */
-#define VOLUME_CHANNEL_MASTER "Мастер"
+#define VOLUME_CHANNEL_MASTER "Общая громкость"
 #define VOLUME_CHANNEL_AMBIENCE "Окружение"
 #define VOLUME_CHANNEL_ALARMS "Тревоги"
 #define VOLUME_CHANNEL_VORE "Звуки Vore"
