@@ -302,7 +302,7 @@ var/global/list/consonants = list("б", "в", "г", "д", "ж", "з", "й", "к"
 	..()
 
 /client/proc/case_viewer(var/atom/A in world)
-	set category = "Debug"
+	set category = "Дебаг"
 	set name = "Проверить Падежи"
 	set desc = "Отобразить падежи атома."
 
@@ -312,7 +312,7 @@ var/global/list/consonants = list("б", "в", "г", "д", "ж", "з", "й", "к"
 			to_chat(usr, "[(case == "rugender")? "Род: [A.ru_cases[case]]" : "[case]: [A.ru_cases[case]]"]<br>")
 
 /client/proc/case_editor(var/atom/A in world)
-	set category = "Debug"
+	set category = "Дебаг"
 	set name = "Установить Падежи"
 	set desc = "Установить род и падежи атома."
 

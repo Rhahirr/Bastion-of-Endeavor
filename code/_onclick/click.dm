@@ -186,7 +186,10 @@
 		return 0
 
 	if(!ticker)
+		/* Bastion of Endeavor Translation
 		to_chat(src, "You cannot attack people before the game has started.")
+		*/
+		to_chat(src, "Вы не можете атаковать до начала игры.")
 		return 0
 
 	if(stat)
@@ -291,7 +294,10 @@
 		listed_turf = null
 	else
 		listed_turf = T
+		/* Bastion of Endeavor Translation: Bastion of Endeavor TODO: Needs to be translated elsewhere.
 		client.statpanel = "Turf"
+		*/
+		client.statpanel = "Тюрф"
 
 /mob/proc/TurfAdjacent(var/turf/T)
 	return T.AdjacentQuick(src)
@@ -334,7 +340,11 @@
 		nutrition = max(nutrition - rand(1,5),0)
 		handle_regular_hud_updates()
 	else
+		/* Bastion of Endeavor Translation
 		to_chat(src, "<span class='warning'>You're out of energy!  You need food!</span>")
+		*/
+		to_chat(src, "<span class='warning'>У Вас закончилась энергия! Вам необходима еда!</span>")
+		// End of Bastion of Endeavor Translation
 
 // Simple helper to face what you clicked on, in case it should be needed in more than one place
 /mob/proc/face_atom(var/atom/A)
@@ -354,7 +364,11 @@
 		facedir(direction)
 
 /obj/screen/click_catcher
+	/* Bastion of Endeavor Translation: Doesn't make sense to have it as darkness, so I'm changing it to 'space'.
 	name = "Darkness"
+	*/
+	name = "Пространство"
+	// End of Bastion of Endeavor Translation
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "click_catcher"
 	plane = CLICKCATCHER_PLANE

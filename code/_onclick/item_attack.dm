@@ -44,7 +44,11 @@ avoid code duplication. This includes items that may sometimes act as a standard
 /atom/movable/attackby(obj/item/W, mob/user, var/attack_modifier, var/click_parameters)
 	. = ..()
 	if(!. && !(W.flags & NOBLUDGEON))
+		/* Bastion of Endeavor Translation
 		visible_message("<span class='danger'>[src] has been hit by [user] with [W].</span>")
+		*/
+		visible_message("<span class='danger'>[ru_cap(user)] [ru_v(user, "ударил")] [ru_case(src, "acase")] [ru_case(W, "icase")].</span>")
+		// End of Bastion of Endeavor Translation
 
 /mob/living/attackby(obj/item/I, mob/user, var/attack_modifier, var/click_parameters)
 	if(!ismob(user))
@@ -87,7 +91,11 @@ avoid code duplication. This includes items that may sometimes act as a standard
 	M.lastattacker = user
 
 	if(!no_attack_log)
+		/* Bastion of Endeavor Translation
 		add_attack_logs(user,M,"attacked with [name] (INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])")
+		*/
+		add_attack_logs(user,M,"Атака [ru_case(src, "icase")] (НАМЕРЕНИЕ: [uppertext(user.a_intent)]) (ТИП УРОНА: [uppertext(damtype)])")
+		// End of Bastion of Endeavor Translation
 	/////////////////////////
 
 	user.setClickCooldown(user.get_attack_speed(src))

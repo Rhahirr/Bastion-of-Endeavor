@@ -12,6 +12,7 @@
 	closeToolTip(usr)
 
 /obj/screen/ghost/returntomenu
+/* Bastion of Endeavor Translation
 	name = "Return to menu"
 	desc = "Return to the title screen menu."
 	icon_state = "returntomenu"
@@ -85,6 +86,81 @@
 	name = "Move Downwards"
 	desc = "Move down a z-level."
 	icon_state = "down"
+*/ 
+	name = "Вернуться в меню"
+	desc = "Вернуться обратно в меню."
+	icon_state = "returntomenu"
+
+/obj/screen/ghost/returntomenu/Click()
+	..()
+	var/mob/observer/dead/G = usr
+	G.abandon_mob()
+
+/obj/screen/ghost/jumptomob
+	name = "Прыгнуть к мобу"
+	desc = "Выбрать моба и переместиться к нему."
+	icon_state = "jumptomob"
+
+/obj/screen/ghost/jumptomob/Click()
+	..()
+	var/mob/observer/dead/G = usr
+	G.jumptomob()
+
+/obj/screen/ghost/orbit
+	name = "Преследовать"
+	desc = "Выбрать моба и следовать за ним."
+	icon_state = "orbit"
+
+/obj/screen/ghost/orbit/Click()
+	..()
+	var/mob/observer/dead/G = usr
+	G.follow()
+
+/obj/screen/ghost/reenter_corpse
+	name = "Войти в тело"
+	desc = "При условии, что тело есть..."
+	icon_state = "reenter_corpse"
+
+/obj/screen/ghost/reenter_corpse/Click()
+	..()
+	var/mob/observer/dead/G = usr
+	G.reenter_corpse()
+
+/obj/screen/ghost/teleport
+	name = "Телепортироваться"
+	desc = "Выбрать место и телепортироваться в него."
+	icon_state = "teleport"
+
+/obj/screen/ghost/teleport/Click()
+	..()
+	var/mob/observer/dead/G = usr
+	G.dead_tele()
+
+/obj/screen/ghost/pai
+	name = "Подсветить ПИИ"
+	desc = "Подсветить все свободные ПИИ."
+	icon_state = "pai"
+
+/obj/screen/ghost/pai/Click()
+	..()
+	var/mob/observer/dead/G = usr
+	G.paialert()
+
+/obj/screen/ghost/up
+	name = "Переместиться вверх"
+	desc = "Подняться на один Z-уровень."
+	icon_state = "up"
+
+/obj/screen/ghost/up/Click()
+	..()
+	var/mob/observer/dead/G = usr
+	G.zMove(UP)
+
+/obj/screen/ghost/down
+	name = "Переместиться вниз"
+	desc = "Опуститься на один Z-уровень."
+	icon_state = "down"
+// End of Bastion of Endeavor Translation
 
 /obj/screen/ghost/down/Click()
 	..()

@@ -141,6 +141,7 @@
 /obj/screen/rig
 	icon = 'icons/mob/screen_rigmech.dmi'
 
+/* Bastion of Endeavor Translation
 /obj/screen/rig/deco1
 	name = "RIG Status"
 	icon_state = "frame1_1"
@@ -180,6 +181,47 @@
 	name = "Toggle Air"
 	icon_state = "airoff"
 	screen_loc = ui_rig_airtoggle
+*/
+/obj/screen/rig/deco1
+	name = "Состояние ИКС"
+	icon_state = "frame1_1"
+	screen_loc = ui_rig_deco1
+
+/obj/screen/rig/deco2
+	name = "Состояние ИКС"
+	icon_state = "frame1_2"
+	screen_loc = ui_rig_deco2
+
+/obj/screen/rig/deco1_f
+	name = "Состояние ИКС"
+	icon_state = "frame1_1_far"
+	screen_loc = ui_rig_deco1_f
+
+/obj/screen/rig/deco2_f
+	name = "Состояние ИКС"
+	icon_state = "frame1_2_far"
+	screen_loc = ui_rig_deco2_f
+
+/obj/screen/rig/power
+	name = "Уровень заряда"
+	icon_state = "pwr5"
+	screen_loc = ui_rig_pwr
+
+/obj/screen/rig/health
+	name = "Целостность"
+	icon_state = "health5"
+	screen_loc = ui_rig_health
+
+/obj/screen/rig/air
+	name = "Резервуар воздуха"
+	icon_state = "air5"
+	screen_loc = ui_rig_air
+
+/obj/screen/rig/airtoggle
+	name = "Подача воздуха"
+	icon_state = "airoff"
+	screen_loc = ui_rig_airtoggle
+// End of Bastion of Endeavor Translation
 
 /obj/screen/rig/airtoggle/Click()
 	var/mob/living/carbon/human/user = usr
@@ -193,6 +235,7 @@
 /obj/screen/mech
 	icon = 'icons/mob/screen_rigmech.dmi'
 
+/*
 /obj/screen/mech/deco1
 	name = "Mech Status"
 	icon_state = "frame1_1"
@@ -232,6 +275,47 @@
 	name = "Toggle Air"
 	icon_state = "airoff"
 	screen_loc = ui_mech_airtoggle
+*/
+/obj/screen/mech/deco1
+	name = "Состояние меха"
+	icon_state = "frame1_1"
+	screen_loc = ui_mech_deco1
+
+/obj/screen/mech/deco2
+	name = "Состояние меха"
+	icon_state = "frame1_2"
+	screen_loc = ui_mech_deco2
+
+/obj/screen/mech/deco1_f
+	name = "Состояние меха"
+	icon_state = "frame1_1_far"
+	screen_loc = ui_mech_deco1_f
+
+/obj/screen/mech/deco2_f
+	name = "Состояние меха"
+	icon_state = "frame1_2_far"
+	screen_loc = ui_mech_deco2_f
+
+/obj/screen/mech/power
+	name = "Уровень заряда"
+	icon_state = "pwr5"
+	screen_loc = ui_mech_pwr
+
+/obj/screen/mech/health
+	name = "Целостность"
+	icon_state = "health5"
+	screen_loc = ui_mech_health
+
+/obj/screen/mech/air
+	name = "Резервуар воздуха"
+	icon_state = "air5"
+	screen_loc = ui_mech_air
+
+/obj/screen/mech/airtoggle
+	name = "Подача воздуха"
+	icon_state = "airoff"
+	screen_loc = ui_mech_airtoggle
+// End of Bastion of Endeavor Translation
 
 /obj/screen/mech/airtoggle/Click()
 	var/mob/living/carbon/human/user = usr

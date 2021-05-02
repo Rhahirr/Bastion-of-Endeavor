@@ -19,7 +19,11 @@ var/global/datum/universal_state/universe = new
 var/global/list/global_map = null
 
 // Noises made when hit while typing.
+/* Bastion of Endeavor Translation: Unsure of how this is going to end up looking, but should work.
 var/list/hit_appends	= list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
+*/
+var/list/hit_appends	= list("-УФ", "-АЙ", "-ЭЙ", "-ГХХ", "-КХХ", "-МХХ")
+// End of Bastion of Endeavor Translation
 var/log_path			= "data/logs/" //See world.dm for the full calculated path
 var/diary				= null
 var/error_log			= null
@@ -143,6 +147,12 @@ var/list/robot_module_types = list(
 	"Standard", "Engineering", "Surgeon",  "Crisis",
 	"Miner",    "Janitor",     "Service",      "Clerical", "Security",
 	"Research"
+	/* Bastion of Endeavor Translation: This is commented out until we get our borgs working.
+	"Стандартный", "Инженерный", "Хирургический",  "Экстренный",
+	"Шахтёрный",    "Уборщик",     "Обслуживающий",      "Канцелярский", "Служба безопасности",
+	"Научно-исследовательский"
+	*/
+	// End of Bastion of Endeavor Translation
 )
 
 // Some scary sounds.
@@ -179,9 +189,15 @@ var/list/station_departments = list("Управление", "Медицинск�
 // End of Bastion of Endeavor Translation
 
 //Icons for in-game HUD glasses. Why don't we just share these a little bit?
+/* Bastion of Endeavor Edit: Russian icons.
 var/static/icon/ingame_hud = icon('icons/mob/hud.dmi')
 var/static/icon/ingame_hud_med = icon('icons/mob/hud_med.dmi')
 var/static/icon/buildmode_hud = icon('icons/misc/buildmode.dmi')
+*/
+var/static/icon/ingame_hud = icon('icons/russian/hud_ru.dmi')
+var/static/icon/ingame_hud_med = icon('icons/mob/hud_med.dmi')
+var/static/icon/buildmode_hud = icon('icons/russian/buildmode_ru.dmi')
+// End of Bastion of Endeavor Edit
 
 //Keyed list for caching icons so you don't need to make them for records, IDs, etc all separately.
 //Could be useful for AI impersonation or something at some point?

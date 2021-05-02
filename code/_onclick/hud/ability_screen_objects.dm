@@ -1,5 +1,9 @@
 /obj/screen/movable/ability_master
+	/* Bastion of Endeavor Translation
 	name = "Abilities"
+	*/
+	name = "Способности"
+	// End of Bastion of Endeavor Translation
 	icon = 'icons/mob/screen_spells.dmi'
 	icon_state = "grey_spell_ready"
 	var/list/obj/screen/ability/ability_objects = list()
@@ -17,7 +21,11 @@
 		my_mob = owner
 		update_abilities(0, owner)
 	else
+		/* Bastion of Endeavor Translation
 		message_admins("ERROR: ability_master's New() was not given an owner argument.  This is a bug.")
+		*/
+		message_admins("ОШИБКА: Прок New() у ability_master не получил аргумент с владельцем. Это баг.")
+		// End of Bastion of Endeavor Translation
 
 /obj/screen/movable/ability_master/Destroy()
 	. = ..()
@@ -270,7 +278,11 @@
 
 // Makes the ability be triggered.  The subclasses of this are responsible for carrying it out in whatever way it needs to.
 /obj/screen/ability/proc/activate()
+	/* Bastion of Endeavor Translation
 	to_world("[src] had activate() called.")
+	*/
+	to_world("[src] [ru_v(src, "вызвал")] прок activate().")
+	// End of Bastion of Endeavor Translation
 	return
 
 // This checks if the ability can be used.
@@ -283,7 +295,11 @@
 	if(!mob)
 		return // Paranoid.
 	if(isnull(slot) || !isnum(slot))
+		/* Bastion of Endeavor Translation
 		to_chat(src, "<span class='warning'>.activate_ability requires a number as input, corrisponding to the slot you wish to use.</span>")
+		*/
+		to_chat(src, "<span class='warning'>Глагол .activate_ability требует число, соответствующее нужному Вам слоту.</span>")
+		// End of Bastion of Endeavor Translation
 		return // Bad input.
 	if(!mob.ability_master)
 		return // No abilities.
@@ -312,10 +328,17 @@
 //			message_admins("ERROR: activate() on [ability_master.my_mob]'s [src] failed the hascall([object_used],[verb_to_call]) check.")
 
 /obj/screen/movable/ability_master/proc/add_verb_ability(var/object_given, var/verb_given, var/name_given, var/ability_icon_given, var/arguments)
+	/* Bastion of Endeavor Translation
 	if(!object_given)
 		message_admins("ERROR: add_verb_ability() was not given an object in its arguments.")
 	if(!verb_given)
 		message_admins("ERROR: add_verb_ability() was not given a verb/proc in its arguments.")
+	*/
+	if(!object_given)
+		message_admins("Ошибка: прок add_verb_ability() не получил аргумент с объектом.")
+	if(!verb_given)
+		message_admins("Ошибка: прок add_verb_ability() не получил аргумент с глаголом/проком.")
+	// End of Bastion of Endeavor Translation
 	if(get_ability_by_proc_ref(verb_given))
 		return // Duplicate
 	var/obj/screen/ability/verb_based/A = new /obj/screen/ability/verb_based()
@@ -336,10 +359,17 @@
 	background_base_state = "ling"
 
 /obj/screen/movable/ability_master/proc/add_ling_ability(var/object_given, var/verb_given, var/name_given, var/ability_icon_given, var/arguments)
+	/* Bastion of Endeavor Translation
 	if(!object_given)
 		message_admins("ERROR: add_ling_ability() was not given an object in its arguments.")
 	if(!verb_given)
 		message_admins("ERROR: add_ling_ability() was not given a verb/proc in its arguments.")
+	*/
+	if(!object_given)
+		message_admins("ОШИБКА: Прок add_ling_ability() не получил аргумент с объектом.")
+	if(!verb_given)
+		message_admins("ОШИБКА: Прок add_ling_ability() не получил аргумент с глаголом/проком.")
+	// End of Bastion of Endeavor Translation
 	if(get_ability_by_proc_ref(verb_given))
 		return // Duplicate
 	var/obj/screen/ability/verb_based/changeling/A = new /obj/screen/ability/verb_based/changeling()
@@ -373,7 +403,11 @@
 
 /obj/screen/movable/ability_master/proc/add_technomancer_ability(var/obj/object_given, var/ability_icon_given)
 	if(!object_given)
+		/* Bastion of Endeavor Translation
 		message_admins("ERROR: add_technomancer_ability() was not given an object in its arguments.")
+		*/
+		message_admins("ОШИБКА: Прока add_technomancer_ability() не получил аргумент с глаголом.")
+		// End of Bastion of Endeavor Translation
 	if(get_ability_by_instance(object_given))
 		return // Duplicate
 	var/obj/screen/ability/obj_based/technomancer/A = new /obj/screen/ability/obj_based/technomancer()

@@ -355,7 +355,11 @@ datum/hud/New(mob/owner)
 	set hidden = 1
 
 	if(!hud_used)
+		/* Bastion of Endeavor Translation
 		to_chat(usr, "<span class='warning'>This mob type does not use a HUD.</span>")
+		*/
+		to_chat(usr, "<span class='warning'>Данный тип моба не использует HUD.</span>")
+		// Bastion of Endeavor Translation
 		return FALSE
 	if(!client)
 		return FALSE

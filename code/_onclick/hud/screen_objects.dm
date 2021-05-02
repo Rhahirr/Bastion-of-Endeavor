@@ -8,7 +8,11 @@
 */
 /obj/screen
 	name = ""
+	/* Bastion of Endeavor Edit: Russian icons. Don't see the harm in defining them here.
 	icon = 'icons/mob/screen1.dmi'
+	*/
+	icon = 'icons/russian/screen1_ru.dmi'
+	// End of Bastion of Endeavor Edit
 	appearance_flags = TILE_BOUND|PIXEL_SCALE|NO_CLIENT_COLOR
 	layer = LAYER_HUD_BASE
 	plane = PLANE_PLAYER_HUD
@@ -66,7 +70,11 @@
 		add_overlay(object_overlays)
 
 /obj/screen/close
+	/* Bastion of Endeavor Translation
 	name = "close"
+	*/
+	name = "Закрыть"
+	// End of Bastion of Endeavor Translation
 
 /obj/screen/close/Click()
 	if(master)
@@ -99,7 +107,11 @@
 	return 1
 
 /obj/screen/grab
+	/* Bastion of Endeavor Translation
 	name = "grab"
+	*/ 
+	name = "Захват"
+	// End of Bastion of Endeavor Translation
 
 /obj/screen/grab/Click()
 	var/obj/item/weapon/grab/G = master
@@ -114,7 +126,11 @@
 
 
 /obj/screen/storage
+	/* Bastion of Endeavor Translation
 	name = "storage"
+	*/
+	name = "Хранилище"
+	// End of Bastion of Endeavor Translation
 
 /obj/screen/storage/Click()
 	if(!usr.checkClickCooldown())
@@ -130,7 +146,11 @@
 	return 1
 
 /obj/screen/zone_sel
+	/* Bastion of Endeavor Translation
 	name = "damage zone"
+	*/
+	name = "Участок тела"
+	// End of Bastion of Endeavor Translation
 	icon_state = "zone_sel"
 	screen_loc = ui_zonesel
 	var/selecting = BP_TORSO
@@ -248,7 +268,11 @@
 /obj/screen/Click(location, control, params)
 	if(!usr)	return 1
 	switch(name)
+		/* Bastion of Endeavor Translation
 		if("toggle")
+		*/
+		if("Снаряжение")
+		// End of Bastion of Endeavor Translation
 			if(usr.hud_used.inventory_shown)
 				usr.hud_used.inventory_shown = 0
 				usr.client.screen -= usr.hud_used.other
@@ -258,24 +282,40 @@
 
 			usr.hud_used.hidden_inventory_update()
 
+		/* Bastion of Endeavor Translation
 		if("equip")
+		*/
+		if("Надеть")
+		// End of Bastion of Endeavor Translation
 			if (istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 				return 1
 			if(ishuman(usr))
 				var/mob/living/carbon/human/H = usr
 				H.quick_equip()
 
+		/* Bastion of Endeavor Translation
 		if("resist")
+		*/
+		if("Сопротивляться")
+		// End of Bastion of Endeavor Translation
 			if(isliving(usr))
 				var/mob/living/L = usr
 				L.resist()
 
+		/* Bastion of Endeavor Translation
 		if("mov_intent")
+		*/
+		if("Передвижение")
+		// End of Bastion of Endeavor Translation
 			if(isliving(usr))
 				if(iscarbon(usr))
 					var/mob/living/carbon/C = usr
 					if(C.legcuffed)
+						/* Bastion of Endeavor Translation
 						to_chat(C, "<span class='notice'>You are legcuffed! You cannot run until you get [C.legcuffed] removed!</span>")
+						*/
+						to_chat(C, "<span class='notice'>Ваши ноги связаны! Вы не сможете бегать, пока не снимете [ru_case(C.legcuffed, "acase")]!</span>")
+						// End of Bastion of Endeavor Translation
 						C.m_intent = "walk"	//Just incase
 						C.hud_used.move_intent.icon_state = "walking"
 						return 1
@@ -309,13 +349,21 @@
 			usr.m_int = "13,14"
 		if("Reset Machine")
 			usr.unset_machine()
+		/* Bastion of Endeavor Translation
 		if("internal")
+		*/
+		if("Подача воздуха")
+		// End of Bastion of Endeavor Translation
 			if(iscarbon(usr))
 				var/mob/living/carbon/C = usr
 				if(!C.stat && !C.stunned && !C.paralysis && !C.restrained())
 					if(C.internal)
 						C.internal = null
+						/* Bastion of Endeavor Translation
 						to_chat(C, "<span class='notice'>No longer running on internals.</span>")
+						*/
+						to_chat(C, "<span class='notice'>Вы больше не дышите через систему подачи воздуха.</span>")
+						// End of Bastion of Endeavor Translation
 						if(C.internals)
 							C.internals.icon_state = "internal0"
 					else
@@ -327,13 +375,18 @@
 								no_mask = 1
 
 						if(no_mask)
+							/* Bastion of Endeavor Translation
 							to_chat(C, "<span class='notice'>You are not wearing a suitable mask or helmet.</span>")
+							*/
+							to_chat(C, "<span class='notice'>Вы не носите подходящий шлем или маску.</span>")
+							// End of Bastion of Endeavor Translation
 							return 1
 						else
 							var/list/nicename = null
 							var/list/tankcheck = null
 							var/breathes = "oxygen"    //default, we'll check later
 							var/list/contents = list()
+							/* Bastion of Endeavor Translation: This kind of display fails to work in russian, so I'm flipping this entirely.
 							var/from = "on"
 
 							if(ishuman(C))
@@ -352,6 +405,24 @@
 									from = "in"
 									nicename |= "hardsuit"
 									tankcheck |= Rig.air_supply
+							*/
+							//var/from = "on"
+
+							if(ishuman(C))
+								var/mob/living/carbon/human/H = C
+								breathes = H.species.breath_type
+								nicename = list ("на своей одежде", "на своей спине", "на своей талии", "в своей правой руке", "в своей левой руке", "в своём левом кармане", "в своём правом кармане")
+								tankcheck = list (H.s_store, C.back, H.belt, C.r_hand, C.l_hand, H.l_store, H.r_store)
+							else
+								nicename = list("в своей правой руке", "в своей левой руке", "на своей спине")
+								tankcheck = list(C.r_hand, C.l_hand, C.back)
+							var/obj/item/weapon/rig/Rig = C.get_rig()
+							if(Rig)
+								if(Rig.air_supply && !Rig.offline)
+									//from = "in"
+									nicename |= "в своём скафандре"
+									tankcheck |= Rig.air_supply
+							// End of Bastion of Endeavor Translation
 
 							for(var/i=1, i<tankcheck.len+1, ++i)
 								if(istype(tankcheck[i], /obj/item/weapon/tank))
@@ -408,7 +479,11 @@
 							//We've determined the best container now we set it as our internals
 
 							if(best)
+								/* Bastion of Endeavor Translation: This doesn't work as well in russian so I'm flipping this entirely.
 								to_chat(C, "<span class='notice'>You are now running on internals from [tankcheck[best]] [from] your [nicename[best]].</span>")
+								*/
+								to_chat(C, "<span class='notice'>Вы теперь дышите через [ru_case(tankcheck[best], "acase")] [nicename[best]].</span>")
+								// End of Bastion of Endeavor Translation
 								C.internal = tankcheck[best]
 
 
@@ -416,8 +491,16 @@
 								if(C.internals)
 									C.internals.icon_state = "internal1"
 							else
+								/* Bastion of Endeavor Translation: Bastion of Endeavor TODO: As of right now, atmos is not translated, so a bandaid correction is added. Does this need fixing later on? I don't know.
 								to_chat(C, "<span class='notice'>You don't have a[breathes=="oxygen" ? "n oxygen" : addtext(" ",breathes)] tank.</span>")
+								*/
+								to_chat(C, "<span class='notice'>На Вас нет [(breathes=="oxygen") ? "кислородного" : (breathes=="phoron") ? "форонового" : "азотного"] баллона.</span>")
+								// End of Bastion of Endeavor Translation
+		/* Bastion of Endeavor Translation
 		if("act_intent")
+		*/
+		if("Намерение")
+		// End of Bastion of Endeavor Translation
 			usr.a_intent_change("right")
 		if(I_HELP)
 			usr.a_intent = I_HELP
@@ -432,6 +515,7 @@
 			usr.a_intent = I_DISARM
 			usr.hud_used.action_intent.icon_state = "intent_disarm"
 
+		/* Bastion of Endeavor Translation: Lord forgive me, for I have sinned.
 		if("pull")
 			usr.stop_pulling()
 		if("throw")
@@ -558,6 +642,134 @@
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
 				AI.view_images()
+		*/
+		if("Потянуть")
+			usr.stop_pulling()
+		if("Кинуть")
+			if(!usr.stat && isturf(usr.loc) && !usr.restrained())
+				usr:toggle_throw_mode()
+		if("Бросить")
+			if(usr.client)
+				usr.client.drop_item()
+
+		if("Модуль")
+			if(isrobot(usr))
+				var/mob/living/silicon/robot/R = usr
+//				if(R.module)
+//					R.hud_used.toggle_show_robot_modules()
+//					return 1
+				R.pick_module()
+
+		if("Инвентарь")
+			if(isrobot(usr))
+				var/mob/living/silicon/robot/R = usr
+				if(R.module)
+					R.hud_used.toggle_show_robot_modules()
+					return 1
+				else
+					to_chat(R, "Вы ещё не выбрали модуль.")
+
+		if("Рация")
+			if(issilicon(usr))
+				usr:radio_menu()
+		if("Панель")
+			if(issilicon(usr))
+				usr:installed_modules()
+
+		if("Убрать в инвентарь")
+			if(isrobot(usr))
+				var/mob/living/silicon/robot/R = usr
+				if(R.module)
+					R.uneq_active()
+				else
+					to_chat(R, "Вы ещё не выбрали модуль.")
+
+		if("Модуль 1")
+			if(istype(usr, /mob/living/silicon/robot))
+				usr:toggle_module(1)
+
+		if("Модуль 2")
+			if(istype(usr, /mob/living/silicon/robot))
+				usr:toggle_module(2)
+
+		if("Модуль 3")
+			if(istype(usr, /mob/living/silicon/robot))
+				usr:toggle_module(3)
+
+		if("Ядро ИИ")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.view_core()
+
+		if("Список камер")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				var/camera = input(AI) in AI.get_camera_list()
+				AI.ai_camera_list(camera)
+
+		if("Отслеживать камерами")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				var/target_name = input(AI) in AI.trackable_mobs()
+				AI.ai_camera_track(target_name)
+
+		if("Включить подсветку камеры")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.toggle_camera_light()
+
+		if("Мониторинг персонала")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.subsystem_crew_monitor()
+
+		if("Список персонала")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.subsystem_crew_manifest()
+
+		if("Показать тревоги")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.subsystem_alarm_monitor()
+
+		if("Объявление")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.ai_announcement()
+
+		if("Вызвать аварийный шаттл")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.ai_call_shuttle()
+
+		if("Перечислить законы")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.ai_checklaws()
+
+		if("КПК - Отправить сообщение")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.aiPDA.start_program(AI.aiPDA.find_program(/datum/data/pda/app/messenger))
+				AI.aiPDA.cmd_pda_open_ui(usr)
+
+		if("КПК - История сообщений")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.aiPDA.start_program(AI.aiPDA.find_program(/datum/data/pda/app/messenger))
+				AI.aiPDA.cmd_pda_open_ui(usr)
+
+		if("Сфотографировать")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.take_image()
+
+		if("Смотреть фотографии")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.view_images()
+		// End of Bastion of Endeavor Translation
 		else
 			return attempt_vr(src,"Click_vr",list(location,control,params)) //VOREStation Add - Additional things.
 	return 1
@@ -572,6 +784,7 @@
 	if (istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1
 	switch(name)
+		/* Bastion of Endeavor Translation
 		if("r_hand")
 			if(iscarbon(usr))
 				var/mob/living/carbon/C = usr
@@ -588,6 +801,24 @@
 			if(usr.attack_ui(slot_id))
 				usr.update_inv_l_hand(0)
 				usr.update_inv_r_hand(0)
+		*/
+		if("Правая рука")
+			if(iscarbon(usr))
+				var/mob/living/carbon/C = usr
+				C.activate_hand("r")
+		if("Левая рука")
+			if(iscarbon(usr))
+				var/mob/living/carbon/C = usr
+				C.activate_hand("l")
+		if("Сменить руку")
+			usr:swap_hand()
+		if("Рука")
+			usr:swap_hand()
+		else
+			if(usr.attack_ui(slot_id))
+				usr.update_inv_l_hand(0)
+				usr.update_inv_r_hand(0)
+		// End of Bastion of Endeavor Translation
 	return 1
 
 // Hand slots are special to handle the handcuffs overlay

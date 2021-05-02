@@ -20,7 +20,11 @@
 	if(alerts[category])
 		alert = alerts[category]
 		if(new_master && new_master != alert.master)
+			/* Bastion of Endeavor Translation
 			WARNING("[src] threw alert [category] with new_master [new_master] while already having that alert with master [alert.master]")
+			*/
+			WARNING("[src] отправил alert [category] с new_master [new_master], уже имея alert с master [alert.master]")
+			// End of Bastion of Endeavor Translation
 			clear_alert(category)
 			return .()
 		else if(alert.type != type)
@@ -73,10 +77,19 @@
 	qdel(alert)
 
 /obj/screen/alert
+	/* Bastion of Endeavor Edit: We have a dmi with russian icons.
 	icon = 'icons/mob/screen_alert.dmi'
+	*/
+	icon = 'icons/russian/screen_alert_ru.dmi'
+	// End of Bastion of Endeavor Edit
 	icon_state = "default"
+	/* Bastion of Endeavor Translation
 	name = "Alert"
 	desc = "Something seems to have gone wrong with this alert, so report this bug please"
+	*/
+	name = "Уведомление"
+	desc = "С этим уведомлением что-то пошло не так, так что просьба доложить об этом баге."
+	// End of Bastion of Endeavor Translation
 	mouse_opacity = 1
 	var/timeout = 0 //If set to a number, this alert will clear itself after that many deciseconds
 	var/severity = 0
@@ -93,6 +106,7 @@
 
 
 //Gas alerts
+/* Bastion of Endeavor Translation
 /obj/screen/alert/not_enough_oxy
 	name = "Choking (No O2)"
 	desc = "You're not getting enough oxygen. Find some good air before you pass out! \
@@ -149,9 +163,68 @@ The box in your backpack has an oxygen tank and gas mask in it."
 	name = "Choking (No Sleeping Gas)"
 	desc = "You're not getting enough sleeping gas. Find some good air before you pass out!"
 	icon_state = "not_enough_tox"
+*/
+/obj/screen/alert/not_enough_oxy
+	name = "Удушье (Мало O2)"
+	desc = "Вам не хватает кислорода. Сделайте глоток свежего воздуха, пока не упали в обморок! \
+В Вашем рюкзаке есть коробка с баллоном и дыхательной маской."
+	icon_state = "not_enough_oxy"
+
+/obj/screen/alert/too_much_oxy
+	name = "Удушье (O2)"
+	desc = "В воздухе слишком много кислорода, невозможно дышать! Сделайте глоток нормального воздуха, пока не упали в обморок!"
+	icon_state = "too_much_oxy"
+
+/obj/screen/alert/not_enough_nitro
+	name = "Удушье (Мало N)"
+	desc = "Вам не хватает азота, чтобы дышать. Сделайте глоток нормального воздуха, пока не упали в обморок!"
+	icon_state = "not_enough_nitro"
+
+/obj/screen/alert/too_much_nitro
+	name = "Удушье (N)"
+	desc = "В воздухе слишком много азота, невозможно дышать! Сделайте глоток нормального воздуха, пока не упали в обморок!"
+	icon_state = "too_much_nitro"
+
+/obj/screen/alert/not_enough_co2
+	name = "Удушье (Мало CO2)"
+	desc = "Вам не хватает углекислого газа. Сделайте глоток нормального воздуха, пока не упали в обморок!"
+	icon_state = "not_enough_co2"
+
+/obj/screen/alert/too_much_co2
+	name = "Удушье (CO2)"
+	desc = "В воздухе слишком много углекислого газа, невозможно дышать! Сделайте глоток нормального воздуха, пока не упали в обморок!"
+	icon_state = "too_much_co2"
+
+/obj/screen/alert/too_much_co2/plant
+	name = "Жизнь прекрасна"
+	desc = "В воздухе столько углекислого газа, это просто райское наслаждение. Разве что, остерегайтесь мешков мяса в обмороке."
+	icon_state = "too_much_co2"
+
+/obj/screen/alert/not_enough_tox
+	name = "Удушье (Мало форона)"
+	desc = "Вам не хватает форона, чтобы дышать. Сделайте глоток нормального воздуха, пока не упали в обморок!"
+	icon_state = "not_enough_tox"
+
+/obj/screen/alert/tox_in_air
+	name = "Удушье (Форон)"
+	desc = "Вы дышите легковоспламеняющимся токсичным фороном. Сделайте глоток нормального воздуха. \
+В Вашем рюкзаке есть коробка с баллоном и дыхательной маской."
+	icon_state = "too_much_tox"
+
+/obj/screen/alert/not_enough_fuel
+	name = "Удушье (Мало летучего топлива)"
+	desc = "Вам не хватает летучего топлива, чтобы дышать. Сделайте глоток нормального воздуха, пока не упали в обморок!"
+	icon_state = "not_enough_tox"
+
+/obj/screen/alert/not_enough_n2o
+	name = "Удушье (Мало усыпляющего газа)"
+	desc = "Вам не хватает усыпляющего газа. Сделайте глоток нормального воздуха, пока не упали в обморок!"
+	icon_state = "not_enough_tox"
+// End of Bastion of Endeavor Translation
 //End gas alerts
 
 
+/* Bastion of Endeavor Translation
 /obj/screen/alert/fat
 	name = "Fat"
 	desc = "You ate too much food, lardass. Run around the station and lose some weight."
@@ -281,10 +354,142 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	if(isliving(usr))
 		var/mob/living/L = usr
 		return L.resist()
+*/
+/obj/screen/alert/fat
+	name = "Лишний вес"
+	desc = "Вы слишком обожрались. Теперь отрабатывайте все эти калории, чтобы похудеть."
+	icon_state = "fat"
+
+/obj/screen/alert/fat/vampire
+	desc = "Вы слишком упились кровью. Теперь отрабатывайте все эти калории, чтобы похудеть."
+	icon_state = "v_fat"
+
+/obj/screen/alert/fat/synth
+	desc = "Ваш аккумулятор полностью заряжен. Не перегрузите его."
+	icon_state = "c_fat"
+
+/obj/screen/alert/hungry
+	name = "Аппетит"
+	desc = "Вы бы не отказались перекусить."
+	icon_state = "hungry"
+
+/obj/screen/alert/hungry/vampire
+	desc = "Вы бы сейчас не отказались от крови."
+	icon_state = "v_hungry"
+
+/obj/screen/alert/hungry/synth
+	desc = "Аккумулятор начинает садиться, не помешало бы подзарядить."
+	icon_state = "c_hungry"
+
+/obj/screen/alert/starving
+	name = "Голод"
+	desc = "Вы крайне голодны. Стонущий желудок затрудняет Ваше передвижение."
+	icon_state = "starving"
+
+/obj/screen/alert/starving/vampire
+	desc = "Вам *нужна* кровь, идите и вырвите кому-нибудь глотку!"
+	icon_state = "v_starving"
+
+/obj/screen/alert/starving/synth
+	desc = "Аккумулятор вот-вот сядет! Скорее подзарядитесь!"
+	icon_state = "c_starving"
+
+/obj/screen/alert/hot
+	name = "Жара"
+	desc = "Вам слишком жарко! Найдите место попрохладнее и снимите с себя теплоизолирующую одежду."
+	icon_state = "hot"
+
+/obj/screen/alert/hot/robot
+	desc = "Воздух вокруг Вас слишком горяч для гуманоидных рас. Старайтесь не допускать их контакта с этой средой."
+
+/obj/screen/alert/cold
+	name = "Мороз"
+	desc = "Вам слишком холодно! Найдите место потеплее и снимите с себя теплоизолирующую одежду."
+	icon_state = "cold"
+
+/obj/screen/alert/cold/robot
+	desc = "Воздух вокруг Вас слишком горяч для гуманоидных рас. Старайтесь не допускать их контакта с этой средой."
+
+/obj/screen/alert/lowpressure
+	name = "Низкое давление"
+	desc = "Вас окружает чрезмерно разреженный воздух. Вас может защитить скафандр."
+	icon_state = "lowpressure"
+
+/obj/screen/alert/highpressure
+	name = "Высокое давление"
+	desc = "Вас окружает чрезмерно плотный воздух. Вас может защитить противопожарный костюм."
+	icon_state = "highpressure"
+
+/obj/screen/alert/blind
+	name = "Слепота"
+	desc = "Вы ничего не видите! Это может быть вызвано повреждением глаз, генетическим дефектом, потерей сознания, \
+или же просто прикрытием глаз."
+	icon_state = "blind"
+
+/obj/screen/alert/stunned
+	name = "Оглушение"
+	desc = "Вы временно оглушены! Вам тяжело двигаться или выполнять действия, но это должно скоро пройти."
+	icon_state = "stun"
+
+/obj/screen/alert/paralyzed
+	name = "Паралич"
+	desc = "Вы парализованы! Это может быть вывано препаратами или серьёзной травмой. Вы не можете двигаться или выполнять действия."
+	icon_state = "paralysis"
+
+/obj/screen/alert/weakened
+	name = "Ослабление"
+	desc = "Вы ослаблены! Это временное состояние может быть вызвано как травмой, так и алкоголем или препаратами."
+	icon_state = "weaken"
+
+/obj/screen/alert/confused
+	name = "Запутанность"
+	desc = "Осторожно, Вы можете случайно во что-то врезаться! Это может быть вызвано сотрясением, препаратами или плохим физическим состоянием. Медленная ходьба поможет снизить риск."
+	icon_state = "confused"
+
+/obj/screen/alert/high
+	name = "Под кайфом"
+	desc = "Ух ты ж ё, да Вы под кайфом! Постарайтесь не подсесть... если этого ещё не случилось."
+	icon_state = "high"
+
+/obj/screen/alert/embeddedobject
+	name = "Инородный объект"
+	desc = "Что-то вонзилось в Вашу плоть и вызвало сильное кровотечение. Оно может выпасть само, но лучше довериться хирургии. \
+Если Вы готовы пойти на риск, Вы можете самостоятельно извлечь объект, нажав на себя правой кнопкой мыши и выбрав соответствующий глагол."
+	icon_state = "embeddedobject"
+
+/obj/screen/alert/embeddedobject/Click()
+	if(isliving(usr))
+		var/mob/living/carbon/human/M = usr
+		return M.help_shake_act(M)
+
+/obj/screen/alert/asleep
+	name = "Сон"
+	desc = "Вы уснули. Подождите немного, и Вы скоро проснётесь. Или нет."
+	icon_state = "asleep"
+
+/obj/screen/alert/weightless
+	name = "Невесомость"
+	desc = "Сила притяжения прекратила оказывать на Вас своё действие, и Вы бесцельно летаете в пространстве. Для того, чтобы перемещаться, необходимо что-то тяжёлое, \
+вроде стены или решётки, от которых можно было бы оттолкнуться. С помощью реактивного ранца можно перемещаться свободно, а \
+магнитные ботинки позволяют ходить по полу. Также из вариантов у Вас бросить что-нибудь в сторону, выстрелить из оружия или использовать огнетушитель, \
+чтобы оттолкнуться согласно третьему закону Ньютона."
+	icon_state = "weightless"
+
+/obj/screen/alert/fire
+	name = "В огне"
+	desc = "Вы горите. Бросьтесь вниз и катайтесь по полу, чтобы потушиться, или переместитесь в вакуум."
+	icon_state = "fire"
+
+/obj/screen/alert/fire/Click()
+	if(isliving(usr))
+		var/mob/living/L = usr
+		return L.resist()
+// End of Bastion of Endeavor Translation
 
 
 //ALIENS
 
+/* Bastion of Endeavor Translation
 /obj/screen/alert/alien_tox
 	name = "Plasma"
 	desc = "There's flammable plasma in the air. If it lights up, you'll be toast."
@@ -303,17 +508,45 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	desc = "Your queen has been killed, you will suffer movement penalties and loss of hivemind. A new queen cannot be made until you recover."
 	icon_state = "alien_noqueen"
 	alerttooltipstyle = "alien"
+*/
+/obj/screen/alert/alien_tox
+	name = "Плазма"
+	desc = "В воздухе воспламеняемая плазма. Если она загорится, Вам не жить."
+	icon_state = "alien_tox"
+	alerttooltipstyle = "alien"
+
+/obj/screen/alert/alien_fire
+	name = "Слишком жарко"
+	desc = "Горячо! Вам необходимо отдалиться от огня. Вы восстановите здоровье, если встанете на сорняки."
+	icon_state = "alien_fire"
+	alerttooltipstyle = "alien"
+
+/obj/screen/alert/alien_vulnerable
+	name = "Свергнутый матриархат"
+	desc = "Ваша королева была убита, поэтому Ваше передвижение затруднено, а коллективный разум — утрачен. Пока Вы не восстановитесь, новой королевы не будет."
+	icon_state = "alien_noqueen"
+	alerttooltipstyle = "alien"
+// End of Bastion of Endeavor Translation
 
 //BLOBS
 
+/* Bastion of Endeavor Translation
 /obj/screen/alert/nofactory
 	name = "No Factory"
 	desc = "You have no factory, and are slowly dying!"
 	icon_state = "blobbernaut_nofactory"
 	alerttooltipstyle = "blob"
+*/
+/obj/screen/alert/nofactory
+	name = "Нет источника"
+	desc = "У Вас нет источника, в связи с чем Вы медленно умираете!"
+	icon_state = "blobbernaut_nofactory"
+	alerttooltipstyle = "blob"
+// End of Bastion of Endeavor Translation
 
 //SILICONS
 
+/* Bastion of Endeavor Translation
 /obj/screen/alert/nocell
 	name = "Missing Power Cell"
 	desc = "Unit has no power cell. No modules available until a power cell is reinstalled. Robotics may provide assistance."
@@ -351,20 +584,68 @@ so as to remain in compliance with the most up-to-date laws."
 	icon_state = "newlaw"
 	timeout = 300
 	no_underlay = TRUE
+*/
+/obj/screen/alert/nocell
+	name = "Нет батарейки"
+	desc = "Юнит не обладает батарейкой. Модули недоступны. Робототехник может оказать с этим помощь."
+	icon_state = "nocell"
+
+/obj/screen/alert/emptycell
+	name = "Нет заряда"
+	desc = "Батарейка юнита полностью разряжена. Модули недоступны. Зарядные станции доступны в робототехнике, уборных при дормиториях и на спутнике ИИ."
+	icon_state = "emptycell"
+
+/obj/screen/alert/lowcell
+	name = "Низкий заряд"
+	desc = "Батарейка юнита почти разряжена. Зарядные станции доступны в робототехнике, уборных при дормиториях и на спутнике ИИ."
+	icon_state = "lowcell"
+
+/obj/screen/alert/hacked
+	name = "Взлом"
+	desc = "Обнаружено опасное оснащение. Убедитесь, что использование этого оснащения соблюдает законы юнита, если это применимо."
+	icon_state = "hacked"
+	no_underlay = TRUE
+
+/obj/screen/alert/locked
+	name = "Отключение"
+	desc = "Юнит был удалённо отключён. Эту проблему можно устранить при помощи Робототехнической Панели Управления в кабинете Директора исследований \
+и квалифицированного работника или ИИ. При необходимости оказать помощь может робототехник."
+	icon_state = "locked"
+	no_underlay = TRUE
+
+/obj/screen/alert/newlaw
+	name = "Обновление законов"
+	desc = "Обнаружено изменение перечня законов данного юнита. Убедитесь, что Вы соблюдаете законы обновлённой версии перечня."
+	icon_state = "newlaw"
+	timeout = 300
+	no_underlay = TRUE
+// End of Bastion of Endeavor Translation
 
 //MECHS
 
+/* Bastion of Endeavor Translation
 /obj/screen/alert/low_mech_integrity
 	name = "Mech Damaged"
 	desc = "Mech integrity is low."
 	icon_state = "low_mech_integrity"
+*/
+/obj/screen/alert/low_mech_integrity
+	name = "Мех повреждён"
+	desc = "Низкая целостность меха."
+	icon_state = "low_mech_integrity"
+// End of Bastion of Endeavor Translation
 
 
 //GHOSTS
 //TODO: expand this system to replace the pollCandidates/CheckAntagonist/"choose quickly"/etc Yes/No messages
+/* Bastion of Endeavor Translation
 /obj/screen/alert/notify_cloning
 	name = "Revival"
 	desc = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!"
+*/
+	name = "Реанимация"
+	desc = "Кто-то пытается реанимировать Вас. Войдите в своё тело, если хотите вернуться к жизни!"
+// End of Bastion of Endeavor Translation
 	icon_state = "template"
 	timeout = 300
 
@@ -395,6 +676,7 @@ so as to remain in compliance with the most up-to-date laws."
 
 //OBJECT-BASED
 
+/* Bastion of Endeavor Translation
 /obj/screen/alert/restrained/buckled
 	name = "Buckled"
 	desc = "You've been buckled to something. Click the alert to unbuckle unless you're handcuffed."
@@ -406,6 +688,19 @@ so as to remain in compliance with the most up-to-date laws."
 /obj/screen/alert/restrained/legcuffed
 	name = "Legcuffed"
 	desc = "You're legcuffed, which slows you down considerably. Click the alert to free yourself."
+*/ 
+/obj/screen/alert/restrained/buckled
+	name = "Положение сидя/лёжа"
+	desc = "Вы находитесь в сидячем или лежачем положении. Нажмите на это уведомление, чтобы встать, если Ваши руки не связаны."
+
+/obj/screen/alert/restrained/handcuffed
+	name = "Связанные руки"
+	desc = "Ваши руки связаны, и Ваши действия ограничены. Если Вас кто-то тащит, Вы не сможете шевелиться. Нажмите на это уведомление, чтобы высвободиться."
+
+/obj/screen/alert/restrained/legcuffed
+	name = "Связанные ноги"
+	desc = "Ваши ноги связаны, и Ваше передвижение замедлено. Нажмите на это уведомление, чтобы высвободиться."
+// End of Bastion of Endeavor Translation
 
 /obj/screen/alert/restrained/Click()
 	if(isliving(usr))

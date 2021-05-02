@@ -1,5 +1,9 @@
 /obj/screen/movable/pic_in_pic
+	/* Bastion of Endeavor Translation
 	name = "Picture-in-picture"
+	*/
+	name = "Картинка в картинке"
+	// End of Bastion of Endeavor Translation
 	screen_loc = "CENTER"
 	plane = PLANE_WORLD
 	var/atom/center
@@ -64,7 +68,11 @@
 	if(!button_x)
 		button_x = new /obj/screen/component_button(null, src)
 		var/mutable_appearance/MA = new /mutable_appearance()
+		/* Bastion of Endeavor Translation
 		MA.name = "close"
+		*/
+		MA.name = "Закрыть"
+		// End of Bastion of Endeavor Translation
 		MA.icon = 'icons/misc/pic_in_pic.dmi'
 		MA.icon_state = "x"
 		MA.plane = PLANE_PLAYER_HUD
@@ -77,7 +85,11 @@
 	if(!button_expand)
 		button_expand = new /obj/screen/component_button(null, src)
 		var/mutable_appearance/MA = new /mutable_appearance()
+		/* Bastion of Endeavor Translation
 		MA.name = "expand"
+		*/
+		MA.name = "Увеличить"
+		// End of Bastion of Endeavor Translation
 		MA.icon = 'icons/misc/pic_in_pic.dmi'
 		MA.icon_state = "expand"
 		MA.plane = PLANE_PLAYER_HUD
@@ -90,7 +102,11 @@
 	if(!button_shrink)
 		button_shrink = new /obj/screen/component_button(null, src)
 		var/mutable_appearance/MA = new /mutable_appearance()
+		/* Bastion of Endeavor Translation
 		MA.name = "shrink"
+		*/
+		MA.name = "Уменьшить"
+		// End of Bastion of Endeavor Translation
 		MA.icon = 'icons/misc/pic_in_pic.dmi'
 		MA.icon_state = "shrink"
 		MA.plane = PLANE_PLAYER_HUD

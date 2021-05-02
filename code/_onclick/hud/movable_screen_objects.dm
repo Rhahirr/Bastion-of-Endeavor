@@ -105,6 +105,7 @@
 
 //Debug procs
 /client/proc/test_movable_UI()
+	/* Bastion of Endeavor Translation
 	set category = "Debug"
 	set name = "Spawn Movable UI Object"
 
@@ -121,9 +122,28 @@
 	M.screen_loc = screen_l
 
 	screen += M
+	*/
+	set category = "Дебаг"
+	set name = "Заспавнить Перемещаемый Объект UI"
+
+	var/obj/screen/movable/M = new()
+	M.name = "Перемещаемый Объект"
+	M.icon_state = "block"
+	M.maptext = "Movable"
+	M.maptext_width = 64
+
+	var/screen_l = input(usr,"Где на экране? (Форматируется как 'X,Y' т.е: '1,1' для нижнего левого угла)","Заспавнить Перемещаемый Объект UI") as text
+	if(!screen_l)
+		return
+
+	M.screen_loc = screen_l
+
+	screen += M
+	// End of Bastion of Endeavor Translation
 
 
 /client/proc/test_snap_UI()
+	/* Bastion of Endeavor Translation
 	set category = "Debug"
 	set name = "Spawn Snap UI Object"
 
@@ -140,3 +160,21 @@
 	S.screen_loc = screen_l
 
 	screen += S
+	*/
+	set category = "Дебаг"
+	set name = "Заспавнить Фиксируемый Объект UI"
+
+	var/obj/screen/movable/snap/S = new()
+	S.name = "Фиксируемый Объект"
+	S.icon_state = "block"
+	S.maptext = "Snap"
+	S.maptext_width = 64
+
+	var/screen_l = input(usr,"Где на экране? (Форматируется как 'X,Y' т.е: '1,1' для нижнего левого угла)","Заспавнить Фиксируемый Объект UI") as text
+	if(!screen_l)
+		return
+
+	S.screen_loc = screen_l
+
+	screen += S
+	// End of Bastion of Endeavor Translation

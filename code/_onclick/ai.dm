@@ -169,11 +169,19 @@
 	if(..())
 		return
 	add_fingerprint(user)
+	/* Bastion of Endeavor Translation
 	if(wires.is_cut(WIRE_BOLT_LIGHT))
 		to_chat(user, "The bolt lights wire is cut - The door bolt lights are permanently disabled.")
 		return
 	lights = !lights
 	to_chat(user, "<span class='notice'>Lights are now [lights ? "on." : "off."]</span>")
+	*/
+	if(wires.is_cut(WIRE_BOLT_LIGHT))
+		to_chat(user, "Провод болтовых лампочек перерезан - болтовые лампочки двери перманентно отключены.")
+		return
+	lights = !lights
+	to_chat(user, "<span class='notice'>Свет теперь [lights ? "включён." : "выключен."]</span>")
+	// End of Bastion of Endeavor Translation
 	update_icon()
 	return TRUE
 

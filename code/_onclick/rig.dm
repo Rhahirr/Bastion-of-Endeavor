@@ -8,6 +8,7 @@
 	var/hardsuit_click_mode = MIDDLE_CLICK
 
 /client/verb/toggle_hardsuit_mode()
+	/* Bastion of Endeavor Translation
 	set name = "Toggle Hardsuit Activation Mode"
 	set desc = "Switch between hardsuit activation modes."
 	set category = "OOC"
@@ -28,6 +29,28 @@
 			soft_assert(0, "Bad hardsuit click mode: [hardsuit_click_mode] - expected 0 to [MAX_HARDSUIT_CLICK_MODE]")
 			to_chat(src, "Somehow you bugged the system. Setting your hardsuit mode to middle-click.")
 			hardsuit_click_mode = MIDDLE_CLICK
+	*/
+	set name = "Режим Активации Скафандра"
+	set desc = "Переключить режим активации тяжелого скафандра."
+	set category = "OOC"
+
+	hardsuit_click_mode++
+	if(hardsuit_click_mode > MAX_HARDSUIT_CLICK_MODE)
+		hardsuit_click_mode = 0
+
+	switch(hardsuit_click_mode)
+		if(MIDDLE_CLICK)
+			to_chat(src, "Активация тяжелого скафандра установлена на среднюю кнопку мыши.")
+		if(ALT_CLICK)
+			to_chat(src, "Активация тяжелого скафандра установлена на Alt+ЛКМ.")
+		if(CTRL_CLICK)
+			to_chat(src, "Активация тяжелого скафандра установлена на Ctrl+ЛКМ.")
+		else
+			// should never get here, but just in case:
+			soft_assert(0, "Недопустимый режим активации скафандра: [hardsuit_click_mode] - ожидалось значение от 0 до [MAX_HARDSUIT_CLICK_MODE]")
+			to_chat(src, "Вы каким-то образом сломали систему. Активация скафандра установлена на среднюю кнопку мыши.")
+			hardsuit_click_mode = MIDDLE_CLICK
+	// End of Bastion of Endeavor Translation
 
 /mob/living/MiddleClickOn(atom/A)
 	if(client && client.hardsuit_click_mode == MIDDLE_CLICK)
@@ -69,7 +92,11 @@
 	if(istype(rig) && !rig.offline && rig.selected_module)
 		if(src != rig.wearer)
 			if(rig.ai_can_move_suit(src, check_user_module = 1))
+				/* Bastion of Endeavor Translation
 				message_admins("[key_name_admin(src, include_name = 1)] is trying to force \the [key_name_admin(rig.wearer, include_name = 1)] to use a hardsuit module.")
+				*/
+				message_admins("[key_name_admin(src, include_name = 1)] [ru_v(src, "пыта/ется/ется/ется/ются//")] принудить [key_name_admin(rig.wearer, include_name = 1)] использовать модуль ИКС.")
+				// End of Bastion of Endeavor Translation
 			else
 				return 0
 		rig.selected_module.engage(A, alert_ai)
