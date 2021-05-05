@@ -28,7 +28,11 @@ SUBSYSTEM_DEF(tgui)
 	close_all_uis()
 
 /datum/controller/subsystem/tgui/stat_entry()
+	/* Bastion of Endeavor Translation
 	..("P:[open_uis.len]")
+	*/
+	..("О:[open_uis.len]")
+	// End of Bastion of Endeavor Translation
 
 /datum/controller/subsystem/tgui/fire(resumed = 0)
 	if(!resumed)

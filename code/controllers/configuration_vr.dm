@@ -17,6 +17,7 @@
 	for(var/t in Lines)
 		if(!t)	continue
 
+		/* Bastion of Endeavor Edit: Unicode support. Unsure if we want this.
 		t = trim(t)
 		if (length(t) == 0)
 			continue
@@ -32,6 +33,23 @@
 			value = copytext(t, pos + 1)
 		else
 			name = lowertext(t)
+		*/
+		t = trim(t)
+		if (length_char(t) == 0)
+			continue
+		else if (copytext_char(t, 1, 2) == "#")
+			continue
+
+		var/pos = findtext_char(t, " ")
+		var/name = null
+		var/value = null
+
+		if (pos)
+			name = lowertext(copytext(t, 1, pos))
+			value = copytext_char(t, pos + 1)
+		else
+			name = lowertext(t)
+		// End of Bastion of Endeavor Edit
 
 		if (!name)
 			continue

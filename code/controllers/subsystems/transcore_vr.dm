@@ -7,7 +7,11 @@
 ////////////////////////////////
 
 SUBSYSTEM_DEF(transcore)
+	/* Bastion of Endeavor Translation
 	name = "Transcore"
+	*/
+	name = "Трансядро"
+	// End of Bastion of Endeavor Translation
 	priority = 20
 	wait = 3 MINUTES
 	flags = SS_BACKGROUND|SS_NO_INIT
@@ -78,7 +82,11 @@ SUBSYSTEM_DEF(transcore)
 
 		//Invalid record
 		if(!curr_MR)
+			/* Bastion of Endeavor Translation
 			log_debug("Tried to process [name] in transcore w/o a record!")
+			*/
+			log_debug("Попытка обработать [name] в трансядре без записи!")
+			// End of Bastion of Endeavor Translation
 			backed_up -= name
 			continue
 
@@ -102,6 +110,7 @@ SUBSYSTEM_DEF(transcore)
 /datum/controller/subsystem/transcore/stat_entry()
 	var/msg = list()
 	if(core_dumped)
+/* Bastion of Endeavor Translation
 		msg += "CORE DUMPED | "
 	msg += "$:{"
 	msg += "IM:[round(cost_implants,1)]|"
@@ -111,6 +120,17 @@ SUBSYSTEM_DEF(transcore)
 	msg += "IM:[implants.len]|"
 	msg += "BK:[backed_up.len]"
 	msg += "} "
+*/
+		msg += "ЯДРО ДАМПНУТО | "
+	msg += "$:{"
+	msg += "ИМ:[round(cost_implants,1)]|"
+	msg += "РК:[round(cost_backups,1)]"
+	msg += "} "
+	msg += "#:{"
+	msg += "ИМ:[implants.len]|"
+	msg += "РК:[backed_up.len]"
+	msg += "} "
+// End of Bastion of Endeavor Translation
 	..(jointext(msg, null))
 
 /datum/controller/subsystem/transcore/Recover()
@@ -161,17 +181,28 @@ SUBSYSTEM_DEF(transcore)
 // Send a past-due notification to the medical radio channel.
 /datum/controller/subsystem/transcore/proc/notify(var/name, var/repeated = FALSE)
 	ASSERT(name)
+/* Bastion of Endeavor Translation
 	if(repeated)
 		global_announcer.autosay("This is a repeat notification that [name] is past-due for a mind backup.", "TransCore Oversight", "Medical")
 	else
 		global_announcer.autosay("[name] is past-due for a mind backup.", "TransCore Oversight", "Medical")
+*/
+	if(repeated)
+		global_announcer.autosay("Напоминание: срок действия записи резервного копирования записи '[name]' истёк.", "Трансядерный Мониторинг", "Медицинский отдел")
+	else
+		global_announcer.autosay("Срок действия записи резервного копирования '[name]' истёк.", "Трансядерный Мониторинг", "Медицинский отдел")
+// End of Bastion of Endeavor Translation
 
 // Called from mind_record to add itself to the transcore.
 /datum/controller/subsystem/transcore/proc/add_backup(var/datum/transhuman/mind_record/MR)
 	ASSERT(MR)
 	backed_up[MR.mindname] = MR
 	backed_up = sortAssoc(backed_up)
+	/* Bastion of Endeavor Translation
 	log_debug("Added [MR.mindname] to transcore DB.")
+	*/
+	log_debug("Запись '[MR.mindname]' добавлена в базу записей разума.")
+	// End of Bastion of Endeavor Translation
 
 // Remove a mind_record from the backup-checking list.  Keeps track of it in has_left // Why do we do that? ~Leshana
 /datum/controller/subsystem/transcore/proc/stop_backup(var/datum/transhuman/mind_record/MR)
@@ -179,26 +210,44 @@ SUBSYSTEM_DEF(transcore)
 	has_left[MR.mindname] = MR
 	backed_up.Remove("[MR.mindname]")
 	MR.cryo_at = world.time
+	/* Bastion of Endeavor Translation
 	log_debug("Put [MR.mindname] in transcore suspended DB.")
+	*/
+	log_debug("Запись '[MR.mindname]' отключена в базе записей разума.")
+
+// End of Bastion of Endeavor Translation
 
 // Called from body_record to add itself to the transcore.
 /datum/controller/subsystem/transcore/proc/add_body(var/datum/transhuman/body_record/BR)
 	ASSERT(BR)
 	body_scans[BR.mydna.name] = BR
 	body_scans = sortAssoc(body_scans)
+	/* Bastion of Endeavor Translation
 	log_debug("Added [BR.mydna.name] to transcore body DB.")
+	*/
+	log_debug("Запись '[BR.mydna.name]' добавлена в трансядерную базу записей тел.")
+	// End of Bastion of Endeavor Translation
 
 // Remove a body record from the database (Usually done when someone cryos)  // Why? ~Leshana
 /datum/controller/subsystem/transcore/proc/remove_body(var/datum/transhuman/body_record/BR)
 	ASSERT(BR)
 	body_scans.Remove("[BR.mydna.name]")
+	/* Bastion of Endeavor Translation
 	log_debug("Removed [BR.mydna.name] from transcore body DB.")
+	*/
+	log_debug("Запись '[BR.mydna.name]' удалена из трансядерной базы записей тел.")
+	// End of Bastion of Endeavor Translation
 
 // Moves all mind records from the databaes into the disk and shuts down all backup canary processing.
 /datum/controller/subsystem/transcore/proc/core_dump(var/obj/item/weapon/disk/transcore/disk)
 	ASSERT(disk)
+	/* Bastion of Endeavor Translation
 	global_announcer.autosay("An emergency core dump has been initiated!", "TransCore Oversight", "Command")
 	global_announcer.autosay("An emergency core dump has been initiated!", "TransCore Oversight", "Medical")
+	*/
+	global_announcer.autosay("Инициирован экстренный дамп ядра!", "Трансядерный Мониторинг", "Управление")
+	global_announcer.autosay("Инициирован экстренный дамп ядра!", "Трансядерный Мониторинг", "Медицинский отдел")
+	// End of Bastion of Endeavor Translation
 
 	disk.stored += backed_up
 	backed_up.Cut()

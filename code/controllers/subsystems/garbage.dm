@@ -2,7 +2,11 @@
 // Garbage Collector Subsystem - Implements qdel() and the GC queue
 //
 SUBSYSTEM_DEF(garbage)
+	/* Bastion of Endeavor Translation
 	name = "Garbage"
+	*/
+	name = "Мусор"
+	// End of Bastion of Endeavor Translation
 	priority = FIRE_PRIORITY_GARBAGE
 	wait = 2 SECONDS
 	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND|SS_NO_INIT
@@ -43,6 +47,7 @@ SUBSYSTEM_DEF(garbage)
 	var/list/counts = list()
 	for (var/list/L in queues)
 		counts += length(L)
+/* Bastion of Endeavor Translation
 	msg += "Q:[counts.Join(",")]|D:[delslasttick]|G:[gcedlasttick]|"
 	msg += "GR:"
 	if (!(delslasttick+gcedlasttick))
@@ -57,6 +62,22 @@ SUBSYSTEM_DEF(garbage)
 		msg += "TGR:[round((totalgcs/(totaldels+totalgcs))*100, 0.01)]%"
 	msg += " P:[pass_counts.Join(",")]"
 	msg += "|F:[fail_counts.Join(",")]"
+*/
+	msg += "О:[counts.Join(",")]|У:[delslasttick]|М:[gcedlasttick]|"
+	msg += "М"
+	if (!(delslasttick+gcedlasttick))
+		msg += "нет|"
+	else
+		msg += "[round((gcedlasttick/(delslasttick+gcedlasttick))*100, 0.01)]%|"
+
+	msg += "ВУ:[totaldels]|ВМ:[totalgcs]|"
+	if (!(totaldels+totalgcs))
+		msg += "нет|"
+	else
+		msg += "ВМ:[round((totalgcs/(totaldels+totalgcs))*100, 0.01)]%"
+	msg += " П:[pass_counts.Join(",")]"
+	msg += "|Н:[fail_counts.Join(",")]"
+// End of Bastion of Endeavor Translation
 	..(msg)
 
 /datum/controller/subsystem/garbage/Shutdown()
@@ -66,6 +87,7 @@ SUBSYSTEM_DEF(garbage)
 	//sort by how long it's wasted hard deleting
 	sortTim(items, cmp=/proc/cmp_qdel_item_time, associative = TRUE)
 	for(var/path in items)
+		/* Bastion of Endeavor Translation
 		var/datum/qdel_item/I = items[path]
 		dellog += "Path: [path]"
 		if (I.failures)
@@ -81,6 +103,23 @@ SUBSYSTEM_DEF(garbage)
 			dellog += "\tIgnored force: [I.no_respect_force] times"
 		if (I.no_hint)
 			dellog += "\tNo hint: [I.no_hint] times"
+		*/
+		var/datum/qdel_item/I = items[path]
+		dellog += "Путь: [path]"
+		if (I.failures)
+			dellog += "\tНеудач: [I.failures]"
+		dellog += "\tСчётчик qdel(): [I.qdels]"
+		dellog += "\tСтоимость Destroy(): [I.destroy_time]мс"
+		if (I.hard_deletes)
+			dellog += "\tВсего хард-удалений: [I.hard_deletes]"
+			dellog += "\tЗатрачено на хард-удаления: [I.hard_delete_time]мс"
+		if (I.slept_destroy)
+			dellog += "\tСпящих: [I.slept_destroy]"
+		if (I.no_respect_force)
+			dellog += "\tПринуждение проигнорировано: [ru_count(I.no_respect_force, "раз", "раза", "раз")]"
+		if (I.no_hint)
+			dellog += "\tБез намёков: [ru_count(I.no_hint, "раз", "раза", "раз")]"
+		// End of Bastion of Endeavor Translation
 	text2file(dellog.Join(), "[log_path]-qdel.log")
 
 /datum/controller/subsystem/garbage/fire()
@@ -173,8 +212,13 @@ SUBSYSTEM_DEF(garbage)
 				if(istype(D,/image))
 					var/image/img = D
 					var/icon/ico = img.icon
+					/* Bastion of Endeavor Translation
 					extrainfo = "L:[img.loc] -- I:[ico] -- IS:[img.icon_state] --"
 				testing("GC: -- \ref[D] | [type] was unable to be GC'd [extrainfo]")
+					*/
+					extrainfo = "Л:[img.loc] -- И:[ico] -- IS:[img.icon_state] --"
+				testing("МС: -- \ref[D] | [type] не удалось собрать мусоросборщиком [extrainfo]")
+					// End of Bastion of Endeavor Translation
 				I.failures++
 			if (GC_QUEUE_HARDDELETE)
 				HardDelete(D)
@@ -241,8 +285,13 @@ SUBSYSTEM_DEF(garbage)
 	if (time > highest_del_time)
 		highest_del_time = time
 	if (time > 20) //VOREStation Edit
+		/* Bastion of Endeavor Translation
 		log_game("Error: [type]([refID]) took longer than 2 seconds to delete (took [time/10] seconds to delete)") //VOREStation Edit
 		message_admins("Error: [type]([refID]) took longer than 2 seconds to delete (took [time/10] seconds to delete).") //VOREStation Edit
+		*/
+		log_game("Ошибка: [type]([refID]) занял больше 2 секунд на удаление ([time/10] с).")
+		message_admins("Ошибка: [type]([refID]) занял больше 2 секунд на удаление ([time/10] с).")
+		// End of Bastion of Endeavor Translation
 		postpone(time)
 
 /datum/controller/subsystem/garbage/proc/HardQueue(datum/D)
@@ -311,11 +360,18 @@ SUBSYSTEM_DEF(garbage)
 				// indicates the objects Destroy() does not respect force
 				#ifdef TESTING
 				if(!I.no_respect_force)
+					/* Bastion of Endeavor Translation
 					crash_with("[D.type] has been force deleted, but is \
 						returning an immortal QDEL_HINT, indicating it does \
 						not respect the force flag for qdel(). It has been \
 						placed in the queue, further instances of this type \
 						will also be queued.")
+					*/
+					crash_with("[D.type] был принудительно удалён, но \
+						возвращается в качестве бессмертного QDEL_HINT, следовательно \
+						он игнорирует флаг принудительного qdel(). Он был отправлен в очередь, \
+						и в очередь будут отправлены все его будущие инстанции.")
+					// End of Bastion of Endeavor Translation
 				#endif
 				I.no_respect_force++
 
@@ -332,18 +388,31 @@ SUBSYSTEM_DEF(garbage)
 			else
 				#ifdef TESTING
 				if(!I.no_hint)
+					/* Bastion of Endeavor Translation
 					crash_with("[D.type] is not returning a qdel hint. It is being placed in the queue. Further instances of this type will also be queued.")
+					*/
+					crash_with("[D.type] не возвращает намёк на qdel. Он отправляется в очередь, и в очередь будут отправлены все его будущие инстанции.")
+					// End of Bastion of Endeavor Translation
 				#endif
 				I.no_hint++
 				SSgarbage.PreQueue(D)
 	else if(D.gc_destroyed == GC_CURRENTLY_BEING_QDELETED)
+		/* Bastion of Endeavor Translation
 		CRASH("[D.type] destroy proc was called multiple times, likely due to a qdel loop in the Destroy logic")
+		*/
+		CRASH("Прок уничтожения [D.type] был вызван несколько раз, вероятно из-за цикла qdel в логике Destroy.")
+		// End of Bastion of Endeavor Translation
 
 #ifdef TESTING
 
 /datum/verb/find_refs()
+	/* Bastion of Endeavor Translation
 	set category = "Debug"
 	set name = "Find References"
+	*/
+	set category = "Дебаг"
+	set name = "Найти Все Референсы"
+	// End of Bastion of Endeavor Translation
 	set background = 1
 	set src in world
 
@@ -353,7 +422,11 @@ SUBSYSTEM_DEF(garbage)
 	running_find_references = type
 	if(usr && usr.client)
 		if(usr.client.running_find_references)
+			/* Bastion of Endeavor Translation
 			testing("CANCELLED search for references to a [usr.client.running_find_references].")
+			*/
+			testing("ОТМЕНА поиска всех референсов на [usr.client.running_find_references].")
+			// End of Bastion of Endeavor Translation
 			usr.client.running_find_references = null
 			running_find_references = null
 			//restart the garbage collector
@@ -362,7 +435,11 @@ SUBSYSTEM_DEF(garbage)
 			return
 
 		if(!skip_alert)
+			/* Bastion of Endeavor Translation
 			if(alert("Running this will lock everything up for about 5 minutes.  Would you like to begin the search?", "Find References", "Yes", "No") == "No")
+			*/
+			if(alert("Это займёт приблизительно пять минут. Вы точно хотите начать поиск?", "Найти Все Референсы", "Да", "Нет") == "Нет")
+			// End of Bastion of Endeavor Translation
 				running_find_references = null
 				return
 
@@ -372,6 +449,7 @@ SUBSYSTEM_DEF(garbage)
 	if(usr && usr.client)
 		usr.client.running_find_references = type
 
+	/* Bastion of Endeavor Translation
 	testing("Beginning search for references to a [type].")
 	last_find_references = world.time
 
@@ -386,6 +464,22 @@ SUBSYSTEM_DEF(garbage)
 		DoSearchVar(thing, "World -> [thing]")
 
 	testing("Completed search for references to a [type].")
+	*/
+	testing("Начат поиск всех референсов на [type].")
+	last_find_references = world.time
+
+	// DoSearchVar(GLOB) // If we ever implement GLOB this would be the place.
+	for(var/datum/thing in world) //atoms (don't beleive it's lies)
+		DoSearchVar(thing, "Мир -> [thing]")
+
+	for (var/datum/thing) //datums
+		DoSearchVar(thing, "Мир -> [thing]")
+
+	for (var/client/thing) //clients
+		DoSearchVar(thing, "Мир -> [thing]")
+
+	testing("Поиск референсов на [type] завершён.")
+	// End of Bastion of Endeavor Translation
 	if(usr && usr.client)
 		usr.client.running_find_references = null
 	running_find_references = null
@@ -395,8 +489,13 @@ SUBSYSTEM_DEF(garbage)
 	SSgarbage.next_fire = world.time + world.tick_lag
 
 /datum/verb/qdel_then_find_references()
+/* Bastion of Endeavor Translation
 	set category = "Debug"
 	set name = "qdel() then Find References"
+*/
+	set category = "Дебаг"
+	set name = "Найти Все Референсы С Qdel()"
+// End of Bastion of Endeavor Translation
 	set background = 1
 	set src in world
 
@@ -423,15 +522,24 @@ SUBSYSTEM_DEF(garbage)
 				continue
 			var/variable = L[varname]
 
+			/* Bastion of Endeavor Translation
 			if(variable == src)
 				testing("Found [src.type] \ref[src] in [D.type]'s [varname] var. [Xname]")
 
 			else if(islist(variable))
 				DoSearchVar(variable, "[Xname] -> list", recursive_limit-1)
+			*/
+			if(variable == src)
+				testing("Найден [src.type] \ref[src] в переменной [varname] у [D.type]. [Xname]")
+
+			else if(islist(variable))
+				DoSearchVar(variable, "[Xname] -> лист", recursive_limit-1)
+			// End of Bastion of Endeavor Translation
 
 	else if(islist(X))
 		var/normal = IS_NORMAL_LIST(X)
 		for(var/I in X)
+			/* Bastion of Endeavor Translation
 			if (I == src)
 				testing("Found [src.type] \ref[src] in list [Xname].")
 
@@ -440,6 +548,16 @@ SUBSYSTEM_DEF(garbage)
 
 			else if (islist(I))
 				DoSearchVar(I, "[Xname] -> list", recursive_limit-1)
+			*/
+			if (I == src)
+				testing("Найден [src.type] \ref[src] в листе [Xname].")
+
+			else if (I && !isnum(I) && normal && X[I] == src)
+				testing("Найден [src.type] \ref[src] в листе [Xname]\[[I]\]")
+
+			else if (islist(I))
+				DoSearchVar(I, "[Xname] -> лист", recursive_limit-1)
+			// End of Bastion of Endeavor Translation
 
 #ifndef FIND_REF_NO_CHECK_TICK
 	CHECK_TICK

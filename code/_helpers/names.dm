@@ -5,6 +5,7 @@ var/church_name = null
 
 	var/name = ""
 
+	// Bastion of Endeavor TODO: This isn't even used. Do we want it translated? Same goes for many other thing below.
 	name += pick("Holy", "United", "First", "Second", "Last")
 
 	if (prob(20))
@@ -15,9 +16,18 @@ var/church_name = null
 
 	return name
 
+// Bastion of Endeavor Edit: Bastion of Endeavor TODO: Uncomment this edit after the map begins to be translated.
 /proc/command_name()
 	if(istype(using_map))
 		return using_map.boss_name
+/*
+/proc/command_name(var/case = "ncase")
+	if(istype(using_map))
+		if(using_map.ru_cases.len)
+			return ru_case(using_map, "boss_name", case)
+		return using_map.boss_name
+*/
+// End of Bastion of Endeavor Edit
 
 /proc/change_command_name(var/name)
 
@@ -171,8 +181,13 @@ var/syndicate_code_response//Code response for traitors.
 	)
 
 	var/safety[] = list(1,2,3)//Tells the proc which options to remove later on.
+	/* Bastion of Endeavor Translation: Bastion of Endeavor TODO: Should look into how those will behave in normal russian speech.
 	var/nouns[] = list("love","hate","anger","peace","pride","sympathy","bravery","loyalty","honesty","integrity","compassion","charity","success","courage","deceit","skill","beauty","brilliance","pain","misery","beliefs","dreams","justice","truth","faith","liberty","knowledge","thought","information","culture","trust","dedication","progress","education","hospitality","leisure","trouble","friendships", "relaxation")
 	var/drinks[] = list("vodka and tonic","gin fizz","bahama mama","manhattan","black Russian","whiskey soda","long island tea","margarita","Irish coffee"," manly dwarf","Irish cream","doctor's delight","Beepksy Smash","tequilla sunrise","brave bull","gargle blaster","bloody mary","whiskey cola","white Russian","vodka martini","martini","Cuba libre","kahlua","vodka","wine","moonshine")
+	*/
+	var/nouns[] = list("любовь","ненависть","гнев","мир","гордость","симпатия","храбрость","верность","честность","искренность","сострадание","благотворительность","успех","смелость","обман","навык","красота","совершенство","боль","страдания","вера","мечты","справедливость","правда","вера","свобода","знание","мысль","информация","культура","доверие","решимость","прогресс","образование","гостеприимство","досуг","проблемы","отношения", "отдых")
+	var/drinks[] = list("водка и тоник","джин физз","багама мама","манхэттан","чёрный русский","виски с содой","лонг айленд","маргарита","айриш кофе","мужественный карлик","айриш крим","радость доктора","бипски смэш","текила санрайз","храбрый бык","глоткодёр","кровавая мэри","виски с колой","белый русский","водка мартини","мартини","куба либре","калуа","водка","вино","самогон")
+	// End of Bastion of Endeavor Translation
 	var/locations[] = teleportlocs.len ? teleportlocs : drinks//if null, defaults to drinks instead.
 
 	var/names[] = list()

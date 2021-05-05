@@ -246,7 +246,7 @@
 #define DEPARTMENT_MEDICAL			"Медицинский отдел"
 #define DEPARTMENT_RESEARCH			"Научный отдел"
 #define DEPARTMENT_CARGO			"Отдел снабжения"
-#define DEPARTMENT_CIVILIAN			"Гражданский экипаж"
+#define DEPARTMENT_CIVILIAN			"Гражданский персонал"
 #define DEPARTMENT_PLANET			"Экспедиционный отдел"
 #define DEPARTMENT_SYNTHETIC		"Synthetic" // Bastion of Endeavor TODO
 // End of Bastion of Endeavor Translation

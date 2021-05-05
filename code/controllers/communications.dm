@@ -128,6 +128,7 @@ var/const/SEC_I_FREQ = 1475
 var/const/TALON_FREQ = 1363 //VOREStation Add
 
 var/list/radiochannels = list(
+	/* Bastion of Endeavor Translation
 	"Common"		= PUB_FREQ,
 	"Science"		= SCI_FREQ,
 	"Command"		= COMM_FREQ,
@@ -146,6 +147,26 @@ var/list/radiochannels = list(
 	"Medical(I)"	= MED_I_FREQ,
 	"Security(I)"	= SEC_I_FREQ,
 	"Talon"			= TALON_FREQ //VOREStation Add
+	*/
+	"Общий"						= PUB_FREQ,
+	"Научный отдел"				= SCI_FREQ,
+	"Командование"				= COMM_FREQ,
+	"Медицинский отдел"			= MED_FREQ,
+	"Инженерный отдел"			= ENG_FREQ,
+	"Служба безопасности" 		= SEC_FREQ,
+	"Экстренное реагирование" 	= ERT_FREQ,
+	"Спецотряд" 				= DTH_FREQ,
+	"Наёмники" 					= SYND_FREQ,
+	"Налётчики"					= RAID_FREQ,
+	"Отдел снабжения" 			= SUP_FREQ,
+	"Обслуживание" 				= SRV_FREQ,
+	"Экспедиционный отдел"		= EXP_FREQ,
+	"Канал ИИ"					= AI_FREQ,
+	"Развлечения" 				= ENT_FREQ,
+	"Медицинский отдел (В)"		= MED_I_FREQ,
+	"Служба безопасности (В)"	= SEC_I_FREQ,
+	"Коготь"					= TALON_FREQ
+	// End of Bastion of Endeavor Translation
 )
 
 // Hey, if anyone ever needs to update tgui/packages/tgui/constants.js with new radio channels

@@ -185,7 +185,7 @@ var/global/obj/item/device/radio/intercom/omni/global_announcer = new /obj/item/
 /* Bastion of Endeavor Translation
 var/list/station_departments = list("Command", "Medical", "Engineering", "Science", "Security", "Cargo", "Exploration", "Civilian") //VOREStation Edit
 */
-var/list/station_departments = list("Управление", "Медицинский отдел", "Инженерный отдел", "Научный отдел", "Служба безопасности", "Отдел снабжения", "Экспедиционный отдел", "Гражданский экипаж")
+var/list/station_departments = list("Управление", "Медицинский отдел", "Инженерный отдел", "Научный отдел", "Служба безопасности", "Отдел снабжения", "Экспедиционный отдел", "Гражданский персонал")
 // End of Bastion of Endeavor Translation
 
 //Icons for in-game HUD glasses. Why don't we just share these a little bit?

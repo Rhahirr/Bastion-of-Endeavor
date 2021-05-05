@@ -1,5 +1,9 @@
 SUBSYSTEM_DEF(events)
+	/* Bastion of Endeavor Translation
 	name = "Events"	// VOREStation Edit - This is still the main events subsystem for us.
+	*/
+	name = "Эвенты"
+	// End of Bastion of Endeavor Translation
 	wait = 2 SECONDS
 
 	var/tmp/list/currentrun = null
@@ -42,7 +46,11 @@ SUBSYSTEM_DEF(events)
 		EC.process()
 
 /datum/controller/subsystem/events/stat_entry()
+	/* Bastion of Endeavor Translation
 	..("E:[active_events.len]")
+	*/
+	..("Э:[active_events.len]")
+	// End of Bastion of Endeavor Translation
 
 /datum/controller/subsystem/events/Recover()
 	if(SSevents.active_events)
@@ -54,7 +62,11 @@ SUBSYSTEM_DEF(events)
 	active_events -= E
 
 	if(!E.event_meta || !E.severity)	// datum/event is used here and there for random reasons, maintaining "backwards compatibility"
+		/* Bastion of Endeavor Translation
 		log_debug("Event of '[E.type]' with missing meta-data has completed.")
+		*/
+		log_debug("Завершён эвент '[E.type]' с отсутствующими мета-данными.")
+		// End of Bastion of Endeavor Translation
 		return
 
 	finished_events += E
@@ -65,7 +77,11 @@ SUBSYSTEM_DEF(events)
 	if(EM.add_to_queue)
 		EC.available_events += EM
 
+	/* Bastion of Endeavor Translation
 	log_debug("Event '[EM.name]' has completed at [stationtime2text()].")
+	*/
+	log_debug("Эвент '[EM.name]' завершен в [stationtime2text()].")
+	// End of Bastion of Endeavor Translation
 
 /datum/controller/subsystem/events/proc/delay_events(var/severity, var/delay)
 	var/datum/event_container/EC = event_containers[severity]
@@ -75,6 +91,7 @@ SUBSYSTEM_DEF(events)
 	if(!report_at_round_end)
 		return
 
+	/* Bastion of Endeavor Translation
 	to_chat(world, "<br><br><br><font size=3><b>Random Events This Round:</b></font>")
 	for(var/datum/event/E in active_events|finished_events)
 		var/datum/event_meta/EM = E.event_meta
@@ -89,3 +106,19 @@ SUBSYSTEM_DEF(events)
 			else
 				message += "and ran to completion."
 		to_chat(world, message)
+	*/
+	to_chat(world, "<br><br><br><font size=3><b>Случайные эвенты в этом раунде:</b></font>")
+	for(var/datum/event/E in active_events|finished_events)
+		var/datum/event_meta/EM = E.event_meta
+		if(EM.name == "Ничего")
+			continue
+		var/message = "Эвент '[EM.name]' начался в [worldtime2stationtime(E.startedAt)] "
+		if(E.isRunning)
+			message += "и всё ещё продолжается."
+		else
+			if(E.endedAt - E.startedAt > MinutesToTicks(5)) // Only mention end time if the entire duration was more than 5 minutes
+				message += "и закончился в [worldtime2stationtime(E.endedAt)]."
+			else
+				message += "и был доведён до конца."
+		to_chat(world, message)
+	// End of Bastion of Endeavor Translation

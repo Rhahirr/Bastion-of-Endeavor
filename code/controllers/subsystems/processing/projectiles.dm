@@ -1,7 +1,13 @@
 PROCESSING_SUBSYSTEM_DEF(projectiles)
+	/* Bastion of Endeavor Translation
 	name = "Projectiles"
 	wait = 1
 	stat_tag = "PP"
+	*/
+	name = "Проджектайлы"
+	wait = 1
+	stat_tag = "ОП"
+	// End of Bastion of Endeavor Translation
 	priority = FIRE_PRIORITY_PROJECTILES
 	flags = SS_NO_INIT|SS_TICKER
 	var/global_max_tick_moves = 10
@@ -9,9 +15,15 @@ PROCESSING_SUBSYSTEM_DEF(projectiles)
 	var/global_iterations_per_move = 16
 
 /datum/controller/subsystem/processing/projectiles/Recover()
+	/* Bastion of Endeavor Translation
 	log_debug("[name] subsystem Recover().")
 	if(SSprojectiles.current_thing)
 		log_debug("current_thing was: (\ref[SSprojectiles.current_thing])[SSprojectiles.current_thing]([SSprojectiles.current_thing.type]) - currentrun: [SSprojectiles.currentrun.len] vs total: [SSprojectiles.processing.len]")
+	*/
+	log_debug("Recover() подсистемы '[name]'.")
+	if(SSprojectiles.current_thing)
+		log_debug("Current_thing было: (\ref[SSprojectiles.current_thing])[SSprojectiles.current_thing]([SSprojectiles.current_thing.type]) - currentrun: [SSprojectiles.currentrun.len] против [SSprojectiles.processing.len] в общей сложности")
+	// End of Bastion of Endeavor Translation
 	var/list/old_processing = SSprojectiles.processing.Copy()
 	for(var/datum/D in old_processing)
 		if(CHECK_BITFIELD(D.datum_flags, DF_ISPROCESSING))

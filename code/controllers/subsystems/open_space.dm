@@ -5,7 +5,12 @@
 GLOBAL_VAR_INIT(open_space_initialised, FALSE)
 
 SUBSYSTEM_DEF(open_space)
+	/* Bastion of Endeavor Translation
 	name = "Open Space"
+	*/
+	name = "Открытый Космос"
+	// End of Bastion of Endeavor Translation
+	
 	wait = 2 // 5 times per second.
 	init_order = INIT_ORDER_OPENSPACE
 	var/list/turfs_to_process = list()		// List of turfs queued for update.

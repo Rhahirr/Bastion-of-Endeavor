@@ -2,7 +2,11 @@
 // Ticker controls the state of the game, being responsible for round start, game mode, and round end.
 //
 SUBSYSTEM_DEF(ticker)
+	/* Bastion of Endeavor Translation
 	name = "Gameticker"
+	*/
+	name = "Игровой Тикер"
+	// End of Bastion of Endeavor Translation
 	wait = 2 SECONDS
 	init_order = INIT_ORDER_TICKER
 	priority = FIRE_PRIORITY_TICKER
@@ -48,7 +52,11 @@ var/global/datum/controller/subsystem/ticker/ticker
 
 /datum/controller/subsystem/ticker/Initialize()
 	pregame_timeleft = config.pregame_time
+	/* Bastion of Endeavor Translation
 	send2mainirc("Server lobby is loaded and open at byond://[config.serverurl ? config.serverurl : (config.server ? config.server : "[world.address]:[world.port]")]")
+	*/
+	send2mainirc("Лобби сервера загружено и открыто на byond://[config.serverurl ? config.serverurl : (config.server ? config.server : "[world.address]:[world.port]")]")
+	// End of Bastion of Endeavor Translation
 	GLOB.autospeaker = new (null, null, null, 1) //Set up Global Announcer
 	return ..()
 
@@ -67,8 +75,13 @@ var/global/datum/controller/subsystem/ticker/ticker
 			post_game_tick()
 
 /datum/controller/subsystem/ticker/proc/pregame_welcome()
+	/* Bastion of Endeavor Translation
 	to_world("<span class='boldannounce notice'><em>Welcome to the pregame lobby!</em></span>")
 	to_world("<span class='boldannounce notice'>Please set up your character and select ready. The round will start in [pregame_timeleft] seconds.</span>")
+	*/
+	to_world("<span class='boldannounce notice'><em>Добро пожаловать в предыгровое лобби!</em></span>")
+	to_world("<span class='boldannounce notice'>Настройте своего персонажа и нажмите \"Готов\". Раунд начнётся через [ru_count(pregame_timeleft, "секунду", "секунды", "секунд")].</span>")
+	// End of Bastion of Endeavor Translation
 	world << sound('sound/misc/server-ready.ogg', volume = 100)
 
 // Called during GAME_STATE_PREGAME (RUNLEVEL_LOBBY)
@@ -116,7 +129,11 @@ var/global/datum/controller/subsystem/ticker/ticker
 	var/list/runnable_modes = config.get_runnable_modes()
 	if((master_mode == "random") || (master_mode == "secret"))
 		if(!runnable_modes.len)
+			/* Bastion of Endeavor Translation
 			to_world("<span class='danger'><B>Unable to choose playable game mode.</B> Reverting to pregame lobby.</span>")
+			*/
+			to_world("<span class='danger'><B>Не удалось выбрать играбельный режим игры.</B> Возвращаемся в предыгровое лобби.</span>")
+			// End of Bastion of Endeavor Translation
 			return 0
 		if(secret_force_mode != "secret")
 			src.mode = config.pick_mode(secret_force_mode)
@@ -129,7 +146,11 @@ var/global/datum/controller/subsystem/ticker/ticker
 		src.mode = config.pick_mode(master_mode)
 
 	if(!src.mode)
+		/* Bastion of Endeavor Translation
 		to_world("<span class='danger'>Serious error in mode setup! Reverting to pregame lobby.</span>") //Uses setup instead of set up due to computational context.
+		*/
+		to_world("<span class='danger'>Серьёзная ошибка режима игры! Возвращаемся в предыгровое лобби.</span>") //Uses setup instead of set up due to computational context.
+		// End of Bastion of Endeavor Translation
 		return 0
 
 	job_master.ResetOccupations()
@@ -138,21 +159,33 @@ var/global/datum/controller/subsystem/ticker/ticker
 	job_master.DivideOccupations() // Apparently important for new antagonist system to register specific job antags properly.
 
 	if(!src.mode.can_start())
+		/* Bastion of Endeavor Translation
 		to_world("<span class='danger'><B>Unable to start [mode.name].</B> Not enough players readied, [config.player_requirements[mode.config_tag]] players needed. Reverting to pregame lobby.</span>")
+		*/
+		to_world("<span class='danger'><B>Не удалось запустить режим \"[mode.name]\".</B> Готово недостаточно игроков из необходимых [config.player_requirements[mode.config_tag]]. Возвращаемся в предыгровое лобби.</span>")
+		// End of Bastion of Endeavor Translation
 		mode.fail_setup()
 		mode = null
 		job_master.ResetOccupations()
 		return 0
 
 	if(hide_mode)
+		/* Bastion of Endeavor Translation
 		to_world("<span class='notice'><B>The current game mode is - Secret!</B></span>")
+		*/
+		to_world("<span class='notice'><B>Текущий режим игры - Секретный!</B></span>")
+		// End of Bastion of Endeavor Translation
 		if(runnable_modes.len)
 			var/list/tmpmodes = new
 			for (var/datum/game_mode/M in runnable_modes)
 				tmpmodes+=M.name
 			tmpmodes = sortList(tmpmodes)
 			if(tmpmodes.len)
+				/* Bastion of Endeavor Translation
 				to_world("<span class='info'><B>Possibilities:</B> [english_list(tmpmodes, and_text= "; ", comma_text = "; ")]</span>")
+				*/
+				to_world("<span class='info'><B>Возможны:</B> [english_list(tmpmodes, and_text= "; ", comma_text = "; ")]</span>")
+				// End of Bastion of Endeavor Translation
 	else
 		src.mode.announce()
 	return 1
@@ -172,16 +205,28 @@ var/global/datum/controller/subsystem/ticker/ticker
 		//Cleanup some stuff
 		for(var/obj/effect/landmark/start/S in landmarks_list)
 			//Deleting Startpoints but we need the ai point to AI-ize people later
+			/* Bastion of Endeavor Translation: Bastion of Endeavor TODO: I'm hesitant about translating this one, because it's possible we'll have translated names for landmarks without changing them.
 			if (S.name != "AI")
+			*/
+			if (S.name != "ИИ")
+			// End of Bastion of Endeavor Translation
 				qdel(S)
+		/* Bastion of Endeavor Translation
 		to_world("<span class='boldannounce notice'><em>Enjoy the game!</em></span>")
+		*/
+		to_world("<span class='boldannounce notice'><em>Приятной игры!</em></span>")
+		// End of Bastion of Endeavor Translation
 		world << sound('sound/AI/welcome.ogg') // Skie
 		//Holiday Round-start stuff	~Carn
 		Holiday_Game_Start()
 
 	var/list/adm = get_admin_counts()
 	if(adm["total"] == 0)
+		/* Bastion of Endeavor Translation
 		send2adminirc("A round has started with no admins online.")
+		*/
+		send2adminirc("Раунд начался без присутствия админов.")
+		// End of Bastion of Endeavor Translation
 
 	current_state = GAME_STATE_PLAYING
 	Master.SetRunLevel(RUNLEVEL_GAME)
@@ -218,7 +263,11 @@ var/global/datum/controller/subsystem/ticker/ticker
 		end_game_state = END_GAME_MODE_FINISHED // Only do this cleanup once!
 		mode.cleanup()
 		//call a transfer shuttle vote
+		/* Bastion of Endeavor Translation
 		to_world("<span class='danger'>The round has ended!</span>")
+		*/
+		to_world("<span class='danger'>Раунд завершён!</span>")
+		// End of Bastion of Endeavor Translation
 		SSvote.autotransfer()
 
 // Called during GAME_STATE_FINISHED (RUNLEVEL_POSTGAME)
@@ -227,6 +276,7 @@ var/global/datum/controller/subsystem/ticker/ticker
 		if(END_GAME_READY_TO_END)
 			callHook("roundend")
 
+			/* Bastion of Endeavor Translation
 			if (mode.station_was_nuked)
 				feedback_set_details("end_proper", "nuke")
 				restart_timeleft = 1 MINUTE // No point waiting five minutes if everyone's dead.
@@ -236,6 +286,17 @@ var/global/datum/controller/subsystem/ticker/ticker
 			else
 				feedback_set_details("end_proper", "proper completion")
 				restart_timeleft = restart_timeout
+			*/
+			if (mode.station_was_nuked)
+				feedback_set_details("end_proper", "Ядерный взрыв")
+				restart_timeleft = 1 MINUTE // No point waiting five minutes if everyone's dead.
+				if(!delay_end)
+					to_world("<span class='notice'><b>Перезагрузка в связи с уничтожением [station_name("gcase")] через [ru_count(round(restart_timeleft/600), "минуту", "минуты", "минут")].</b></span>")
+					last_restart_notify = world.time
+			else
+				feedback_set_details("end_proper", "Нормальное завершение")
+				restart_timeleft = restart_timeout
+			// End of Bastion of Endeavor Translation
 
 			if(blackbox)
 				blackbox.save_all_data_to_sql()	// TODO - Blackbox or statistics subsystem
@@ -244,6 +305,7 @@ var/global/datum/controller/subsystem/ticker/ticker
 			return
 		if(END_GAME_ENDING)
 			restart_timeleft -= (world.time - last_fire)
+			/* Bastion of Endeavor Translation
 			if(delay_end)
 				to_world("<span class='notice'><b>An admin has delayed the round end.</b></span>")
 				end_game_state = END_GAME_DELAYED
@@ -254,13 +316,29 @@ var/global/datum/controller/subsystem/ticker/ticker
 			else if (world.time - last_restart_notify >= 1 MINUTE)
 				to_world("<span class='notice'><b>Restarting in [round(restart_timeleft/600, 1)] minute\s.</b></span>")
 				last_restart_notify = world.time
+			*/
+			if(delay_end)
+				to_world("<span class='notice'><b>Администратор отложил завершение раунда.</b></span>")
+				end_game_state = END_GAME_DELAYED
+			else if(restart_timeleft <= 0)
+				to_world("<span class='warning'><b>Перезапуск мира!</b></span>")
+				sleep(5)
+				world.Reboot()
+			else if (world.time - last_restart_notify >= 1 MINUTE)
+				to_world("<span class='notice'><b>Перезапуск через [ru_count(round(restart_timeleft/600, 1), "минуту", "минуты", "минут")].</b></span>")
+				last_restart_notify = world.time
+			// End of Bastion of Endeavor Translation
 			return
 		if(END_GAME_DELAYED)
 			restart_timeleft -= (world.time - last_fire)
 			if(!delay_end)
 				end_game_state = END_GAME_ENDING
 		else
+			/* Bastion of Endeavor Translation
 			log_error("Ticker arrived at round end in an unexpected endgame state '[end_game_state]'.")
+			*/
+			log_error("Тикер принял конец раунда с неожиданным состоянием игры '[end_game_state]'.")
+			// End of Bastion of Endeavor Translation
 			end_game_state = END_GAME_READY_TO_END
 
 
@@ -421,7 +499,11 @@ var/global/datum/controller/subsystem/ticker/ticker
 	var/captainless=1
 	for(var/mob/living/carbon/human/player in player_list)
 		if(player && player.mind && player.mind.assigned_role)
+			/* Bastion of Endeavor Translation
 			if(player.mind.assigned_role == "Site Manager")
+			*/
+			if(player.mind.assigned_role == "Менеджер объекта")
+			// End of Bastion of Endeavor Translation
 				captainless=0
 			if(!player_is_antag(player.mind, only_offstation_roles = 1))
 				job_master.EquipRank(player, player.mind.assigned_role, 0)
@@ -431,15 +513,24 @@ var/global/datum/controller/subsystem/ticker/ticker
 	if(captainless)
 		for(var/mob/M in player_list)
 			if(!istype(M,/mob/new_player))
+				/* Bastion of Endeavor Translation
 				to_chat(M, "<span class='notice'>Site Management is not forced on anyone.</span>")
+				*/
+				to_chat(M, "<span class='notice'>Менеджер объекта на данный момент отсутствует.</span>")
+				// End of Bastion of Endeavor Translation
 
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
+	/* Bastion of Endeavor Translation
 	to_world("<span class='filter_system'><br><br><br><H1>A round of [mode.name] has ended!</H1></span>")
+	*/
+	to_world("<span class='filter_system'><br><br><br><H1>Раунд в режиме '[mode.name]' завершён!</H1></span>")
+	// End of Bastion of Endeavor Translation
 	for(var/mob/Player in player_list)
 		if(Player.mind && !isnewplayer(Player))
 			if(Player.stat != DEAD)
 				var/turf/playerTurf = get_turf(Player)
+				/* Bastion of Endeavor Translation
 				if(emergency_shuttle.departed && emergency_shuttle.evac)
 					if(isNotAdminLevel(playerTurf.z))
 						to_chat(Player, "<span class='filter_system'><font color='blue'><b>You survived the round, but remained on [station_name()] as [Player.real_name].</b></font></span>")
@@ -458,19 +549,53 @@ var/global/datum/controller/subsystem/ticker/ticker
 						to_chat(Player, "<span class='filter_system'><font color='red'><b>You did not survive the events on [station_name()]...</b></font></span>")
 				else
 					to_chat(Player, "<span class='filter_system'><font color='red'><b>You did not survive the events on [station_name()]...</b></font></span>")
+				*/
+				if(emergency_shuttle.departed && emergency_shuttle.evac)
+					if(isNotAdminLevel(playerTurf.z))
+						to_chat(Player, "<span class='filter_system'><font color='blue'><b>Вы пережили раунд, будучи [ru_case(Player, "icase")], однако остались на территории [station_name("gcase")].</b></font></span>")
+					else
+						to_chat(Player, "<span class='filter_system'><font color='green'><b>Вы успешно пережили события на [station_name("pcase")], будучи [ru_case(Player, "icase")].</b></font></span>")
+				else if(isAdminLevel(playerTurf.z))
+					to_chat(Player, "<span class='filter_system'><font color='green'><b>Вы успешно завершили трансфер персонала после событий на [station_name("pcase")], будучи [ru_case(Player, "icase")].</b></font></span>")
+				else if(issilicon(Player))
+					to_chat(Player, "<span class='filter_system'><font color='green'><b>Вы продолжаете своё существование после событий на [station_name("pcase")], будучи [ru_case(Player, "icase")].</b></font></span>")
+				else
+					to_chat(Player, "<span class='filter_system'><font color='blue'><b>Вы пропустили трансфер персонала после событий на [station_name("pcase")], будучи [ru_case(Player, "icase")].</b></font></span>")
+			else
+				if(istype(Player,/mob/observer/dead))
+					var/mob/observer/dead/O = Player
+					if(!O.started_as_observer)
+						to_chat(Player, "<span class='filter_system'><font color='red'><b>Вы не выжили после событий на [station_name("pcase")]...</b></font></span>")
+				else
+					to_chat(Player, "<span class='filter_system'><font color='red'><b>Вы не пережили события на [station_name("pcase")]...</b></font></span>")
+				// End of Bastion of Endeavor Translation
 	to_world("<br>")
 
 	for (var/mob/living/silicon/ai/aiPlayer in mob_list)
+		/* Bastion of Endeavor Translation
 		if (aiPlayer.stat != 2)
 			to_world("<span class='filter_system'><b>[aiPlayer.name]'s laws at the end of the round were:</b></span>") // VOREStation edit
 		else
 			to_world("<span class='filter_system'><b>[aiPlayer.name]'s laws when it was deactivated were:</b></span>") // VOREStation edit
 		aiPlayer.show_laws(1)
+		*/
+		if (aiPlayer.stat != 2)
+			to_world("<span class='filter_system'><b>Перечень законов [ru_case(aiPlayer, "gcase")] на конец раунда был следующим:</b></span>") // VOREStation edit
+		else
+			to_world("") // VOREStation edit
+		aiPlayer.show_laws(1)
+		// End of Bastion of Endeavor Translation
 
 		if (aiPlayer.connected_robots.len)
+			/* Bastion of Endeavor Translation
 			var/robolist = "<b>The AI's loyal minions were:</b> "
 			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
 				robolist += "[robo.name][robo.stat?" (Deactivated), ":", "]"  // VOREStation edit
+			*/
+			var/robolist = "<b>Верными миньонами ИИ являлись:</b>"
+			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
+				robolist += "[robo.name][robo.stat?" ([ru_v(robo, "деактивирован;а;о;ы;;")]), ":", "]"  // VOREStation edit
+			// End of Bastion of Endeavor Translation
 			to_world("<span class='filter_system'>[robolist]</span>")
 
 	var/dronecount = 0
@@ -487,16 +612,27 @@ var/global/datum/controller/subsystem/ticker/ticker
 			continue
 
 		if (!robo.connected_ai)
+			/* Bastion of Endeavor Translation
 			if (robo.stat != 2)
 				to_world("<span class='filter_system'><b>[robo.name] survived as an AI-less stationbound synthetic! Its laws were:</b></span>") // VOREStation edit
 			else
 				to_world("<span class='filter_system'><b>[robo.name] was unable to survive the rigors of being a stationbound synthetic without an AI. Its laws were:</b></span>") // VOREStation edit
+			*/
+			if (robo.stat != 2)
+				to_world("<span class='filter_system'><b>[ru_cap(robo)] [ru_v(robo, "выжил")], будучи станционным синтетиком без ИИ. [ru_v(robo, ";Его;Её;Его;Их;;")] перечень законов:</b></span>") // VOREStation edit
+			else
+				to_world("<span class='filter_system'><b>[ru_cap(robo)] не [ru_v(robo, "смог;;ла;ло;ли;;")] пережить события на станции, будучи станционным синтетиком без ИИ. [ru_v(robo, ";Его;Её;Его;Их;;")] перечень законов:</b></span>") // VOREStation edit
+			// End of Bastion of Endeavor Translation
 
 			if(robo) //How the hell do we lose robo between here and the world messages directly above this?
 				robo.laws.show_laws(world)
 
 	if(dronecount)
+		/* Bastion of Endeavor Translation
 		to_world("<span class='filter_system'><b>There [dronecount>1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount>1 ? "drones" : "drone"] at the end of this round.</b></span>")
+		*/
+		to_world("<span class='filter_system'><b>На момент конца раунда [dronecount>1 ? "было" : "был"] [ru_count(dronecount, "ремонтный дрон", "ремонтных дрона", "ремонтных дронов")].</b></span>")
+		// End of Bastion of Endeavor Translation
 
 	mode.declare_completion()//To declare normal completion.
 
@@ -516,9 +652,15 @@ var/global/datum/controller/subsystem/ticker/ticker
 				total_antagonists[temprole] += ": [Mind.name]([Mind.key])"
 
 	//Now print them all into the log!
+	/* Bastion of Endeavor Translation
 	log_game("Antagonists at round end were...")
 	for(var/i in total_antagonists)
 		log_game("[i]s[total_antagonists[i]].")
+	*/
+	log_game("Антагонистами на момент конца игры были...")
+	for(var/i in total_antagonists)
+		log_game("[i][total_antagonists[i]].")
+	// End of Bastion of Endeavor Translation
 
 	return 1
 
@@ -526,6 +668,7 @@ var/global/datum/controller/subsystem/ticker/ticker
 	switch(current_state)
 		if(GAME_STATE_INIT)
 			..()
+		/* Bastion of Endeavor Translation
 		if(GAME_STATE_PREGAME) // RUNLEVEL_LOBBY
 			..("START [round_progressing ? "[round(pregame_timeleft)]s" : "(PAUSED)"]")
 		if(GAME_STATE_SETTING_UP) // RUNLEVEL_SETUP
@@ -544,6 +687,26 @@ var/global/datum/controller/subsystem/ticker/ticker
 					..("END PAUSED")
 				else
 					..("ENDGAME ERROR:[end_game_state]")
+		*/
+		if(GAME_STATE_PREGAME) // RUNLEVEL_LOBBY
+			..("НАЧАЛО [round_progressing ? "[round(pregame_timeleft)] сек." : "(НА ПАУЗЕ)"]")
+		if(GAME_STATE_SETTING_UP) // RUNLEVEL_SETUP
+			..("ИНИЦИАЛИЗАЦИЯ")
+		if(GAME_STATE_PLAYING) // RUNLEVEL_GAME
+			..("ИГРА")
+		if(GAME_STATE_FINISHED) // RUNLEVEL_POSTGAME
+			switch(end_game_state)
+				if(END_GAME_MODE_FINISHED)
+					..("РЕЖИМ ЗАВЕРШЁН, ОЖИДАЕМ")
+				if(END_GAME_READY_TO_END)
+					..("ОБРАБОТКА КОНЦА ИГРЫ")
+				if(END_GAME_ENDING)
+					..("КОНЕЦ ЧЕРЕЗ [round(restart_timeleft/10)] сек.")
+				if(END_GAME_DELAYED)
+					..("КОНЕЦ ОТЛОЖЕН")
+				else
+					..("ОШИБКА СОСТОЯНИЯ:[end_game_state]")
+		// End of Bastion of Endeavor Translation
 
 /datum/controller/subsystem/ticker/Recover()
 	flags |= SS_NO_INIT // Don't initialize again

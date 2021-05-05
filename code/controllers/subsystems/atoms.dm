@@ -4,7 +4,11 @@
 #define BAD_INIT_NO_HINT 8
 
 SUBSYSTEM_DEF(atoms)
+	/* Bastion of Endeavor Translation
 	name = "Atoms"
+	*/
+	name = "Атомы"
+	// End of Bastion of Endeavor Translation
 	init_order = INIT_ORDER_ATOMS
 	flags = SS_NO_FIRE
 
@@ -20,8 +24,13 @@ SUBSYSTEM_DEF(atoms)
 /datum/controller/subsystem/atoms/Initialize(timeofday)
 	setupgenetics() //to set the mutations' place in structural enzymes, so initializers know where to put mutations.
 	initialized = INITIALIZATION_INNEW_MAPLOAD
+	/* Bastion of Endeavor Translation
 	to_world_log("Initializing objects")
 	admin_notice("<span class='danger'>Initializing objects</span>", R_DEBUG)
+	*/
+	to_world_log("Инициализация объектов.")
+	admin_notice("<span class='danger'>Инициализация объектов.</span>", R_DEBUG)
+	// End of Bastion of Endeavor Translation
 	InitializeAtoms()
 	return ..()
 
@@ -52,7 +61,11 @@ SUBSYSTEM_DEF(atoms)
 				++count
 				CHECK_TICK
 
+	/* Bastion of Endeavor Translation
 	log_world("Initialized [count] atoms")
+	*/
+	log_world("[ru_count(count, "Инициализирован", "Инициализировано", "Инициализировано", 1)] [ru_count(count, "атом", "атома", "атомов")].")
+	// End of Bastion of Endeavor Translation
 
 	initialized = INITIALIZATION_INNEW_REGULAR
 
@@ -61,7 +74,11 @@ SUBSYSTEM_DEF(atoms)
 			var/atom/A = I
 			A.LateInitialize()
 			CHECK_TICK
+		/* Bastion of Endeavor Translation
 		testing("Late initialized [late_loaders.len] atoms")
+		*/
+		testing("Поздняя инициализация [ru_count(late_loaders.len, "атома", "атомов", "атомов")].")
+		// End of Bastion of Endeavor Translation
 		late_loaders.Cut()
 
 	// Nothing ever checks return value of this proc, so don't bother.  If this ever changes fix code in /atom/New() ~Leshana
@@ -121,6 +138,7 @@ SUBSYSTEM_DEF(atoms)
 /datum/controller/subsystem/atoms/proc/InitLog()
 	. = ""
 	for(var/path in BadInitializeCalls)
+		/* Bastion of Endeavor Translation
 		. += "Path : [path] \n"
 		var/fails = BadInitializeCalls[path]
 		if(fails & BAD_INIT_DIDNT_INIT)
@@ -131,6 +149,18 @@ SUBSYSTEM_DEF(atoms)
 			. += "- Qdel'd in New()\n"
 		if(fails & BAD_INIT_SLEPT)
 			. += "- Slept during Initialize()\n"
+		*/
+		. += "Путь : [path] \n"
+		var/fails = BadInitializeCalls[path]
+		if(fails & BAD_INIT_DIDNT_INIT)
+			. += "- Не вызван atom/Initialize()\n"
+		if(fails & BAD_INIT_NO_HINT)
+			. += "- Не возвращён намек от Initialize\n"
+		if(fails & BAD_INIT_QDEL_BEFORE)
+			. += "- Qdel в New()\n"
+		if(fails & BAD_INIT_SLEPT)
+			. += "- Спал во время Initialize()\n"
+		// End of Bastion of Endeavor Translation
 
 /datum/controller/subsystem/atoms/Shutdown()
 	var/initlog = InitLog()

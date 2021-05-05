@@ -1517,7 +1517,7 @@ var/mob/dview/dview_mob = new
 
 	if (NOT_FLAG(USE_ALLOW_DEAD) && user.stat == DEAD)
 		if (show_messages)
-			to_chat(user, span("notice","Вы не можете сделать это, будучи " + ru_v(user, "мёртв/ым/ой/ым/ыми/./")))
+			to_chat(user, span("notice","Вы не можете сделать это, будучи [ru_v(user, "мёртв;ым;ой;ым;ыми;;")]."))
 		return USE_FAIL_DEAD
 
 	if (NOT_FLAG(USE_ALLOW_INCAPACITATED) && (user.incapacitated()))

@@ -1,5 +1,9 @@
 SUBSYSTEM_DEF(chat)
+	/* Bastion of Endeavor Translation
 	name = "Chat"
+	*/
+	name = "Чат"
+	// End of Bastion of Endeavor Translation
 	flags = SS_TICKER
 	wait = 1 // SS_TICKER means this runs every tick
 	priority = FIRE_PRIORITY_CHAT
@@ -24,14 +28,22 @@ SUBSYSTEM_DEF(chat)
 			return
 
 /datum/controller/subsystem/chat/stat_entry()
+	/* Bastion of Endeavor Translation
 	..("C:[msg_queue.len]")
+	*/
+	..("Ч:[msg_queue.len]")
+	// End of Bastion of Endeavor Translation
 
 /datum/controller/subsystem/chat/proc/queue(target, time, message, handle_whitespace = TRUE)
 	if(!target || !message)
 		return
 
 	if(!istext(message))
+		/* Bastion of Endeavor Translation
 		stack_trace("to_chat called with invalid input type")
+		*/
+		stack_trace("To_chat вызван с недопустимым типом ввода.")
+		// End of Bastion of Endeavor Translation
 		return
 
 	// Currently to_chat(world, ...) gets sent individually to each client.  Consider.
@@ -40,9 +52,15 @@ SUBSYSTEM_DEF(chat)
 
 	//Some macros remain in the string even after parsing and fuck up the eventual output
 	var/original_message = message
+	/* Bastion of Endeavor Edit: Unicode support.
 	message = replacetext(message, "\n", "<br>")
 	message = replacetext(message, "\improper", "")
 	message = replacetext(message, "\proper", "")
+	*/
+	message = replacetext_char(message, "\n", "<br>")
+	message = replacetext_char(message, "\improper", "")
+	message = replacetext_char(message, "\proper", "")
+	// End of Bastion of Endeavor Edit
 
 	if(isnull(time))
 		time = world.time

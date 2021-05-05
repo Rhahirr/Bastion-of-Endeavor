@@ -1,6 +1,10 @@
 /datum/controller/subsystem
 	// Metadata; you should define these.
+	/* Bastion of Endeavor Translation
 	name = "fire coderbus" //name of the subsystem
+	*/
+	name = "Щелчки" //name of the subsystem
+	// End of Bastion of Endeavor Translation
 	var/init_order = INIT_ORDER_DEFAULT	//order of initialization. Higher numbers are initialized first, lower numbers later. Can be decimal and negative values.
 	var/wait = 20			//time to wait (in deciseconds) between each call to fire(). Must be a positive integer.
 	var/priority = FIRE_PRIORITY_DEFAULT	//When mutiple subsystems need to run in the same tick, higher priority subsystems will run first and be given a higher share of the tick before MC_TICK_CHECK triggers a sleep
@@ -60,7 +64,11 @@
 //Sleeping in here prevents future fires until returned.
 /datum/controller/subsystem/proc/fire(resumed = 0)
 	flags |= SS_NO_FIRE
+	/* Bastion of Endeavor Translation
 	throw EXCEPTION("Subsystem [src]([type]) does not fire() but did not set the SS_NO_FIRE flag. Please add the SS_NO_FIRE flag to any subsystem that doesn't fire so it doesn't get added to the processing list and waste cpu.")
+	*/
+	throw EXCEPTION("Подсистема [src]([type]) не использует fire(), но и не имеет флага SS_NO_FIRE. Пожалуйста, добавляйте этот флаг в подсистемы, которые не щёлкают, чтобы они не добавлялись в лист обработки и не тратили ресурсы зря.")
+	// End of Bastion of Endeavor Translation
 
 /datum/controller/subsystem/Destroy()
 	dequeue()
@@ -157,7 +165,11 @@
 /datum/controller/subsystem/Initialize(start_timeofday)
 	subsystem_initialized = TRUE
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
+	/* Bastion of Endeavor Translation
 	var/msg = "Initialized [name] subsystem within [time] second[time == 1 ? "" : "s"]!"
+	*/
+	var/msg = "Подсистема '[name]' запущена за [ru_count(time, "секунду", "секунды", "секунд")]!"
+	// End of Bastion of Endeavor Translation
 	to_chat(world, "<span class='boldannounce'>[msg]</span>")
 	log_world(msg)
 	return time
@@ -165,15 +177,28 @@
 //hook for printing stats to the "MC" statuspanel for admins to see performance and related stats etc.
 /datum/controller/subsystem/stat_entry(msg)
 	if(!statclick)
+		/* Bastion of Endeavor Translation
 		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
+		*/
+		statclick = new/obj/effect/statclick/debug(null, "Инициализация...", src)
+		// End of Bastion of Endeavor Translation
 
 
+	/* Bastion of Endeavor Translation
 	if(SS_NO_FIRE & flags)
 		msg = "NO FIRE\t[msg]"
 	else if(can_fire <= 0)
 		msg = "OFFLINE\t[msg]"
 	else
 		msg = "[round(cost,1)]ms|[round(tick_usage,1)]%([round(tick_overrun,1)]%)|[round(ticks,0.1)]\t[msg]"
+	*/
+	if(SS_NO_FIRE & flags)
+		msg = "НЕ ЩЁЛКАЕТ\t[msg]"
+	else if(can_fire <= 0)
+		msg = "ОТКЛЮЧЕНА\t[msg]"
+	else
+		msg = "[round(cost,1)]мс|[round(tick_usage,1)]%([round(tick_overrun,1)]%)|[round(ticks,0.1)]\t[msg]"
+	// End of Bastion of Endeavor Translation
 
 	var/title = name
 	if (can_fire)
@@ -183,6 +208,7 @@
 
 /datum/controller/subsystem/proc/state_letter()
 	switch (state)
+		/* Bastion of Endeavor Translation
 		if (SS_RUNNING)
 			. = "R"
 		if (SS_QUEUED)
@@ -193,6 +219,18 @@
 			. = "S"
 		if (SS_IDLE)
 			. = "  "
+		*/
+		if (SS_RUNNING)
+			. = "Раб"
+		if (SS_QUEUED)
+			. = "Оч"
+		if (SS_PAUSED, SS_PAUSING)
+			. = "П"
+		if (SS_SLEEPING)
+			. = "С"
+		if (SS_IDLE)
+			. = "  "
+		// End of Bastion of Endeavor Translation
 
 //could be used to postpone a costly subsystem for (default one) var/cycles, cycles
 //for instance, during cpu intensive operations like explosions

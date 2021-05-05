@@ -95,7 +95,7 @@
 				/* Bastion of Endeavor Translation
 				message_admins("[key_name_admin(src, include_name = 1)] is trying to force \the [key_name_admin(rig.wearer, include_name = 1)] to use a hardsuit module.")
 				*/
-				message_admins("[key_name_admin(src, include_name = 1)] [ru_v(src, "пыта/ется/ется/ется/ются//")] принудить [key_name_admin(rig.wearer, include_name = 1)] использовать модуль ИКС.")
+				message_admins("[key_name_admin(src, include_name = 1)] [ru_v(src, "пыта;ется;ется;ется;ются;;")] принудить [key_name_admin(rig.wearer, include_name = 1)] использовать модуль ИКС.")
 				// End of Bastion of Endeavor Translation
 			else
 				return 0

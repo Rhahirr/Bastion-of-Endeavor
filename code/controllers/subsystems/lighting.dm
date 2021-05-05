@@ -18,7 +18,11 @@
 /var/list/lighting_update_overlays  = list()    // List of lighting overlays queued for update.
 
 SUBSYSTEM_DEF(lighting)
+	/* Bastion of Endeavor Translation
 	name = "Lighting"
+	*/
+	name = "Освещение"
+	// End of Bastion of Endeavor Translation
 	wait = 2 // Ticks, not deciseconds
 	init_order = INIT_ORDER_LIGHTING
 	flags = SS_TICKER
@@ -147,6 +151,7 @@ SUBSYSTEM_DEF(lighting)
 
 /datum/controller/subsystem/lighting/stat_entry(msg_prefix)
 	var/list/msg = list(msg_prefix)
+	/* Bastion of Endeavor Translation
 	msg += "T:{"
 	msg += "S [total_lighting_sources] | "
 	msg += "C [total_lighting_corners] | "
@@ -157,6 +162,19 @@ SUBSYSTEM_DEF(lighting)
 	msg += "C [round(cost_corners, 1)] | "
 	msg += "O [round(cost_overlays, 1)]"
 	msg += "}"
+	*/
+	msg += "Т:{"
+	msg += "И [total_lighting_sources] | "
+	msg += "У [total_lighting_corners] | "
+	msg += "О [total_lighting_overlays]"
+	msg += "}"
+	msg += "С:{"
+	msg += "И [round(cost_lights, 1)] | "
+	msg += "У [round(cost_corners, 1)] | "
+	msg += "О [round(cost_overlays, 1)]"
+	msg += "}"
+	// End of Bastion of Endeavor Translation
+	
 	..(msg.Join())
 
 #undef DUAL_TICK_CHECK

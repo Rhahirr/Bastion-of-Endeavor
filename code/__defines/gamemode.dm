@@ -44,6 +44,7 @@
 //VOREStation Add End
 
 var/list/be_special_flags = list(
+	/* Bastion of Endeavor Translation: Bastion of Endeavor TODO: I have NO idea if the ones down below are used anywhere, but the ones here should be safe.
 	"Traitor"          = BE_TRAITOR,
 	"Operative"        = BE_OPERATIVE,
 	"Changeling"       = BE_CHANGELING,
@@ -65,6 +66,29 @@ var/list/be_special_flags = list(
 	"Maint Pred"       = BE_MAINTPRED,
 	"Morph"            = BE_MORPH,
 	//VOREStation Add End
+	*/
+	"Предатель"					= BE_TRAITOR,
+	"Оперативник"				= BE_OPERATIVE,
+	"Генокрад"					= BE_CHANGELING,
+	"Колдун"					= BE_WIZARD,
+	"Неисправный ИИ"			= BE_MALF,
+	"Революционер"				= BE_REV,
+	"Ксеноморф"					= BE_ALIEN,
+	"Позитронический мозг"		= BE_AI,
+	"Культист"					= BE_CULTIST,
+	"Ренегат"					= BE_RENEGADE,
+	"Ниндзя"					= BE_NINJA,
+	"Налётчик"					= BE_RAIDER,
+	"Диона"						= BE_PLANT,
+	"Мятежник"					= BE_MUTINEER,
+	"Лоялист"					= BE_LOYALIST,
+	"Персональный ИИ"			= BE_PAI,
+	//VOREStation Add
+	"Потерянный дрон"			= BE_LOSTDRONE,
+	"Техтоннельный хищник"		= BE_MAINTPRED,
+	"Морф"						= BE_MORPH,
+	//VOREStation Add End
+	// End of Bastion of Endeavor Translation
 )
 
 

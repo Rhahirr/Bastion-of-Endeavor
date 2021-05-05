@@ -1,12 +1,20 @@
 //Used to process objects. Fires once every second.
 
 SUBSYSTEM_DEF(processing)
+	/* Bastion of Endeavor Translation
 	name = "Processing"
+	*/
+	name = "Обработка"
+	// End of Bastion of Endeavor Translation
 	priority = FIRE_PRIORITY_PROCESS
 	flags = SS_BACKGROUND|SS_POST_FIRE_TIMING|SS_NO_INIT
 	wait = 10
 
+	/* Bastion of Endeavor Translation
 	var/stat_tag = "P" //Used for logging
+	*/
+	var/stat_tag = "П"
+	// End of Bastion of Endeavor Translation
 	var/list/processing = list()
 	var/list/currentrun = list()
 	var/process_proc = /datum/proc/process
@@ -16,9 +24,15 @@ SUBSYSTEM_DEF(processing)
 	var/datum/current_thing
 
 /datum/controller/subsystem/processing/Recover()
+	/* Bastion of Endeavor Translation
 	log_debug("[name] subsystem Recover().")
 	if(SSprocessing.current_thing)
 		log_debug("current_thing was: (\ref[SSprocessing.current_thing])[SSprocessing.current_thing]([SSprocessing.current_thing.type]) - currentrun: [SSprocessing.currentrun.len] vs total: [SSprocessing.processing.len]")
+	*/
+	log_debug("Recover() подсистемы '[name]'.")
+	if(SSprocessing.current_thing)
+		log_debug("current_thing было: (\ref[SSprocessing.current_thing])[SSprocessing.current_thing]([SSprocessing.current_thing.type]) - currentrun: [SSprocessing.currentrun.len] против [SSprocessing.processing.len] в общей сложности")
+	// End of Bastion of Endeavor Translation
 	var/list/old_processing = SSprocessing.processing.Copy()
 	for(var/datum/D in old_processing)
 		if(CHECK_BITFIELD(D.datum_flags, DF_ISPROCESSING))
@@ -58,7 +72,11 @@ SUBSYSTEM_DEF(processing)
 		debug_original_process_proc	= process_proc
 		process_proc = /datum/proc/DebugSubsystemProcess
 
+	/* Bastion of Endeavor Translation
 	to_chat(usr, "[name] - Debug mode [debug_original_process_proc ? "en" : "dis"]abled")
+	*/
+	to_chat(usr, "[name] - Режим дебаггинга [debug_original_process_proc ? "вк" : "вык"]лючен")
+	// End of Bastion of Endeavor Translation
 
 /datum/proc/DebugSubsystemProcess(var/wait, var/times_fired, var/datum/controller/subsystem/processing/subsystem)
 	subsystem.debug_last_thing = src
@@ -68,10 +86,17 @@ SUBSYSTEM_DEF(processing)
 
 	var/tick_time = world.time - start_tick
 	var/tick_use_limit = world.tick_usage - start_tick_usage - 100 // Current tick use - starting tick use - 100% (a full tick excess)
+	/* Bastion of Endeavor Translation
 	if(tick_time > 0)
 		crash_with("[log_info_line(subsystem.debug_last_thing)] slept during processing. Spent [tick_time] tick\s.")
 	if(tick_use_limit > 0)
 		crash_with("[log_info_line(subsystem.debug_last_thing)] took longer than a tick to process. Exceeded with [tick_use_limit]%")
+	*/
+	if(tick_time > 0)
+		crash_with("[log_info_line(subsystem.debug_last_thing)] спал во время обработки. [ru_count(tick_time, "Потрачен", "Потрачено", "Потрачено", 1)] [ru_count(tick_time, "тик", "тика", "тиков")].")
+	if(tick_use_limit > 0)
+		crash_with("[log_info_line(subsystem.debug_last_thing)] занял на обработку больше тика. Превышено на [tick_use_limit]%")
+	// End of Bastion of Endeavor Translation
 
 /datum/proc/process()
 	set waitfor = 0

@@ -7,7 +7,11 @@
 var/datum/controller/failsafe/Failsafe
 
 /datum/controller/failsafe // This thing pretty much just keeps poking the master controller
+	/* Bastion of Endeavor Translation
 	name = "Failsafe"
+	*/
+	name = "Проверочный Контроллер"
+	// End of Bastion of Endeavor Translation
 
 	// The length of time to check on the MC (in deciseconds).
 	// Set to 0 to disable.
@@ -56,24 +60,43 @@ var/datum/controller/failsafe/Failsafe
 					switch(defcon)
 						if(4,5)
 							--defcon
+						/* Bastion of Endeavor Translation
 						if(3)
 							to_chat(GLOB.admins, "<span class='adminnotice'>Notice: DEFCON [defcon_pretty()]. The Master Controller has not fired in the last [(5-defcon) * processing_interval] ticks.</span>")
 							--defcon
 						if(2)
 							to_chat(GLOB.admins, "<span class='boldannounce'>Warning: DEFCON [defcon_pretty()]. The Master Controller has not fired in the last [(5-defcon) * processing_interval] ticks. Automatic restart in [processing_interval] ticks.</span>")
+						*/
+						if(3)
+							to_chat(GLOB.admins, "<span class='adminnotice'>Внимание: DEFCON [defcon_pretty()]. Главный контроллер не щёлкал уже [ru_count(((5-defcon) * processing_interval), "тик", "тика", "тиков")].</span>")
+							--defcon
+						if(2)
+							to_chat(GLOB.admins, "<span class='boldannounce'>Внимание: DEFCON [defcon_pretty()]. Главный контроллер не щёлкал уже [ru_count(((5-defcon) * processing_interval), "тик", "тика", "тиков")]. Автоматический рестарт через [ru_count(processing_interval, "тик", "тика", "тиков")].</span>")
+						// End of Bastion of Endeavor Translation
 							--defcon
 						if(1)
 
+							/* Bastion of Endeavor Translation
 							to_chat(GLOB.admins, "<span class='boldannounce'>Warning: DEFCON [defcon_pretty()]. The Master Controller has still not fired within the last [(5-defcon) * processing_interval] ticks. Killing and restarting...</span>")
+							*/
+							to_chat(GLOB.admins, "<span class='boldannounce'>Внимание: DEFCON [defcon_pretty()]. Главный контроллер не щёлкал уже [ru_count(((5-defcon) * processing_interval), "тик", "тика", "тиков")]. Сворачиваемся и перезапускаем...</span>")
+							// End of Bastion of Endeavor Translation
 							--defcon
 							var/rtn = Recreate_MC()
 							if(rtn > 0)
 								defcon = 4
 								master_iteration = 0
+								/* Bastion of Endeavor Translation
 								to_chat(GLOB.admins, "<span class='adminnotice'>MC restarted successfully</span>")
 							else if(rtn < 0)
 								log_world("FailSafe: Could not restart MC, runtime encountered. Entering defcon 0")
 								to_chat(GLOB.admins, "<span class='boldannounce'>ERROR: DEFCON [defcon_pretty()]. Could not restart MC, runtime encountered. I will silently keep retrying.</span>")
+								*/
+								to_chat(GLOB.admins, "<span class='adminnotice'>Главный контроллер успешно перезапущен.</span>")
+							else if(rtn < 0)
+								log_world("Проверочный контроллер: Не удалось перезапустить ГК из-за рантайма. Входим в defcon 0.")
+								to_chat(GLOB.admins, "<span class='boldannounce'>ОШИБКА: DEFCON [defcon_pretty()]. Не удалось перезапустить ГК из-за рантайма. Будем молча пытаться дальше.</span>")
+								// End of Bastion of Endeavor Translation
 							//if the return number was 0, it just means the mc was restarted too recently, and it just needs some time before we try again
 							//no need to handle that specially when defcon 0 can handle it
 						if(0) //DEFCON 0! (mc failed to restart)
@@ -81,7 +104,11 @@ var/datum/controller/failsafe/Failsafe
 							if(rtn > 0)
 								defcon = 4
 								master_iteration = 0
+								/* Bastion of Endeavor Translation
 								to_chat(GLOB.admins, "<span class='adminnotice'>MC restarted successfully</span>")
+								*/
+								to_chat(GLOB.admins, "<span class='adminnotice'>Главный контроллер успешно перезапущен.</span>")
+								// End of Bastion of Endeavor Translation
 				else
 					defcon = min(defcon + 1,5)
 					master_iteration = Master.iteration
@@ -98,6 +125,12 @@ var/datum/controller/failsafe/Failsafe
 
 /datum/controller/failsafe/stat_entry()
 	if(!statclick)
+	/* Bastion of Endeavor Translation
 		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
 
 	stat("Failsafe Controller:", statclick.update("Defcon: [defcon_pretty()] (Interval: [Failsafe.processing_interval] | Iteration: [Failsafe.master_iteration])"))
+	*/
+		statclick = new/obj/effect/statclick/debug(null, "Инициализация...", src)
+
+	stat("Проверочный Контроллер:", statclick.update("Defcon: [defcon_pretty()] (Интервал: [Failsafe.processing_interval] | Итерация: [Failsafe.master_iteration])"))
+	// End of Bastion of Endeavor Translation

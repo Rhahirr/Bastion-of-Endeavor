@@ -3,7 +3,11 @@
 
 // Clickable stat() button.
 /obj/effect/statclick
+	/* Bastion of Endeavor Translation
 	name = "Initializing..."
+	*/
+	name = "Инициализация..."
+	// End of Bastion of Endeavor Translation
 	var/target
 
 /obj/effect/statclick/New(loc, text, target) //Don't port this to Initialize it's too critical
@@ -21,6 +25,7 @@
 /obj/effect/statclick/debug/Click()
 	if(!usr.client.holder || !target)
 		return
+	/* Bastion of Endeavor Translation
 	if(!class)
 		if(istype(target, /datum/controller/subsystem))
 			class = "subsystem"
@@ -33,9 +38,24 @@
 
 	usr.client.debug_variables(target)
 	message_admins("Admin [key_name_admin(usr)] is debugging the [target] [class].")
+	*/
+	if(!class)
+		if(istype(target, /datum/controller/subsystem))
+			class = "подсистемы"
+		else if(istype(target, /datum/controller))
+			class = "контроллера"
+		else if(istype(target, /datum))
+			class = "датума"
+		else
+			class = "неизвестное"
+
+	usr.client.debug_variables(target)
+	message_admins("Админ [key_name_admin(usr)] проводит дебаг [class] [target].")
+	// End of Bastion of Endeavor Translation
 
 
 // Debug verbs.
+/* Bastion of Endeavor Translation
 /client/proc/restart_controller(controller in list("Master", "Failsafe"))
 	set category = "Debug"
 	set name = "Restart Controller"
@@ -52,8 +72,27 @@
 			feedback_add_details("admin_verb","RFailsafe")
 
 	message_admins("Admin [key_name_admin(usr)] has restarted the [controller] controller.")
+*/
+/client/proc/restart_controller(controller in list("Главный", "Проверочный"))
+	set category = "Дебаг"
+	set name = "Перезапустить Контроллер"
+	set desc = "Перезапустить один из контроллеров цикла игры (будьте осторожны!)"
+
+	if(!holder)
+		return
+	switch(controller)
+		if("Главный")
+			Recreate_MC()
+			feedback_add_details("admin_verb","RMC")
+		if("Проверочный")
+			new /datum/controller/failsafe()
+			feedback_add_details("admin_verb","RFailsafe")
+
+	message_admins("Админ [key_name_admin(usr)] перезапустил [controller] Контроллер.")
+// End of Bastion of Endeavor Translation
 
 /client/proc/debug_antagonist_template(antag_type in all_antag_types)
+	/* Bastion of Endeavor Translation
 	set category = "Debug"
 	set name = "Debug Antagonist"
 	set desc = "Debug an antagonist template."
@@ -62,8 +101,19 @@
 	if(antag)
 		usr.client.debug_variables(antag)
 		message_admins("Admin [key_name_admin(usr)] is debugging the [antag.role_text] template.")
+	*/
+	set category = "Дебаг"
+	set name = "Дебаг Антагониста"
+	set desc = "Провести дебаг шаблона антагониста."
+
+	var/datum/antagonist/antag = all_antag_types[antag_type]
+	if(antag)
+		usr.client.debug_variables(antag)
+		message_admins("Админ [key_name_admin(usr)] проводит дебаг шаблона роли [antag.role_text].")
+	// End of Bastion of Endeavor Translation
 
 /client/proc/debug_controller()
+	/* Bastion of Endeavor Translation
 	set category = "Debug"
 	set name = "Debug Controller"
 	set desc = "Debug the various subsystems/controllers for the game (be careful!)"
@@ -107,3 +157,48 @@
 	feedback_add_details("admin_verb", "DebugController")
 	message_admins("Admin [key_name_admin(mob)] is debugging the [pick] controller.")
 	debug_variables(D)
+	*/
+	set category = "Дебаг"
+	set name = "Дебаг Контроллера"
+	set desc = "Провести дебаг подсистем/контроллеров игры (будьте осторожны!)"
+
+	if(!holder)
+		return
+	var/list/options = list()
+	options["Дебаг Главного Контроллера"] = Master
+	options["Дебаг Проверочного Контроллера"] = Failsafe
+	options["Дебаг Конфигурации"] = config
+	for(var/i in Master.subsystems)
+		var/datum/controller/subsystem/S = i
+		if(!istype(S))		//Eh, we're a debug verb, let's have typechecking.
+			continue
+		var/strtype = "SS[get_end_section_of_type(S.type)]"
+		if(options[strtype])
+			var/offset = 2
+			while(istype(options["[strtype]_[offset] - ДУБЛИКАТ"], /datum/controller/subsystem))
+				offset++
+			options["[strtype]_[offset] - ДУБЛИКАТ"] = S		//Something is very, very wrong.
+		else
+			options[strtype] = S
+
+	//Goon PS stuff, and other yet-to-be-subsystem things.
+	options["УСТАРЕЛО: master_controller"] = master_controller
+	options["УСТАРЕЛО: air_master"] = air_master
+	options["УСТАРЕЛО: job_master"] = job_master
+	options["УСТАРЕЛО: radio_controller"] = radio_controller
+	options["УСТАРЕЛО: emergency_shuttle"] = emergency_shuttle
+	options["УСТАРЕЛО: paiController"] = paiController
+	options["УСТАРЕЛО: cameranet"] = cameranet
+	options["УСТАРЕЛО: transfer_controller"] = transfer_controller
+	options["УСТАРЕЛО: gas_data"] = gas_data
+
+	var/pick = input(mob, "Выберите контроллер, переменные которого Вас интересуют.", "ПП Контроллера:") as null|anything in options
+	if(!pick)
+		return
+	var/datum/D = options[pick]
+	if(!istype(D))
+		return
+	feedback_add_details("admin_verb", "DebugController")
+	message_admins("Админ [key_name_admin(mob)] проводит дебаг [pick]")
+	debug_variables(D)
+	// End of Bastion of Endeavor Translation

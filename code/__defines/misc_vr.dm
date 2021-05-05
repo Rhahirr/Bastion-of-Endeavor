@@ -79,7 +79,7 @@
 #define PTO_SCIENCE			"Научный отдел"
 #define PTO_EXPLORATION 	"Экспедиционный отдел"
 #define PTO_CARGO			"Отдел снабжения"
-#define PTO_CIVILIAN		"Гражданский экипаж"
+#define PTO_CIVILIAN		"Гражданский персонал"
 #define PTO_CYBORG			"Киборг"
 
 #define DEPARTMENT_TALON	"НТС Коготь"

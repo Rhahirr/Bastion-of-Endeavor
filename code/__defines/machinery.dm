@@ -80,7 +80,7 @@ var/global/defer_powernet_rebuild = 0      // True if net rebuild will be called
 #define NETWORK_CRESCENT "Космопорт"
 #define NETWORK_CARGO "Отдел снабжения"
 #define NETWORK_CIRCUITS "Схемы"
-#define NETWORK_CIVILIAN "Гражданский экипаж"
+#define NETWORK_CIVILIAN "Гражданский персонал"
 #define NETWORK_COMMAND "Управление"
 #define NETWORK_ENGINE "Двигатель"
 #define NETWORK_ENGINEERING "Инженерный отдел"

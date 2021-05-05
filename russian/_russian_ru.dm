@@ -48,6 +48,7 @@
 	var/ru_foodtype // Handles the appropriate verb for various types of meals.
 
 /obj/effect/decal/cleanable/blood/New()
+	..()
 	ru_cases["dry"] = new /list()
 	ru_cases["dry"]["rugender"] = "female"
 	ru_cases["dry"]["ncase"] = "засохшая кровь"
@@ -66,6 +67,7 @@ datum/preferences
 /mob/self_user // This is a placeholder that comes in handy in ru_v's that have the user as the target.
 
 /mob/self_user/New() 
+	..()
 	ru_cases["gcase"] = "себя"
 	ru_cases["dcase"] = "себе"
 	ru_cases["acase"] = "себя"
@@ -75,20 +77,16 @@ datum/preferences
 // This proc handles the appropriate numeral word depending on the, well, number.
 /proc/ru_count(var/input, single_text = "единица", few_text = "единицы", many_text = "единиц", override = 0)
 	var/output
-	var/out_text = many_text
 	if(istype(input, /list))
 		var/list/input_list = input
 		output = input_list.len
 	else output = input
-	//var/a = round(output) % 100
-	//var/b = round(output) % 10
-	// It's a bit of a hacky workaround, but when we say we need the last digits, we need the LAST digits.
-	var/a = text2num(copytext_char(num2text(output), -1, -3))
-	var/b = a % 10
-	if (a > 10 && a < 20) out_text = many_text
-	if (b > 1 && b < 5) out_text = few_text
-	if (b == 1) out_text = single_text
-	return "[override? "" : "[output] "][out_text]"
+	var/a = round(output) % 100
+	var/b = round(output) % 10
+	if (a > 10 && a < 20) return "[override? "" : "[output] "][many_text]"
+	if (b > 1 && b < 5) return "[override? "" : "[output] "][few_text]"
+	if (b == 1) return "[override? "" : "[output] "][single_text]"
+	return "[override? "" : "[output] "][many_text]"
 
 // This is one of the core procs. It handles the grammar cases of words and uses them in messages. Secondary is for "subtype" cases.
 /proc/ru_case(atom/input, case = "case", secondary = null)
@@ -145,77 +143,77 @@ datum/preferences
 	if(istype(seat, /obj/structure/bed/chair/shuttle) || istype(seat, /obj/structure/bed/chair/bay/shuttle))
 		switch(tense)
 			//buckle
-			if("present") return "[ru_v(user, "пристёгива/ет/ет/ет/ют//")] [who] к [ru_case(seat, "dcase")]"
-			if("self") return "[ru_v(user, "пристегнул/ся/ась/ось/ись//")] к [ru_case(seat, "dcase")]"
-			if("past") return "[ru_v(user, "пристегнул//а/о/и//")] [who] к [ru_case(seat, "dcase")]"
-			if("participle") return "[ru_v(user, "пристёгнут//а/о/ы//")] к [ru_case(seat, "dcase")]"
+			if("present") return "[ru_v(user, "пристёгива;ет;ет;ет;ют;;")] [who] к [ru_case(seat, "dcase")]"
+			if("self") return "[ru_v(user, "пристегнул;ся;ась;ось;ись;;")] к [ru_case(seat, "dcase")]"
+			if("past") return "[ru_v(user, "пристегнул;;а;о;и;;")] [who] к [ru_case(seat, "dcase")]"
+			if("participle") return "[ru_v(user, "пристёгнут;;а;о;ы;;")] к [ru_case(seat, "dcase")]"
 			if("action") return "пристёгиваете [who] к [ru_case(seat, "dcase")]"
 			if("indefinite") return "пристегнуть [who] к [ru_case(seat, "dcase")]"
 			if("you") return "пристегнулись к [ru_case(seat, "dcase")]"
 			//unbuckle
-			if("upresent") return "[ru_v(user, "отстёгива/ет/ет/ет/ют//")] [who] от [ru_case(seat, "gcase")]"
-			if("uself") return "[ru_v(user, "отстегнул/ся/ась/ось/ись//")] от [ru_case(seat, "gcase")]"
-			if("upast") return "[ru_v(user, "отстегнул//а/о/и//")] [who] от [ru_case(seat, "gcase")]"
+			if("upresent") return "[ru_v(user, "отстёгива;ет;ет;ет;ют;;")] [who] от [ru_case(seat, "gcase")]"
+			if("uself") return "[ru_v(user, "отстегнул;ся;ась;ось;ись;;")] от [ru_case(seat, "gcase")]"
+			if("upast") return "[ru_v(user, "отстегнул;;а;о;и;;")] [who] от [ru_case(seat, "gcase")]"
 			if("uyou") return "отстегнулись от [ru_case(seat, "gcase")]"
 	else if(istype(seat, /obj/structure/bed/chair/comfy))
 		switch(tense)
 			//buckle
-			if("present") return "[ru_v(user, "усажива/ет/ет/ет/ют//")] [who] [ru_p(seat, "в")] [ru_case(seat, "acase")]"
-			if("self") return "[ru_v(user, "сад/ит/ит/ит/ят/ся/")] [ru_p(seat, "в")] [ru_case(seat, "acase")]"
-			if("past") return "[ru_v(user, "посадил//а/о/и//")] [who] [ru_p(seat, "в")] [ru_case(seat, "acase")]"
-			if("participle") return "[ru_v(user, "сид/ит/ит/ит/ят//")] [ru_p(seat, "в")] [ru_case(seat, "pcase")]"
+			if("present") return "[ru_v(user, "усажива;ет;ет;ет;ют;;")] [who] [ru_p(seat, "в")] [ru_case(seat, "acase")]"
+			if("self") return "[ru_v(user, "сад;ит;ит;ит;ят;ся;")] [ru_p(seat, "в")] [ru_case(seat, "acase")]"
+			if("past") return "[ru_v(user, "посадил;;а;о;и;;")] [who] [ru_p(seat, "в")] [ru_case(seat, "acase")]"
+			if("participle") return "[ru_v(user, "сид;ит;ит;ит;ят;;")] [ru_p(seat, "в")] [ru_case(seat, "pcase")]"
 			if("action") return "усаживаете [who] [ru_p(seat, "в")] [ru_case(seat, "acase")]"
 			if("indefinite") return "усадить [who] [ru_p(seat, "в")] [ru_case(seat, "acase")]"
 			if("you") return "сели [ru_p(seat, "в")] [ru_case(seat, "acase")]"
 			//unbuckle
-			if("upresent") return "[ru_v(user, "поднима/ет/ет/ет/ют//")] [who] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
-			if("uself") return "[ru_v(user, "вста/ёт/ёт/ёт/ют//")] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
-			if("upast") return "[ru_v(user, "поднял//а/о/и//")] [who] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
+			if("upresent") return "[ru_v(user, "поднима;ет;ет;ет;ют;;")] [who] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
+			if("uself") return "[ru_v(user, "вста;ёт;ёт;ёт;ют;;")] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
+			if("upast") return "[ru_v(user, "поднял;;а;о;и;;")] [who] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
 			if("uyou") return "встали [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
 	else if(istype(seat, /obj/structure/bed/chair))
 		switch(tense)
 			//buckle
-			if("present") return "[ru_v(user, "усажива/ет/ет/ет/ют//")] [who] на [ru_case(seat, "acase")]"
-			if("self") return "[ru_v(user, "сад/ит/ит/ит/ят/ся/")] на [ru_case(seat, "acase")]"
-			if("past") return "[ru_v(user, "усадил//а/о/и//")] [who] на [ru_case(seat, "acase")]"
-			if("participle") return "[ru_v(user, "сид/ит/ит/ит/ят//")] на [ru_case(seat, "pcase")]"
+			if("present") return "[ru_v(user, "усажива;ет;ет;ет;ют;;")] [who] на [ru_case(seat, "acase")]"
+			if("self") return "[ru_v(user, "сад;ит;ит;ит;ят;ся;")] на [ru_case(seat, "acase")]"
+			if("past") return "[ru_v(user, "усадил;;а;о;и;;")] [who] на [ru_case(seat, "acase")]"
+			if("participle") return "[ru_v(user, "сид;ит;ит;ит;ят;;")] на [ru_case(seat, "pcase")]"
 			if("action") return "усаживаете [who] на [ru_case(seat, "acase")]"
 			if("indefinite") return "усадить [who] на [ru_case(seat, "acase")]"
 			if("you") return "сели на [ru_case(seat, "acase")]"
 			//unbuckle
-			if("upresent") return "[ru_v(user, "поднима/ет/ет/ет/ют//")] [who] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
-			if("uself") return "[ru_v(user, "вста/ёт/ёт/ёт/ют//")] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
-			if("upast") return "[ru_v(user, "поднял//а/о/и//")] [who] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
+			if("upresent") return "[ru_v(user, "поднима;ет;ет;ет;ют;;")] [who] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
+			if("uself") return "[ru_v(user, "вста;ёт;ёт;ёт;ют;;")] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
+			if("upast") return "[ru_v(user, "поднял;;а;о;и;;")] [who] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
 			if("uyou") return "встали [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
 	else if(istype(seat, /obj/structure/bed) || istype(seat, /obj/structure/dogbed))
 		switch(tense)
 			//buckle
-			if("present") return "[ru_v(user, "укладыва/ет/ет/ет/ют//")] [who] на [ru_case(seat, "acase")]"
-			if("self") return "[ru_v(user, "лож/ит/ит/ит/ат/ся/")] на [ru_case(seat, "acase")]"
-			if("past") return "[ru_v(user, "положил//а/о/и//")] [who] на [ru_case(seat, "acase")]"
-			if("participle") return "[ru_v(user, "леж/ит/ит/ит/ат//")] на [ru_case(seat, "pcase")]"
+			if("present") return "[ru_v(user, "укладыва;ет;ет;ет;ют;;")] [who] на [ru_case(seat, "acase")]"
+			if("self") return "[ru_v(user, "лож;ит;ит;ит;ат;ся;")] на [ru_case(seat, "acase")]"
+			if("past") return "[ru_v(user, "положил;;а;о;и;;")] [who] на [ru_case(seat, "acase")]"
+			if("participle") return "[ru_v(user, "леж;ит;ит;ит;ат;;")] на [ru_case(seat, "pcase")]"
 			if("action") return "укладываете [who] на [ru_case(seat, "acase")]"
 			if("indefinite") return "положить [who] на [ru_case(seat, "acase")]"
 			if("you") return "легли на [ru_case(seat, "acase")]"
 			//unbuckle
-			if("upresent") return "[ru_v(user, "поднима/ет/ет/ет/ют//")] [who] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
-			if("uself") return "[ru_v(user, "вста/ёт/ёт/ёт/ют//")] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
-			if("upast") return "[ru_v(user, "поднял//а/о/и//")] [who] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
+			if("upresent") return "[ru_v(user, "поднима;ет;ет;ет;ют;;")] [who] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
+			if("uself") return "[ru_v(user, "вста;ёт;ёт;ёт;ют;;")] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
+			if("upast") return "[ru_v(user, "поднял;;а;о;и;;")] [who] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
 			if("uyou") return "встали [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
 	else
 		switch(tense)
 			//buckle
-			if("present") return "[ru_v(user, "усажива/ет/ет/ет/ют//")] [who] на [ru_case(seat, "acase")]"
-			if("self") return "[ru_v(user, "сад/ит/ит/ит/ат/ся/")] на [ru_case(seat, "acase")]"
-			if("past") return "[ru_v(user, "усадил//а/о/и//")] [who] на [ru_case(seat, "acase")]"
-			if("participle") return "[ru_v(user, "сид/ит/ит/ит/ят//")] на [ru_case(seat, "pcase")]"
+			if("present") return "[ru_v(user, "усажива;ет;ет;ет;ют;;")] [who] на [ru_case(seat, "acase")]"
+			if("self") return "[ru_v(user, "сад;ит;ит;ит;ат;ся;")] на [ru_case(seat, "acase")]"
+			if("past") return "[ru_v(user, "усадил;;а;о;и;;")] [who] на [ru_case(seat, "acase")]"
+			if("participle") return "[ru_v(user, "сид;ит;ит;ит;ят;;")] на [ru_case(seat, "pcase")]"
 			if("action") return "усаживаете [who] на [ru_case(seat, "acase")]"
 			if("indefinite") return "усадить [who] на [ru_case(seat, "acase")]"
 			if("you") return "сели на [ru_case(seat, "acase")]"
 			//unbuckle
-			if("upresent") return "[ru_v(user, "поднима/ет/ет/ет/ют//")] [who] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
-			if("uself") return "[ru_v(user, "вста/ёт/ёт/ёт/ют//")] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
-			if("upast") return "[ru_v(user, "поднял//а/о/и//")] [who] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
+			if("upresent") return "[ru_v(user, "поднима;ет;ет;ет;ют;;")] [who] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
+			if("uself") return "[ru_v(user, "вста;ёт;ёт;ёт;ют;;")] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
+			if("upast") return "[ru_v(user, "поднял;;а;о;и;;")] [who] [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
 			if("uyou") return "встали [ru_p(seat, "с")] [ru_case(seat, "gcase")]"
 
 // The following proc adjusts a preposition to be used before a word. The list of consonants is provided for this very cause.
@@ -264,15 +262,11 @@ var/global/list/consonants = list("б", "в", "г", "д", "ж", "з", "й", "к"
 // An updated version of ru_g that helps handle hardcoded messages, e.g. arrivals/cryo announcements and attack verbs.
 // Input template: "base/m_ending/f_ending/n_ending/p_ending/extra_text/case". Case defines the target's case, or hides target if unspecified.
 /proc/ru_v(var/atom/verb_user, var/input, var/atom/target)
-	var/checker = 0
-	for(var/i=1, i<length_char(input), i++)
-		if(copytext_char(input, i, i+1) == "/") // I'd use a regex but they dont seem to work with unicode or something
-			checker += 1
-	var/list/message_list = splittext_char(input, "/")
-	if(checker == 0)
-		return "[ru_g(verb_user, message_list[1])]" // If the template is avoided, use the default verb endings.
-	if(checker != 6)
-		crash_with("Глагол ru_v не соответствует шаблону! Ввод: [input], проверка выдала [checker].")
+	var/list/message_list = splittext_char(input, ";")
+	if(!message_list.len == 1)
+		return "[ru_g(verb_user, input)]" // If the template is omitted, use the default verb endings.
+	if(message_list.len < 6)
+		crash_with("Глагол ru_v не соответствует шаблону! Ввод: [input], проверка выдала [message_list.len].")
 		return message_list[1]
 	var/who = message_list[7]
 	if (findtext_char(input, "case"))

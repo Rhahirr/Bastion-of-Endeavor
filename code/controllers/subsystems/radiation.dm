@@ -1,5 +1,9 @@
 SUBSYSTEM_DEF(radiation)
+	/* Bastion of Endeavor Translation
 	name = "Radiation"
+	*/
+	name = "Радиация"
+	// End of Bastion of Endeavor Translation
 	wait = 2 SECONDS
 	flags = SS_NO_INIT
 
@@ -55,7 +59,11 @@ SUBSYSTEM_DEF(radiation)
 			return
 
 /datum/controller/subsystem/radiation/stat_entry()
+	/* Bastion of Endeavor Translation
 	..("S:[sources.len], RC:[resistance_cache.len]")
+	*/
+	..("И:[sources.len], КС:[resistance_cache.len]")
+	// End of Bastion of Endeavor Translation
 
 // Ray trace from all active radiation sources to T and return the strongest effect.
 /datum/controller/subsystem/radiation/proc/get_rads_at_turf(var/turf/T)

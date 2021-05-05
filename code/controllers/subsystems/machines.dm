@@ -11,7 +11,11 @@
 // PHASE 2 - Move the global list vars into the subsystem.
 
 SUBSYSTEM_DEF(machines)
+	/* Bastion of Endeavor Translation
 	name = "Machines"
+	*/
+	name = "Аппаратура"
+	// End of Bastion of Endeavor Translation
 	priority = FIRE_PRIORITY_MACHINES
 	init_order = INIT_ORDER_MACHINES
 	flags = SS_KEEP_TIMING
@@ -34,7 +38,11 @@ SUBSYSTEM_DEF(machines)
 
 /datum/controller/subsystem/machines/Initialize(timeofday)
 	makepowernets()
+	/* Bastion of Endeavor Translation
 	admin_notice("<span class='danger'>Initializing atmos machinery.</span>", R_DEBUG)
+	*/
+	admin_notice("<span class='danger'>Инициализация атмосферной аппаратуры.</span>", R_DEBUG)
+	// End of Bastion of Endeavor Translation
 	setup_atmos_machinery(global.machines)
 	fire()
 	..()
@@ -83,6 +91,7 @@ SUBSYSTEM_DEF(machines)
 
 /datum/controller/subsystem/machines/stat_entry()
 	var/msg = list()
+/* Bastion of Endeavor Translation
 	msg += "C:{"
 	msg += "PI:[round(cost_pipenets,1)]|"
 	msg += "MC:[round(cost_machinery,1)]|"
@@ -94,6 +103,19 @@ SUBSYSTEM_DEF(machines)
 	msg += "PN:[global.powernets.len]|"
 	msg += "PO:[global.processing_power_items.len]|"
 	msg += "MC/MS:[round((cost ? global.processing_machines.len/cost_machinery : 0),0.1)]"
+*/
+	msg += "С:{"
+	msg += "ТР:[round(cost_pipenets,1)]|"
+	msg += "МАШ:[round(cost_machinery,1)]|"
+	msg += "ЭС:[round(cost_powernets,1)]|"
+	msg += "ЭЛ:[round(cost_power_objects,1)]"
+	msg += "} "
+	msg += "ТР:[global.pipe_networks.len]|"
+	msg += "МАШ:[global.processing_machines.len]|"
+	msg += "ЭС:[global.powernets.len]|"
+	msg += "ЭС:[global.processing_power_items.len]|"
+	msg += "ЭЛ/МС:[round((cost ? global.processing_machines.len/cost_machinery : 0),0.1)]"
+// End of Bastion of Endeavor Translation
 	..(jointext(msg, null))
 
 /datum/controller/subsystem/machines/proc/process_pipenets(resumed = 0)

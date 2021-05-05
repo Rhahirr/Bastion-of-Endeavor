@@ -15,7 +15,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 //GOT IT MEMORIZED?
 
 /datum/controller/master
+	/* Bastion of Endeavor Translation
 	name = "Master"
+	*/
+	name = "Главный Контроллер"
+	// End of Bastion of Endeavor Translation
 
 	// Are we processing (higher values increase the processing delay by n ticks)
 	var/processing = TRUE
@@ -85,10 +89,17 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	processing = FALSE
 	sortTim(subsystems, /proc/cmp_subsystem_init)
 	reverseRange(subsystems)
+	/* Bastion of Endeavor Translation
 	for(var/datum/controller/subsystem/ss in subsystems)
 		log_world("Shutting down [ss.name] subsystem...")
 		ss.Shutdown()
 	log_world("Shutdown complete")
+	*/
+	for(var/datum/controller/subsystem/ss in subsystems)
+		log_world("Отключаем подсистему '[ss.name]'...")
+		ss.Shutdown()
+	log_world("Отключение завершено.")
+	// End of Bastion of Endeavor Translation
 
 // Returns 1 if we created a new mc, 0 if we couldn't due to a recent restart,
 //	-1 if we encountered a runtime trying to recreate it
@@ -111,7 +122,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 
 /datum/controller/master/Recover()
+	/* Bastion of Endeavor Translation
 	var/msg = "## DEBUG: [time2text(world.timeofday)] MC restarted. Reports:\n"
+	*/
+	var/msg = "## ДЕБАГ: [time2text(world.timeofday)] Главный контроллер перезапущен. Отчёт:\n"
+	// End of Bastion of Endeavor Translation
 	for (var/varname in Master.vars)
 		switch (varname)
 			if("name", "tag", "bestF", "type", "parent_type", "vars", "statclick") // Built-in junk.
@@ -131,12 +146,21 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		msg = null
 		LAZYINITLIST(BadBoy.failure_strikes)
 		switch(++BadBoy.failure_strikes[BadBoy.type])
+			/* Bastion of Endeavor Translation
 			if(2)
 				msg = "The [BadBoy.name] subsystem was the last to fire for 2 controller restarts. It will be recovered now and disabled if it happens again."
 				FireHim = TRUE
 			if(3)
 				msg = "The [BadBoy.name] subsystem seems to be destabilizing the MC and will be offlined."
 				BadBoy.flags |= SS_NO_FIRE
+			*/
+			if(2)
+				msg = "Подсистема '[BadBoy.name]' последней щелкнула два рестарта контроллера. Сейчас она будет восстановлена, потом отключена, если это случится ещё раз."
+				FireHim = TRUE
+			if(3)
+				msg = "Подсистема '[BadBoy.name]', похоже, дестабилизирует главный контроллер, поэтому будет отключена."
+				BadBoy.flags |= SS_NO_FIRE
+			// End of Bastion of Endeavor Translation
 		if(msg)
 			log_game(msg)
 			message_admins("<span class='boldannounce'>[msg]</span>")
@@ -150,7 +174,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		current_runlevel = Master.current_runlevel
 		StartProcessing(10)
 	else
+		/* Bastion of Endeavor Translation
 		to_chat(world, "<span class='boldannounce'>The Master Controller is having some issues, we will need to re-initialize EVERYTHING</span>")
+		*/
+		to_chat(world, "<span class='boldannounce'>Главный Контроллер не справляется, поэтому придётся реинициализировать ВСЁ.</span>")
+		// End of Bastion of Endeavor Translation
 		Initialize(20, TRUE)
 
 
@@ -168,7 +196,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	if(init_sss)
 		init_subtypes(/datum/controller/subsystem, subsystems)
 
+	/* Bastion of Endeavor Translation
 	to_chat(world, "<span class='boldannounce'>Initializing subsystems...</span>")
+	*/
+	to_chat(world, "<span class='boldannounce'>Инициализация подсистем...</span>")
+	// End of Bastion of Endeavor Translation
 
 	// Sort subsystems by init_order, so they initialize in the correct order.
 	sortTim(subsystems, /proc/cmp_subsystem_init)
@@ -184,7 +216,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	current_ticklimit = TICK_LIMIT_RUNNING
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 
+	/* Bastion of Endeavor Translation
 	var/msg = "Initializations complete within [time] second[time == 1 ? "" : "s"]!"
+	*/
+	var/msg = "Инициализация завершена за [ru_count(time, "секунду", "секунды", "секунд")]!"
+	// End of Bastion of Endeavor Translation
 	to_chat(world, "<span class='boldannounce'>[msg]</span>")
 	log_world(msg)
 
@@ -210,10 +246,17 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 /datum/controller/master/proc/SetRunLevel(new_runlevel)
 	var/old_runlevel = isnull(current_runlevel) ? "NULL" : runlevel_flags[current_runlevel]
+	/* Bastion of Endeavor Translation
 	testing("MC: Runlevel changed from [old_runlevel] to [new_runlevel]")
 	current_runlevel = RUNLEVEL_FLAG_TO_INDEX(new_runlevel)
 	if(current_runlevel < 1)
 		CRASH("Attempted to set invalid runlevel: [new_runlevel]")
+	*/
+	testing("Глав. контроллер: Runlevel сменён с [old_runlevel] на [new_runlevel]")
+	current_runlevel = RUNLEVEL_FLAG_TO_INDEX(new_runlevel)
+	if(current_runlevel < 1)
+		CRASH("Попытка установить недопустимый runlevel: [new_runlevel]")
+	// End of Bastion of Endeavor Translation
 
 // Starts the mc, and sticks around to restart it if the loop ever ends.
 /datum/controller/master/proc/StartProcessing(delay)
@@ -224,6 +267,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	if (rtn > 0 || processing < 0)
 		return //this was suppose to happen.
 	//loop ended, restart the mc
+	/* Bastion of Endeavor Translation
 	log_game("MC crashed or runtimed, restarting")
 	message_admins("MC crashed or runtimed, restarting")
 	log_world("MC crashed or runtimed, restarting")
@@ -233,6 +277,17 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		message_admins("Failed to recreate MC (Error code: [rtn2]), it's up to the failsafe now")
 		log_world("Failed to recreate MC (Error code: [rtn2]), it's up to the failsafe now")
 		Failsafe.defcon = 2
+	*/
+	log_game("ГК крашнулся или словил рантайм, перезапускаем.")
+	message_admins("ГК крашнулся или словил рантайм, перезапускаем.")
+	log_world("ГК крашнулся или словил рантайм, перезапускаем.")
+	var/rtn2 = Recreate_MC()
+	if (rtn2 <= 0)
+		log_game("Не удалось пересоздать ГК (Код ошибки: [rtn2]), всё сейчас держится на безопасном контроллере.")
+		message_admins("Не удалось пересоздать ГК (Код ошибки: [rtn2]), всё сейчас держится на безопасном контроллере.")
+		log_world("Не удалось пересоздать ГК (Код ошибки: [rtn2]), всё сейчас держится на безопасном контроллере.")
+		Failsafe.defcon = 2
+	// End of Bastion of Endeavor Translation
 
 // Main loop.
 /datum/controller/master/proc/Loop()
@@ -267,7 +322,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				runlevel_sorted_subsystems[I] += SS
 				added_to_any = TRUE
 		if(!added_to_any)
+			/* Bastion of Endeavor Translation
 			WARNING("[SS.name] subsystem is not SS_NO_FIRE but also does not have any runlevels set!")
+			*/
+			WARNING("Подсистема '[SS.name]' не имеет флага SS_NO_FIRE, но и не имеет установленных runlevel!")
+			// End of Bastion of Endeavor Translation
 
 	queue_head = null
 	queue_tail = null
@@ -343,10 +402,17 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			subsystems_to_check = tickersubsystems
 
 		if (CheckQueue(subsystems_to_check) <= 0)
+			/* Bastion of Endeavor Translation
 			log_world("MC: CheckQueue(subsystems_to_check) exited uncleanly, SoftReset (error_level=[error_level]")
 			if (!SoftReset(tickersubsystems, runlevel_sorted_subsystems))
 				log_world("MC: SoftReset() failed, crashing")
 				return
+			*/
+			log_world("ГК: CheckQueue(subsystems_to_check) завершился не идеально, SoftReset (error_level=[error_level]).")
+			if (!SoftReset(tickersubsystems, runlevel_sorted_subsystems))
+				log_world("ГК: SoftReset() провалился, крашимся.")
+				return
+			// End of Bastion of Endeavor Translation
 			if (!error_level)
 				iteration++
 			error_level++
@@ -356,9 +422,15 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 		if (queue_head)
 			if (RunQueue() <= 0)
+				/* Bastion of Endeavor Translation
 				log_world("MC: RunQueue() exited uncleanly, running SoftReset (error_level=[error_level]")
 				if (!SoftReset(tickersubsystems, runlevel_sorted_subsystems))
 					log_world("MC: SoftReset() failed, crashing")
+				*/
+				log_world("ГК: RunQueue() завершился не идеально, проводим SoftReset (error_level=[error_level])")
+				if (!SoftReset(tickersubsystems, runlevel_sorted_subsystems))
+					log_world("ГК: SoftReset() провалился, крашимся.")
+				// End of Bastion of Endeavor Translation
 					return
 				if (!error_level)
 					iteration++
@@ -538,10 +610,17 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 //	called if any mc's queue procs runtime or exit improperly.
 /datum/controller/master/proc/SoftReset(list/ticker_SS, list/runlevel_SS)
 	. = 0
+	/* Bastion of Endeavor Translation
 	log_world("MC: SoftReset called, resetting MC queue state.")
 	if (!istype(subsystems) || !istype(ticker_SS) || !istype(runlevel_SS))
 		log_world("MC: SoftReset: Bad list contents: '[subsystems]' '[ticker_SS]' '[runlevel_SS]'")
 		return
+	*/
+	log_world("ГК: Вызван SoftReset, резетим состояние очереди ГК.")
+	if (!istype(subsystems) || !istype(ticker_SS) || !istype(runlevel_SS))
+		log_world("ГК: SoftReset: Плохое содержимое листа: '[subsystems]' '[ticker_SS]' '[runlevel_SS]'")
+		return
+	// End of Bastion of Endeavor Translation
 	var/subsystemstocheck = subsystems + ticker_SS
 	for(var/I in runlevel_SS)
 		subsystemstocheck |= I
@@ -554,6 +633,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			ticker_SS -= list(SS)
 			for(var/I in runlevel_SS)
 				I -= list(SS)
+			/* Bastion of Endeavor Translation
 			log_world("MC: SoftReset: Found bad entry in subsystem list, '[SS]'")
 			continue
 		if (SS.queue_next && !istype(SS.queue_next))
@@ -574,22 +654,59 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	queue_priority_count = 0
 	queue_priority_count_bg = 0
 	log_world("MC: SoftReset: Finished.")
+			*/
+			log_world("ГК: SoftReset: Плохая запись в листе подсистем, '[SS]'")
+			continue
+		if (SS.queue_next && !istype(SS.queue_next))
+			log_world("ГК: SoftReset: Плохие данные в очереди подсистем, queue_next = '[SS.queue_next]'")
+		SS.queue_next = null
+		if (SS.queue_prev && !istype(SS.queue_prev))
+			log_world("ГК: SoftReset: Плохие данные в очереди подсистем, queue_prev = '[SS.queue_prev]'")
+		SS.queue_prev = null
+		SS.queued_priority = 0
+		SS.queued_time = 0
+		SS.state = SS_IDLE
+	if (queue_head && !istype(queue_head))
+		log_world("ГК: SoftReset: Плохие данные в очереди подсистем, queue_head = '[queue_head]'")
+	queue_head = null
+	if (queue_tail && !istype(queue_tail))
+		log_world("ГК: SoftReset: Плохие данные в очереди подсистем, queue_tail = '[queue_tail]'")
+	queue_tail = null
+	queue_priority_count = 0
+	queue_priority_count_bg = 0
+	log_world("ГК: SoftReset: Завершено.")
+			// End of Bastion of Endeavor Translation
 	. = 1
 
 
 
 /datum/controller/master/stat_entry()
+	/* Bastion of Endeavor Translation
 	if(!statclick)
 		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
 
 	stat("Byond:", "(FPS:[world.fps]) (TickCount:[world.time/world.tick_lag]) (TickDrift:[round(Master.tickdrift,1)]([round((Master.tickdrift/(world.time/world.tick_lag))*100,0.1)]%))")
 	stat("Master Controller:", statclick.update("(TickRate:[Master.processing]) (Iteration:[Master.iteration])"))
+	*/
+	if(!statclick)
+		statclick = new/obj/effect/statclick/debug(null, "Инициализация...", src)
+
+	stat("Byond:", "(FPS:[world.fps]) (TickCount:[world.time/world.tick_lag]) (TickDrift:[round(Master.tickdrift,1)]([round((Master.tickdrift/(world.time/world.tick_lag))*100,0.1)]%))")
+	stat("Главный Контроллер:", statclick.update("(Тикрейт:[Master.processing]) (Итерация:[Master.iteration])"))
+	// End of Bastion of Endeavor Translation
 
 /datum/controller/master/StartLoadingMap(var/quiet = TRUE)
+	/* Bastion of Endeavor Translation
 	if(map_loading)
 		admin_notice("<span class='danger'>Another map is attempting to be loaded before first map released lock.  Delaying.</span>", R_DEBUG)
 	else if(!quiet)
 		admin_notice("<span class='danger'>Map is now being built.  Locking.</span>", R_DEBUG)
+	*/
+	if(map_loading)
+		admin_notice("<span class='danger'>Ещё одна карта пытается загрузиться до снятия блокировки первой картой. Откладываем.</span>", R_DEBUG)
+	else if(!quiet)
+		admin_notice("<span class='danger'>Карта теперь строится. Блокируемся.</span>", R_DEBUG)
+	// End of Bastion of Endeavor Translation
 
 	//disallow more than one map to load at once, multithreading it will just cause race conditions
 	while(map_loading)
@@ -602,7 +719,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 /datum/controller/master/StopLoadingMap(var/quiet = TRUE)
 	if(!quiet)
+		/* Bastion of Endeavor Translation
 		admin_notice("<span class='danger'>Map is finished.  Unlocking.</span>", R_DEBUG)
+		*/
+		admin_notice("<span class='danger'>Карта завершена. Разблокировываемся.</span>", R_DEBUG)
+		// End of Bastion of Endeavor Translation
 	map_loading = FALSE
 	for(var/S in subsystems)
 		var/datum/controller/subsystem/SS = S

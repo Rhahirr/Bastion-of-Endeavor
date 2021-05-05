@@ -6,9 +6,9 @@
 #define VOTE_CUSTOM "custom"
 */
 
-#define VOTE_RESTART "перезапуск"
-#define VOTE_GAMEMODE "режим игры"
-#define VOTE_CREW_TRANSFER "трансфер экипажа"
-#define VOTE_ADD_ANTAGONIST "добавление антагониста"
+#define VOTE_RESTART "голосование за перезапуск"
+#define VOTE_GAMEMODE "голосование за режим игры"
+#define VOTE_CREW_TRANSFER "голосование за трансфер персонала"
+#define VOTE_ADD_ANTAGONIST "голосование за добавление антагониста"
 #define VOTE_CUSTOM "особый опрос"
 // End of Bastion of Endeavor Translation

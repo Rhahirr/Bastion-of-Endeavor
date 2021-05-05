@@ -6,7 +6,11 @@
 //Revert file to Polaris version when done.
 
 SUBSYSTEM_DEF(mobs)
+	/* Bastion of Endeavor Translation
 	name = "Mobs"
+	*/
+	name = "Мобы"
+	// End of Bastion of Endeavor Translation
 	priority = 100
 	wait = 2 SECONDS
 	flags = SS_KEEP_TIMING|SS_NO_INIT
@@ -20,7 +24,11 @@ SUBSYSTEM_DEF(mobs)
 	var/list/process_z = list()
 
 /datum/controller/subsystem/mobs/stat_entry()
+	/* Bastion of Endeavor Translation
 	..("P: [global.mob_list.len] | S: [slept_mobs]")
+	*/
+	..("О: [global.mob_list.len] | С: [slept_mobs]")
+	// End of Bastion of Endeavor Translation
 
 /datum/controller/subsystem/mobs/fire(resumed = 0)
 	if (!resumed)
