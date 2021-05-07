@@ -7,6 +7,7 @@
 	attackby(obj/item/weapon/W as obj, mob/user as mob)
 		return attack_hand(user)
 
+	/* Bastion of Endeavor Translation
 	attack_hand(mob/user as mob)
 		switch(alert("Travel back to ss13?",,"Yes","No"))
 			if("Yes")
@@ -14,6 +15,15 @@
 				user.forceMove(pick(latejoin))
 			if("No")
 				return
+	*/
+	attack_hand(mob/user as mob)
+		switch(alert("Вернуться в SS13?",,"Да","Нет"))
+			if("Да")
+				if(user.z != src.z)	return
+				user.forceMove(pick(latejoin))
+			if("Нет")
+				return
+	// End of Bastion of Endeavor Translation
 
 /obj/effect/mark
 		var/mark = ""
@@ -43,13 +53,25 @@
  * This item is completely unused, but removing it will break something in R&D and Radio code causing PDA and Ninja code to fail on compile
  */
 
+/* Bastion of Endeavor Translation: Literally what is this.
 /var/list/acting_rank_prefixes = list("acting", "temporary", "interim", "provisional")
+*/
+/var/list/acting_rank_prefixes = list("действующий", "временный")
+// End of Bastion of Endeavor Translation
 
+/* Bastion of Endeavor Edit: Unicode.
 /proc/make_list_rank(rank)
 	for(var/prefix in acting_rank_prefixes)
 		if(findtext(rank, "[prefix] ", 1, 2+length(prefix)))
 			return copytext(rank, 2+length(prefix))
 	return rank
+*/
+/proc/make_list_rank(rank)
+	for(var/prefix in acting_rank_prefixes)
+		if(findtext_char(rank, "[prefix] ", 1, 2+length_char(prefix)))
+			return copytext_char(rank, 2+length_char(prefix))
+	return rank
+// End of Bastion of Endeavor Edit
 
 /obj/effect/laser
 	name = "laser"

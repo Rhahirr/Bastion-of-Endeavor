@@ -9,9 +9,9 @@
 
 // Begin includes
 
-/*
+#include "defines/defines_ru.dm"
 #include "defines/obj_ru.dm"
-
+/*
 #include "game/machinery/machinery_ru.dm"
 
 #include "game/objects/effects/decals/cleanable_ru.dm"

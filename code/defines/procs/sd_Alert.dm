@@ -66,19 +66,31 @@ Version 1 changes (from version 0):
 #define SD_ALERT_LINKS			4
 #define SD_ALERT_NOVALIDATE		8
 
+/* Bastion of Endeavor Translation: What even is this. Why. Where is this called.
 proc/sd_Alert(client/who, message, title, buttons = list("Ok"),\
+*/
+proc/sd_Alert(client/who, message, title, buttons = list("Ок"),\
+// End of Bastion of Endeavor Translation
 	default, duration = 0, unfocus = 1, size = "300x200", \
 	table = "width=100% height=100%", style, tag, select, flags = SD_ALERT_SCROLL)
 
 	if(ismob(who))
 		var/mob/M = who
 		who = M.client
+	/* Bastion of Endeavor Translation
 	if(!istype(who)) CRASH("sd_Alert: Invalid target:[who] (\ref[who])")
+	*/
+	if(!istype(who)) CRASH("sd_Alert: Недопустимая цель:[who] (\ref[who])")
+	// End of Bastion of Endeavor Translation
 
 	var/sd_alert/T = locate(tag)
 	if(T)
 		if(istype(T)) qdel(T)
+		/* Bastion of Endeavor Translation
 		else CRASH("sd_Alert: tag \"[tag]\" is already in use by datum '[T]' (type: [T.type])")
+		*/
+		else CRASH("sd_Alert: Тег \"[tag]\" уже используется датумом '[T]' (type: [T.type])")
+		// End of Bastion of Endeavor Translation
 	T = new(who, tag)
 	if(duration)
 		spawn(duration)

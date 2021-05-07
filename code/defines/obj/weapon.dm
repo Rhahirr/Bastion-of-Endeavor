@@ -249,7 +249,11 @@
 		if (C.bugged && C.status)
 			cameras.Add(C)
 	if (length(cameras) == 0)
+		/* Bastion of Endeavor Translation
 		to_chat(usr, "<span class='warning'>No bugged functioning cameras found.</span>")
+		*/
+		to_chat(usr, "<span class='warning'>Не обнаружены функционирующие жучки.</span>")
+		// End of Bastion of Endeavor Translation
 		return
 
 	var/list/friendly_cameras = new/list()
@@ -257,7 +261,11 @@
 	for (var/obj/machinery/camera/C in cameras)
 		friendly_cameras.Add(C.c_tag)
 
+	/* Bastion of Endeavor Translation
 	var/target = input("Select the camera to observe", null) as null|anything in friendly_cameras
+	*/
+	var/target = input("Выберите интересующую Вас камеру.", null) as null|anything in friendly_cameras
+	// End of Bastion of Endeavor Translation
 	if (!target)
 		return
 	for (var/obj/machinery/camera/C in cameras)

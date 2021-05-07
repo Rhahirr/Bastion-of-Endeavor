@@ -16,17 +16,21 @@ var/church_name = null
 
 	return name
 
-// Bastion of Endeavor Edit: Bastion of Endeavor TODO: Uncomment this edit after the map begins to be translated.
+// Bastion of Endeavor Edit: Bastion of Endeavor TODO: Change this to work with ru_case after we get map localization.
+/*
 /proc/command_name()
 	if(istype(using_map))
 		return using_map.boss_name
-/*
+*/
 /proc/command_name(var/case = "ncase")
 	if(istype(using_map))
-		if(using_map.ru_cases.len)
-			return ru_case(using_map, "boss_name", case)
+		if(case == "ncase") return "Центральное Командование"
+		if(case == "gcase") return "Центрального Командования"
+		if(case == "dcase") return "Центральному Командованию"
+		if(case == "acase") return "Центральное Командование"
+		if(case == "icase") return "Центральным Командованием"
+		if(case == "pcase") return "Центральном Командовании"
 		return using_map.boss_name
-*/
 // End of Bastion of Endeavor Edit
 
 /proc/change_command_name(var/name)
@@ -50,9 +54,21 @@ var/religion_name = null
 /proc/system_name()
 	return using_map.starsys_name
 
+/* Bastion of Endeavor Edit: We need station names under the case too. Bastion of Endeavor TODO: Change this to work with cases once we have map localization.
 /proc/station_name()
 	if (using_map.station_name)
 		return using_map.station_name
+*/
+/proc/station_name(var/case = "ncase")
+	if(case == "ncase") return "НБН Адефагия"
+	if(case == "gcase") return "НБН Адефагии"
+	if(case == "dcase") return "НБН Адефагии"
+	if(case == "acase") return "НБН Адефагию"
+	if(case == "icase") return "НБН Адефагией"
+	if(case == "pcase") return "НБН Адефагии"
+	if (using_map.station_name)
+		return using_map.station_name
+	// End of Bastion of Endeavor Edit
 
 	var/random = rand(1,5)
 	var/name = ""

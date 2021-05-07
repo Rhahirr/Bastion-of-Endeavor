@@ -61,6 +61,10 @@
 /decl/flooring
 	var/list/ru_cases = new /list()
 
+// Need to remember to swap the decl for datum if decls are axed upstream.
+/decl/xgm_gas
+	var/list/ru_cases = new /list()
+
 datum/preferences
 	var/list/cases = list()
 
