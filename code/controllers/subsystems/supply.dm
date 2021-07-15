@@ -203,6 +203,9 @@ SUBSYSTEM_DEF(supply)
 
 		var/obj/A = new SP.containertype(pickedloc)
 		A.name = "[SP.containername] [SO.comment ? "([SO.comment])":"" ]"
+		// Bastion of Endeavor Addition: Give the container itself some cases for grammatical polish, those are defined in supply pack datums
+		A.ru_assigncases(SP.ru_cases["containername"])
+		// End of Bastion of Endeavor Addition		
 
 		//supply manifest generation begin
 		var/obj/item/weapon/paper/manifest/slip
@@ -217,10 +220,10 @@ SUBSYSTEM_DEF(supply)
 			slip.info +="CONTENTS:<br><ul>"
 			*/
 			slip.info = "<meta charset=\"UTF-8\">" 
-			slip.info += "<h3>Договор о поставке из [command_name("gcase")]</h3><hr><br>"
+			slip.info += "<h3>Договор о поставке с [command_name("gcase")]</h3><hr><br>"
 			slip.info += "Заказ №[SO.ordernum]<br>"
 			slip.info += "Получатель: [station_name("ncase")]<br>"
-			slip.info += "В ДАННОЙ ПОСТАВКЕ [ru_count(orderedamount, "посылка", "посылки", "посылок")]<br>"
+			slip.info += "В ДАННОЙ ПОСТАВКЕ [ru_count(orderedamount, "ПОСЫЛКА", "ПОСЫЛКИ", "ПОСЫЛОК")]<br>"
 			slip.info += "СОДЕРЖИМОЕ:<br><ul>"
 			// End of Bastion of Endeavor Translation
 

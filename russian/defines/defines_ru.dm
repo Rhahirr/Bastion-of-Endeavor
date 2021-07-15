@@ -1,6 +1,5 @@
 // gases.dm
 
-// Bastion of Endeavor TODO: Gotta remember to update these decls once they are axed upstream.
 //Male Noun 1a
 /decl/xgm_gas/oxygen/New()
 	..()

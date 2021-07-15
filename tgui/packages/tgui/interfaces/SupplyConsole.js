@@ -181,9 +181,9 @@ const SupplyConsoleMenu = (props, context) => {
         </Tabs.Tab>
       </Tabs>
       {tabIndex === 0 ? <SupplyConsoleMenuOrder /> : null}
-      {tabIndex === 1 ? <SupplyConsoleMenuOrderList mode="Approved" /> : null}
-      {tabIndex === 2 ? <SupplyConsoleMenuOrderList mode="Requested" /> : null}
-      {tabIndex === 3 ? <SupplyConsoleMenuOrderList mode="All" /> : null}
+      {tabIndex === 1 ? <SupplyConsoleMenuOrderList mode="Одобрен" /> : null}
+      {tabIndex === 2 ? <SupplyConsoleMenuOrderList mode="Запрошен" /> : null}
+      {tabIndex === 3 ? <SupplyConsoleMenuOrderList mode="Все" /> : null}
       {tabIndex === 4 ? <SupplyConsoleMenuHistoryExport /> : null}
     </Section>
   );
@@ -303,7 +303,7 @@ const SupplyConsoleMenuOrderList = (props, context) => {
 
   return (
     <Section level={2}>
-      {(mode === "Requested" && order_auth) ? (
+      {(mode === "Запрошен" && order_auth) ? (
         <Button
           mt={-1}
           mb={1}
@@ -340,7 +340,7 @@ const SupplyConsoleMenuOrderList = (props, context) => {
               </LabeledList.Item>
             ) : null}
           </LabeledList>
-          {order_auth && mode === "Requested" ? (
+          {order_auth && mode === "Запрошен" ? (
             <Fragment>
               <Button
                 icon="check"

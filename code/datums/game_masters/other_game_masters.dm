@@ -12,7 +12,11 @@
 	var/datum/event2/meta/choice = pickweight(weighted_events)
 
 	if(choice)
+		/* Bastion of Endeavor Translation
 		log_game_master("[choice.name] was chosen, and is now being ran.")
+		*/
+		log_game_master("Был выбран и запущен [choice.name].")
+		// End of Bastion of Endeavor Translation
 		return choice
 
 
@@ -40,5 +44,9 @@
 	var/datum/event2/meta/choice = pickweight(weighted_events)
 
 	if(choice)
+		/* Bastion of Endeavor Translation
 		log_game_master("[choice.name] was chosen, and is now being ran.")
+		*/
+		log_game_master("Был выбран и запущен эвент [choice.name].")
+		// End of Bastion of Endeavor Translation
 		return choice

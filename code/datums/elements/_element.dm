@@ -44,7 +44,11 @@
 	var/datum/element/ele = SSdcs.GetElement(arguments)
 	arguments[1] = src
 	if(ele.Attach(arglist(arguments)) == ELEMENT_INCOMPATIBLE)
+		/* Bastion of Endeavor Translation
 		CRASH("Incompatible [arguments[1]] assigned to a [type]! args: [json_encode(args)]")
+		*/
+		CRASH("Несовместимый [arguments[1]] закреплён за [type]! Аргументы: [json_encode(args)]")
+		// End of Bastion of Endeavor Translation
 
 /**
   * Finds the singleton for the element type given and detaches it from src

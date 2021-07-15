@@ -16,13 +16,15 @@ var/church_name = null
 
 	return name
 
-// Bastion of Endeavor Edit: Bastion of Endeavor TODO: Change this to work with ru_case after we get map localization.
+// Bastion of Endeavor Edit: Bastion of Endeavor TODO: Change this to work with ru_case after we get map localization. Idk ive lost track of this code, this is a mess
 /*
 /proc/command_name()
 	if(istype(using_map))
 		return using_map.boss_name
 */
-/proc/command_name(var/case = "ncase")
+/proc/command_name(var/case)
+	if(!case && istype(using_map))
+		return using_map.boss_name
 	if(istype(using_map))
 		if(case == "ncase") return "Центральное Командование"
 		if(case == "gcase") return "Центрального Командования"
@@ -59,7 +61,9 @@ var/religion_name = null
 	if (using_map.station_name)
 		return using_map.station_name
 */
-/proc/station_name(var/case = "ncase")
+/proc/station_name(var/case)
+	if(!case && using_map.station_name)
+		return using_map.station_name
 	if(case == "ncase") return "НБН Адефагия"
 	if(case == "gcase") return "НБН Адефагии"
 	if(case == "dcase") return "НБН Адефагии"

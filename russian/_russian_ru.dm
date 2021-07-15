@@ -1,5 +1,7 @@
 /atom
 	// Cases are needed for proper russian grammar in the game. Added as a list that can be freely expanded.
+	// This only seems to work with New(), which is alright but might turn into a mess when used with decls.
+	// This list by itself, however, is a helpful way of having all atoms and datums carry all information that is relevant to russian grammar.
 	var/list/ru_cases = new /list()
 
 /area
@@ -61,7 +63,6 @@
 /decl/flooring
 	var/list/ru_cases = new /list()
 
-// Need to remember to swap the decl for datum if decls are axed upstream.
 /decl/xgm_gas
 	var/list/ru_cases = new /list()
 
@@ -108,9 +109,7 @@ datum/preferences
 
 // Backs up cases before changing them.
 /atom/proc/ru_storecase(atom/input)
-	ru_cases["initial"] = new /list()
-	for(var/case in input.ru_cases)
-		input.ru_cases["initial"][case] = input.ru_cases[case]
+	input.ru_cases["initial"] = deepCopyList(input.ru_cases)
 	return
 
 // Adds something to the end of all cases of an atom, as well as changes its rugender element.
@@ -123,8 +122,13 @@ datum/preferences
 
 // Reverts the grammar cases of an atom to their backed up state.
 /atom/proc/ru_restorecase(atom/input)
-	for(var/case in input.ru_cases)
-		input.ru_cases[case] = input.ru_cases["initial"][case]
+	input.ru_cases = deepCopyList(input.ru_cases["initial"])
+	return
+
+// In theory, this should be able to quickly set up the cases for things without having to copypaste the code for cases lists.
+// It looks a little ugly, since its a lazy way of only assigning the essential cases.
+/atom/proc/ru_assigncases(var/list/cases)
+	ru_cases = deepCopyList(cases)
 	return
 
 // Dispenses an appropriately formatted string depending on the material and what it's used on.
@@ -242,7 +246,7 @@ var/global/list/consonants = list("б", "в", "г", "д", "ж", "з", "й", "к"
 					for(var/cons_v in consonants)
 						if (second_letter == cons_v) return "[capital? "Во" : "в"]"
 			return "[capital? "В" : "в"]"
-		else 
+		else
 			crash_with("Проку ru_p передан недопустимый предлог: [preposition].")
 			return "[capital? "[capitalize(preposition)]" : "[preposition]"]"
 

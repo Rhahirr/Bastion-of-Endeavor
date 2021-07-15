@@ -7,6 +7,7 @@
 //NOTE NOTE: Hidden var is now deprecated, whoever removed support for it should've removed the var altogether
 
 //var/list/all_supply_groups = list("Operations","Security","Hospitality","Engineering","Atmospherics","Medical","Reagents","Reagent Cartridges","Science","Hydroponics", "Supply", "Miscellaneous")
+/* Bastion of Endeavor Translation
 var/list/all_supply_groups = list("Atmospherics",
 								  "Costumes",
 								  "Engineering",
@@ -24,6 +25,25 @@ var/list/all_supply_groups = list("Atmospherics",
 								  "Security",
 								  "Supplies",
 								  "Voidsuits")
+*/
+var/list/all_supply_groups = list("Атмосфера",
+								  "Одежда",
+								  "Техобслуживание",
+								  "Гостеприимство",
+								  "Гидропоника",
+								  "Материалы",
+								  "Медицина",
+								  "Другое",
+								  "Оружие",
+								  "Вещества",
+								  "Картриджи",
+								  "Рекреационное",
+								  "Робототехника",
+								  "Наука",
+								  "Безопасность",
+								  "Снабжение",
+								  "Скафандры")
+// End of Bastion of Endeavor Translation
 
 /datum/supply_pack
 	var/name = null
@@ -36,7 +56,11 @@ var/list/all_supply_groups = list("Atmospherics",
 	var/one_access = FALSE
 	var/contraband = 0
 	var/num_contained = 0		//number of items picked to be contained in a /randomised crate
+	/* Bastion of Endeavor Translation
 	var/group = "Miscellaneous"
+	*/
+	var/group = "Другое"
+	// End of Bastion of Endeavor Translation
 
 /datum/supply_pack/New()
 	for(var/path in contains)
@@ -48,7 +72,11 @@ var/list/all_supply_groups = list("Atmospherics",
 /datum/supply_pack/proc/get_html_manifest()
 	var/dat = ""
 	if(num_contained)
+		/* Bastion of Endeavor Translation
 		dat +="Contains any [num_contained] of:"
+		*/
+		dat +="Содержит [ru_count(num_contained, "случайный предмет", "случайныйх предмета", "случайных предметов")] из списка:"
+		// End of Bastion of Endeavor Translation
 	dat += "<ul>"
 	for(var/O in manifest)
 		dat += "<li>[O]</li>"

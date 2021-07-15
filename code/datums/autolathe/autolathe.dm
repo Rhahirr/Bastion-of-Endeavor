@@ -5,7 +5,11 @@
 		I = new path()
 
 	if(!I)	// Something has gone horribly wrong, or right.
+		/* Bastion of Endeavor Translation
 		log_debug("[name] created an Autolathe design without an assigned path.")
+		*/
+		log_debug("[name] создал автолатный дизайн без предоставленного пути.")
+		// End of Bastion of Endeavor Translation
 		return
 
 	if(I.matter && !resources)

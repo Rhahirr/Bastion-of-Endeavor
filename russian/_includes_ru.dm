@@ -9,6 +9,9 @@
 
 // Begin includes
 
+#include "datums/autolathe_ru.dm"
+#include "datums/supplypacks_ru.dm"
+#include "datums/underwear_ru.dm"
 #include "defines/defines_ru.dm"
 #include "defines/obj_ru.dm"
 /*

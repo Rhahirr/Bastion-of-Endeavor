@@ -6,7 +6,7 @@
 	"old"          = 'icons/mob/screen/old.dmi',
 	"White"        = 'icons/mob/screen/white.dmi',
 	"old-noborder" = 'icons/mob/screen/old-noborder.dmi',
-	"minimalist"   = 'icons/mob/screen/minimalist.dmi',
+	"minimalist"   = 'icons/russian/minimalist_ru.dmi',
 	"Hologram"     = 'icons/mob/screen/holo.dmi'
 	)
 

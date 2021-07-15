@@ -110,7 +110,11 @@ Data storage vars:
 		while(state)
 			sleep(1)
 			if(++lag>10)
+				/* Bastion of Endeavor Translation
 				CRASH("The global_iterator loop \ref[src] failed to terminate in designated timeframe. This may be caused by server lagging.")
+				*/
+				CRASH("Цикл global_iterator \ref[src] не смог завершиться за выделенное время. Это может быть вызвано лагами сервера.")
+				// End of Bastion of Endeavor Translation
 		return 1
 
 	proc/active()
@@ -133,7 +137,11 @@ Data storage vars:
 		return (last_exec||0)
 
 	proc/get_last_exec_time_as_text()
+		/* Bastion of Endeavor Translation
 		return (time2text(last_exec)||"Wasn't executed yet")
+		*/
+		return (time2text(last_exec)||"Ещё не исполнялось")
+		// End of Bastion of Endeavor Translation
 
 	proc/set_process_args(list/arguments)
 		if(arguments && istype(arguments, /list) && arguments.len)

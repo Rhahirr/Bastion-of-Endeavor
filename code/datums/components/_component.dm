@@ -50,7 +50,11 @@
 	parent = raw_args[1]
 	var/list/arguments = raw_args.Copy(2)
 	if(Initialize(arglist(arguments)) == COMPONENT_INCOMPATIBLE)
+		/* Bastion of Endeavor Translation
 		stack_trace("Incompatible [type] assigned to a [parent.type]! args: [json_encode(arguments)]")
+		*/
+		stack_trace("Несовместимый [type] закреплён за [parent.type]! Аргументы: [json_encode(arguments)]")
+		// End of Bastion of Endeavor Translation
 		qdel(src, TRUE, TRUE)
 		return
 
@@ -188,7 +192,11 @@
 	var/list/sig_types = islist(sig_type_or_types) ? sig_type_or_types : list(sig_type_or_types)
 	for(var/sig_type in sig_types)
 		if(!override && procs[target][sig_type])
+			/* Bastion of Endeavor Translation
 			stack_trace("[sig_type] overridden. Use override = TRUE to suppress this warning")
+			*/
+			stack_trace("[sig_type] перезаписан. Используйте override = TRUE, чтобы обойти это предупреждение.")
+			// End of Bastion of Endeavor Translation
 
 		procs[target][sig_type] = proctype
 
@@ -228,7 +236,11 @@
 			if(2)
 				lookup[sig] = (lookup[sig]-src)[1]
 			if(1)
+				/* Bastion of Endeavor Translation
 				stack_trace("[target] ([target.type]) somehow has single length list inside comp_lookup")
+				*/
+				stack_trace("[target] ([target.type]) каким-то образом имеет лист единичной длины в comp_lookup")
+				// End of Bastion of Endeavor Translation
 				if(src in lookup[sig])
 					lookup -= sig
 					if(!length(lookup))
@@ -335,7 +347,11 @@
 /datum/proc/GetComponent(datum/component/c_type)
 	// RETURN_TYPE(c_type)
 	if(initial(c_type.dupe_mode) == COMPONENT_DUPE_ALLOWED || initial(c_type.dupe_mode) == COMPONENT_DUPE_SELECTIVE)
+		/* Bastion of Endeavor Translation
 		stack_trace("GetComponent was called to get a component of which multiple copies could be on an object. This can easily break and should be changed. Type: \[[c_type]\]")
+		*/
+		stack_trace("GetComponent вызван на компоненте, у которого несколько копий может быть на объекте. Это не очень хорошо, нужно изменить. Тип: \[[c_type]\]")
+		// End of Bastion of Endeavor Translation
 	var/list/dc = datum_components
 	if(!dc)
 		return null
@@ -355,7 +371,11 @@
 /datum/proc/GetExactComponent(datum/component/c_type)
 	// RETURN_TYPE(c_type)
 	if(initial(c_type.dupe_mode) == COMPONENT_DUPE_ALLOWED || initial(c_type.dupe_mode) == COMPONENT_DUPE_SELECTIVE)
+		/* Bastion of Endeavor Translation
 		stack_trace("GetComponent was called to get a component of which multiple copies could be on an object. This can easily break and should be changed. Type: \[[c_type]\]")
+		*/
+		stack_trace("GetComponent вызван на компоненте, у которого несколько копий может быть на объекте. Это не очень хорошо, нужно изменить. Тип: \[[c_type]\]")
+		// End of Bastion of Endeavor Translation
 	var/list/dc = datum_components
 	if(!dc)
 		return null
@@ -403,7 +423,11 @@
 
 	if(ispath(nt))
 		if(nt == /datum/component)
+			/* Bastion of Endeavor Translation
 			CRASH("[nt] attempted instantiation!")
+			*/
+			CRASH("[nt] попытался инстанциироваться!")
+			// End of Bastion of Endeavor Translation
 	else
 		new_comp = nt
 		nt = new_comp.type
@@ -503,7 +527,11 @@
 		if(COMPONENT_INCOMPATIBLE)
 			var/c_type = target.type
 			qdel(target)
+			/* Bastion of Endeavor Translation
 			CRASH("Incompatible [c_type] transfer attempt to a [type]!")
+			*/
+			CRASH("Попытка трансфера несовместимого [c_type] в [type]!")
+			// End of Bastion of Endeavor Translation
 
 	if(target == AddComponent(target))
 		target._JoinParent()

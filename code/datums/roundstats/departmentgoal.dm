@@ -12,8 +12,13 @@ GLOBAL_LIST(active_department_goals)
 		for(var/subtype in subtypesof(/datum/goal))
 			var/datum/goal/SG = new subtype()
 
+			/* Bastion of Endeavor Translation
 			if(SG.name == "goal")
 				continue
+			*/
+			if(SG.name == "Цель")
+				continue
+			// End of Bastion of Endeavor Translation
 
 			if(SG.category == category)
 				GLOB.department_goals[category] |= SG
@@ -44,7 +49,11 @@ GLOBAL_LIST(active_department_goals)
 		to_world("<span class='filter_system'><b>[category]</b></span>")
 
 		if(!LAZYLEN(cat_goals))
+			/* Bastion of Endeavor Translation
 			to_world("<span class='filter_system'>There were no assigned goals!</span>")
+			*/
+			to_world("<span class='filter_system'>В этом раунде назначенных целей не было!</span>")
+			// End of Bastion of Endeavor Translation
 
 		else
 			for(var/datum/goal/G in cat_goals)
@@ -54,9 +63,15 @@ GLOBAL_LIST(active_department_goals)
 	return 1
 
 /datum/goal
+	/* Bastion of Endeavor Translation: This would normally go into a separate _ru file but come on now.
 	var/name = "goal"
 
 	var/goal_text = "Do nothing! Congratulations."
+	*/
+	var/name = "Цель"
+
+	var/goal_text = "Ничего не делайте!"
+	// End of Bastion of Endeavor Translation
 
 	var/active_goal = FALSE
 
@@ -66,36 +81,72 @@ GLOBAL_LIST(active_department_goals)
 	return FALSE
 
 /datum/goal/common
+	/* Bastion of Endeavor Translation
 	name = "goal"
 
 	goal_text = "Congratulations, you still do nothing."
+	*/
+	name = "Цель"
+
+	goal_text = "Поздравляем, Вы по-прежнему ничего не делаете."
+	// End of Bastion of Endeavor Translation
 
 /datum/goal/medical
+	/* Bastion of Endeavor Translation
 	name = "goal"
 
 	goal_text = "Congratulations, you still do nothing."
+	*/
+	name = "Цель"
+
+	goal_text = "Поздравляем, Вы по-прежнему ничего не делаете."
+	// End of Bastion of Endeavor Translation
 	category = GOAL_MEDICAL
 
 /datum/goal/security
+	/* Bastion of Endeavor Translation
 	name = "goal"
 
 	goal_text = "Congratulations, you still do nothing."
+	*/
+	name = "Цель"
+
+	goal_text = "Поздравляем, Вы по-прежнему ничего не делаете."
+	// End of Bastion of Endeavor Translation
 	category = GOAL_SECURITY
 
 /datum/goal/engineering
+	/* Bastion of Endeavor Translation
 	name = "goal"
 
 	goal_text = "Congratulations, you still do nothing."
+	*/
+	name = "Цель"
+
+	goal_text = "Поздравляем, Вы по-прежнему ничего не делаете."
+	// End of Bastion of Endeavor Translation
 	category = GOAL_ENGINEERING
 
 /datum/goal/cargo
+	/* Bastion of Endeavor Translation
 	name = "goal"
 
 	goal_text = "Congratulations, you still do nothing."
+	*/
+	name = "Цель"
+
+	goal_text = "Поздравляем, Вы по-прежнему ничего не делаете."
+	// End of Bastion of Endeavor Translation
 	category = GOAL_CARGO
 
 /datum/goal/research
+	/* Bastion of Endeavor Translation
 	name = "goal"
 
 	goal_text = "Congratulations, you still do nothing."
+	*/
+	name = "Цель"
+
+	goal_text = "Поздравляем, Вы по-прежнему ничего не делаете."
+	// End of Bastion of Endeavor Translation
 	category = GOAL_RESEARCH
